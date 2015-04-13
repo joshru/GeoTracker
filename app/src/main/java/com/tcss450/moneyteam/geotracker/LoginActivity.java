@@ -33,7 +33,7 @@ import com.google.android.gms.common.SignInButton;
 import java.util.ArrayList;
 import java.util.List;
 
-//testing
+//testing the testing -bb
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
  * <p/>
