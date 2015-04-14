@@ -12,6 +12,16 @@ public class RegisterActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        /*
+                FragmentActivity FA = new FragmentActivity();
+                FA.setContentView(R.layout.fragment_terms);
+
+                TermsFragment tFrag = new TermsFragment();
+                FragmentTransaction trans = FA.getSupportFragmentManager().beginTransaction();
+                trans.add(R.id.fragment_container, tFrag);
+                trans.commit();
+         */
     }
 
     @Override

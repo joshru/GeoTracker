@@ -81,13 +81,12 @@ public class LoginActivity extends Activity {
         mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentActivity FA = new FragmentActivity();
-                FA.setContentView(R.layout.fragment_terms);
-
-                TermsFragment tFrag = new TermsFragment();
-                FragmentTransaction trans = FA.getSupportFragmentManager().beginTransaction();
-                trans.add(R.id.fragment_container, tFrag);
-                trans.commit();
+                //Launch Register Activity, starting a new intent.
+                Intent nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
+                //key,values to send to main.
+                nextScreen.putExtra("email", mEmailText.getText().toString());
+                Log.e("d", "Changed to RegisterActivity");
+                startActivity(nextScreen);
             }
         });
     }
@@ -98,12 +97,24 @@ public class LoginActivity extends Activity {
      * @return the boolean indicating if its succesful(true), or not(false).
      */
     private boolean emailFormatCheck(final String theEmail) {
-        boolean testBool = (theEmail.contains("@")) && (theEmail.contains(".")) && (theEmail.length() < 6);
+        boolean testBool = (theEmail.contains("@")) && (theEmail.contains(".")) && (theEmail.length() > 4);
         return testBool;
     }
 
-    private boolean passFormatCheck(final String thePassphrase) {
-        return true;
+    /**
+     * Verifies that the password contains proper values.
+     * <ul>
+     *     <li>Must be minimum 8 characters in length.</li>
+     *     <li>Must contain minimum 1, alphabetic character.</li>
+     *     <li>Must contain minimum 1, numeric character.</li>
+     *     <li>Must contain minimum 1, special character (@#$%^&+=).</li>
+     * </ul>
+     * @param thePass to be verified with the regex.
+     * @return the boolean regarding if it has a valid form
+     */
+    private boolean passFormatCheck(final String thePass) {
+        final String passPattern = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+        return thePass.matches(passPattern);
     }
 }
 
