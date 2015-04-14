@@ -7,13 +7,13 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 
 //import android.app.FragmentTransaction;
+import android.app.Fragment;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.animation.Animation;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
@@ -21,10 +21,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 //import android.app.FragmentTransaction;
-import android.support.v4.app.FragmentTransaction;
+
 
 public class LoginActivity extends Activity {
 
@@ -77,11 +77,15 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 FragmentActivity FA = new FragmentActivity();
-                FA.setContentView(R.layout.fragment_terms);
 
                 TermsFragment tFrag = new TermsFragment();
-                tFrag.setArguments(getIntent().getExtras());
-                FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
+                FragmentTransaction trans = FA.getSupportFragmentManager().beginTransaction();
+                trans.add(R.id.fragment_container, tFrag);
+                trans.commit();
+
+//                tFrag.setArguments(getIntent().getExtras());
+//                FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
+
 
 
             }
