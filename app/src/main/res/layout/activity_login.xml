@@ -87,6 +87,13 @@
         android:layout_gravity="center_horizontal"
         android:textStyle="bold" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frag_test"
+        android:id="@+id/frag_button"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
 
 

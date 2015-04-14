@@ -29,12 +29,22 @@ public class TermsFragment extends Fragment {
         super.onStart();
         Bundle args = getArguments();
         if (args != null) {
-            updateTOSView()
+            updateTOSView(args.getInt("position"));
+        } else if (mCurrentPosition != -1) {
+            updateTOSView(mCurrentPosition);
         }
     }
 
-    public void updateTOSView() {
-        TextView tos = (TextView) getActivity().findViewById(R.id.article);
+    public void updateTOSView(int position) {
+        TextView tos = (TextView) getActivity().findViewById(R.id.terms);
+        tos.setText("Terms of Service go here");
+        mCurrentPosition = position;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", mCurrentPosition);
     }
 
 }

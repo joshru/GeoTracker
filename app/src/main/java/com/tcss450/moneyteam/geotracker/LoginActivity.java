@@ -28,6 +28,8 @@ public class LoginActivity extends Activity {
     private Button mLoginButton;
     private TextView mRegisterLabel;
 
+    private Button mTermsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,8 @@ public class LoginActivity extends Activity {
         mEmailText = (EditText) findViewById(R.id.email_text);
         mLoginButton = (Button) findViewById(R.id.login_button);
         mRegisterLabel = (TextView) findViewById(R.id.register_label);
+
+        mTermsButton = (Button) findViewById(R.id.frag_button);
 
         final Animation animAlpha  = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
@@ -63,6 +67,13 @@ public class LoginActivity extends Activity {
                         failedLoginToast.show();
                     }
                 };
+            }
+        });
+
+        mTermsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TermsFragment termFrag = (TermsFragment) getSupportFragmentManager().findFragmentById(R.id.terms);
             }
         });
 
