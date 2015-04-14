@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.support.v4.app.FragmentActivity;
+
 public class LoginActivity extends Activity {
 
     private EditText mPassText;
@@ -73,7 +75,10 @@ public class LoginActivity extends Activity {
         mTermsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TermsFragment termFrag = (TermsFragment) getSupportFragmentManager().findFragmentById(R.id.terms);
+                FragmentActivity FA = new FragmentActivity();
+                TermsFragment termFrag =
+                        (TermsFragment) FA.getSupportFragmentManager().findFragmentById(R.id.terms);
+
             }
         });
 
