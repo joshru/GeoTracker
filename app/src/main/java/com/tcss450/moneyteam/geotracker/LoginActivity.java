@@ -6,6 +6,8 @@ import android.annotation.TargetApi;
 
 import android.app.Activity;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.animation.Animation;
 import android.os.Bundle;
@@ -47,7 +49,14 @@ public class LoginActivity extends Activity {
                 v.startAnimation(animAlpha);
                 if(emailFormatCheck(emailCred) && passFormatCheck(passCred)) {
                     if(emailCred.equals("valid@email.com")) {
-                        //Launch Main
+                        //Launch MainActivity
+                        //Starting a new Intent
+                        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+                        //key,values to send to main.
+                        nextScreen.putExtra("email", emailCred);
+                        Log.e("d", emailCred + " succesfully logged in.");
+                        startActivity(nextScreen);
+
                     }else{
                         Toast failedLoginToast = Toast.makeText(LoginActivity.this, "Invalid Credentials: If you are a new user, please register using the link provided.", Toast.LENGTH_LONG);
                         failedLoginToast.setGravity(Gravity.CENTER, 0, 0);
