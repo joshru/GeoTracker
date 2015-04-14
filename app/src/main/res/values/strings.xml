@@ -11,7 +11,8 @@
     <string name="sign_in_label">Sign In</string>
     <string name="register_label">New to GeoTracker? Register here.</string>
     <string name="pip_edition">Pip Edition</string>
-
+    <string name="title_activity_register">Registration</string>
     <string name="frag_test">Click to show fragment</string>
+    <string name="action_log_out">Sign Out</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.tcss450.moneyteam.geotracker;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -40,6 +41,16 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //Handle Sign Out functionality
+        if (id == R.id.action_sign_out) {
+            Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
+            //key,values to send to main.
+            Log.e("d", "Succesfully logged out.");
+            startActivity(loginScreen);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             return true;
         }
 
