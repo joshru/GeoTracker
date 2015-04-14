@@ -45,8 +45,6 @@ public class LoginActivity extends Activity {
         mLoginButton = (Button) findViewById(R.id.login_button);
         mRegisterLabel = (TextView) findViewById(R.id.register_label);
 
-        mTermsButton = (Button) findViewById(R.id.frag_button);
-
         final Animation animAlpha  = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
         //Verify credentials format, then legitimacy.
@@ -75,38 +73,19 @@ public class LoginActivity extends Activity {
             }
         });
 
-        mTermsButton.setOnClickListener(new OnClickListener() {
+        mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity FA = new FragmentActivity();
-                FA.setContentView(R.layout.terms_view);
+                FA.setContentView(R.layout.fragment_terms);
 
                 TermsFragment tFrag = new TermsFragment();
                 tFrag.setArguments(getIntent().getExtras());
                 FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
 
 
-//                Bundle args = new Bundle();
-//                args.putInt("position", -1);
-//                tFrag.setArguments(args);
-//                FragmentTransaction transaction = FA.getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.terms, tFrag);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-
-
             }
         });
-
-        //Direct user to registration activity.
-        mRegisterLabel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
     }
 
     private boolean emailFormatCheck(final String theEmail) {
@@ -115,28 +94,6 @@ public class LoginActivity extends Activity {
 
     private boolean passFormatCheck(final String thePassphrase) {
         return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
 
