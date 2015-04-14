@@ -32,8 +32,11 @@ import com.google.android.gms.common.SignInButton;
 
 import java.util.ArrayList;
 import java.util.List;
+//Log in verification
+//Josh(x)
+//Brandon(x)
+//Alex(x)
 
-//testing the testing -bb a;dlfjk fak
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
  * <p/>
