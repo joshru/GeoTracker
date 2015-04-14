@@ -11,19 +11,23 @@
     <string name="sign_in_label">Sign In</string>
     <string name="register_label">New to GeoTracker? Register here.</string>
     <string name="pip_edition">Pip Edition</string>
-
+    <string name="title_activity_register">Register</string>
     <string name="frag_test">Click to show fragment</string>
+    <string name="action_log_out">Sign Out</string>
+    <string name="bad_creds_toast">Invalid User Credentials: If you are a new user, please register with the link provided.</string>
+    <string name="bad_email_toast">Invalid email format.</string>
+    <string name="bad_pass_toast">Invalid password format.</string>
 
     <string-array name="security_questions_array">
         <item>Ass or boobs?</item>
-        <item>Brand of mother's favorite panties?</item>
+        <item>Brand of mother\'s favorite panties?</item>
         <item>When was the last time you murdered for pleasure?</item>
-        <item>What is your mother's maiden name?</item>
+        <item>What is your mother\'s maiden name?</item>
         <item>What was the name of your first pet?</item>
         <item>What was the name of your highschool?</item>
         <item>Whats the name of your favorite television show?</item>
         <item>Whats your favorite kind of food?</item>
-        <item>How many times have you raged while watching 'Game of Thrones'?</item>
+        <item>How many times have you raged while watching \'Game of Thrones\'?</item>
     </string-array>
 
 
