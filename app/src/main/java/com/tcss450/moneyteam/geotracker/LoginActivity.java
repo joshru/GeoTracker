@@ -53,11 +53,12 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 final String emailCred = mEmailText.getText().toString();
                 final String passCred = mPassText.getText().toString();
+                final boolean emailForm = emailFormatCheck(emailCred);
+                final boolean passForm = passFormatCheck(passCred);
                 v.startAnimation(animAlpha);
-                if(emailFormatCheck(emailCred) && passFormatCheck(passCred)) {
+                if(emailForm && passForm) {
                     if(emailCred.equals("valid@email.com")) {
-                        //Launch MainActivity
-                        //Starting a new Intent
+                        //Launch MainActivity, starting a new intent.
                         Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
                         //key,values to send to main.
                         nextScreen.putExtra("email", emailCred);
@@ -65,11 +66,15 @@ public class LoginActivity extends Activity {
                         startActivity(nextScreen);
 
                     }else{
-                        Toast failedLoginToast = Toast.makeText(LoginActivity.this, "Invalid Credentials: If you are a new user, please register using the link provided.", Toast.LENGTH_LONG);
-                        failedLoginToast.setGravity(Gravity.CENTER, 0, 0);
+                        Toast failedLoginToast = Toast.makeText(LoginActivity.this, getString(R.string.bad_creds_toast), Toast.LENGTH_LONG);
                         failedLoginToast.show();
                     }
-                };
+                } else if(!emailForm) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.bad_email_toast), Toast.LENGTH_LONG).show();
+                } else if(!passForm) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.bad_pass_toast), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -82,14 +87,18 @@ public class LoginActivity extends Activity {
                 TermsFragment tFrag = new TermsFragment();
                 tFrag.setArguments(getIntent().getExtras());
                 FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
-
-
             }
         });
     }
 
+    /**
+     * Verifies that the email has proper qualities of an email.
+     * @param theEmail the email string to be tested.
+     * @return the boolean indicating if its succesful(true), or not(false).
+     */
     private boolean emailFormatCheck(final String theEmail) {
-        return true;
+        boolean testBool = (theEmail.contains("@")) && (theEmail.contains(".")) && (theEmail.length() < 6);
+        return testBool;
     }
 
     private boolean passFormatCheck(final String thePassphrase) {
