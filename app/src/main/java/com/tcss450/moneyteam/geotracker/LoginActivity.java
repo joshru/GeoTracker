@@ -26,7 +26,7 @@ import android.support.v4.app.FragmentActivity;
 //import android.app.FragmentTransaction;
 
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends FragmentActivity {
 
     private EditText mPassText;
     private EditText mEmailText;
@@ -76,18 +76,12 @@ public class LoginActivity extends Activity {
         mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentActivity FA = new FragmentActivity();
-
-                TermsFragment tFrag = new TermsFragment();
-                FragmentTransaction trans = FA.getSupportFragmentManager().beginTransaction();
-                trans.add(R.id.fragment_container, tFrag);
-                trans.commit();
-
-//                tFrag.setArguments(getIntent().getExtras());
-//                FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
-
-
-
+                setContentView(R.layout.fragment_terms);
+                if (findViewById(R.id.fragment_container) != null) {
+                    TermsFragment frag = new TermsFragment();
+                    frag.setArguments(getIntent().getExtras());
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, frag).commit();
+                }
             }
         });
     }
