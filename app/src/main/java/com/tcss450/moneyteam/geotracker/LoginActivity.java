@@ -7,8 +7,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 
 //import android.app.FragmentTransaction;
-import android.app.Fragment;
+//import android.app.Fragment;
+//import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
@@ -78,10 +81,18 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 FragmentActivity FA = new FragmentActivity();
 
-                TermsFragment tFrag = new TermsFragment();
-                FragmentTransaction trans = FA.getSupportFragmentManager().beginTransaction();
-                trans.add(R.id.fragment_container, tFrag);
-                trans.commit();
+                FragmentManager fm = FA.getSupportFragmentManager();
+                Fragment tFrag = fm.findFragmentById(R.id.fragment_container);
+
+                if (tFrag == null) {
+                    tFrag = new TermsFragment();
+                    fm.beginTransaction().add(R.id.fragment_container, tFrag).commit();
+                }
+
+//                TermsFragment tFrag = new TermsFragment();
+//                FragmentTransaction trans = FA.getSupportFragmentManager().beginTransaction();
+//                trans.add(R.id.fragment_container, tFrag);
+//                trans.commit();
 
 //                tFrag.setArguments(getIntent().getExtras());
 //                FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
