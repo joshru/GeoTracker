@@ -35,15 +35,31 @@ import com.google.android.gms.common.SignInButton;
 
 import java.util.ArrayList;
 import java.util.List;
-//Log in verification
-//Josh(x)
-//Brandon(x)
-//Alex(x)
 public class LoginActivity extends Activity {
+    private EditText mPassText;
+    private EditText mEmailText;
+    private Button mLoginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mPassText = (EditText) findViewById(R.id.passphrase_text);
+        mEmailText = (EditText) findViewById(R.id.email_text);
+        mLoginButton = (Button) findViewById(R.id.login_button);
+
+        mLoginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*if(checkEmail() && checkPassphrase()) {
+
+                };*/
+            }
+        });
+
+
     }
 
     @Override
