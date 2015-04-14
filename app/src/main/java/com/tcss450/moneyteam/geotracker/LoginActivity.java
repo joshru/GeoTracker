@@ -42,8 +42,6 @@ public class LoginActivity extends Activity {
         mLoginButton = (Button) findViewById(R.id.login_button);
         mRegisterLabel = (TextView) findViewById(R.id.register_label);
 
-        mTermsButton = (Button) findViewById(R.id.frag_button);
-
         final Animation animAlpha  = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
         //Verify credentials format, then legitimacy.
@@ -72,21 +70,13 @@ public class LoginActivity extends Activity {
             }
         });
 
-        mTermsButton.setOnClickListener(new OnClickListener() {
+        //Direct user to registration activity.
+        mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentActivity FA = new FragmentActivity();
                 TermsFragment termFrag =
                         (TermsFragment) FA.getSupportFragmentManager().findFragmentById(R.id.terms);
-
-            }
-        });
-
-        //Direct user to registration activity.
-        mRegisterLabel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 

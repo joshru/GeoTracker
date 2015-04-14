@@ -21,7 +21,7 @@ public class TermsFragment extends Fragment {
         if (theSavedState != null) {
             mCurrentPosition = theSavedState.getInt("position");
         }
-        return theInflater.inflate(R.layout.terms_view, theContainer, false);
+        return theInflater.inflate(R.layout.fragment_terms, theContainer, false);
     }
 
     @Override
