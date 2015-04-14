@@ -11,15 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="GeoTracker"
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/app_name"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Pip Edition"
+        android:text="@string/pip_edition"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal" />
 
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Email    "
+        android:text="@string/email_label"
         android:id="@+id/email_label"
         android:paddingRight="31dp" />
 
@@ -52,60 +52,47 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:ems="5"
         android:id="@+id/email_text"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_gravity="right"
-        android:hint="example@email.com"
-        android:editable="false"
-        android:elevation="0dp" />
+        android:hint="@string/email_example_label" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Passphrase"
+        android:text="@string/pasphrase_label"
         android:id="@+id/pasphrase_label"
-        android:layout_row="1"
-        android:layout_column="0"
         android:paddingRight="12dp" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:ems="5"
         android:id="@+id/passphrase_text"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:hint="********"
-        android:elevation="0dp" />
+        android:hint="@string/passphrase_example_label"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/sign_in_label"
         android:id="@+id/login_button"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_columnWeight="2"
         android:layout_gravity="fill_horizontal"
-        android:elevation="0dp" />
+        android:outlineProvider="background" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="New to GeoTracker? Register here."
-        android:id="@+id/textView3"
+        android:text="@string/register_label"
+        android:id="@+id/register_label"
         android:layout_gravity="center_horizontal"
-        android:elegantTextHeight="false"
-        android:elevation="0dp"
-        android:textStyle="bold"
-        android:textIsSelectable="false"
-        android:singleLine="false" />
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frag_test"
+        android:id="@+id/frag_button"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 

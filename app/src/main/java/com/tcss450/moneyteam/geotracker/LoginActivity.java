@@ -5,40 +5,32 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
 import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build.VERSION;
-import android.os.Build;
+
+import android.content.Intent;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.animation.Animation;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.SignInButton;
+import android.support.v4.app.FragmentActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 public class LoginActivity extends Activity {
+
     private EditText mPassText;
     private EditText mEmailText;
     private Button mLoginButton;
+    private TextView mRegisterLabel;
+
+    private Button mTermsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +40,65 @@ public class LoginActivity extends Activity {
         mPassText = (EditText) findViewById(R.id.passphrase_text);
         mEmailText = (EditText) findViewById(R.id.email_text);
         mLoginButton = (Button) findViewById(R.id.login_button);
+        mRegisterLabel = (TextView) findViewById(R.id.register_label);
 
+        mTermsButton = (Button) findViewById(R.id.frag_button);
+
+        final Animation animAlpha  = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+
+        //Verify credentials format, then legitimacy.
         mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String emailCred = mEmailText.getText().toString();
+                final String passCred = mPassText.getText().toString();
+                v.startAnimation(animAlpha);
+                if(emailFormatCheck(emailCred) && passFormatCheck(passCred)) {
+                    if(emailCred.equals("valid@email.com")) {
+                        //Launch MainActivity
+                        //Starting a new Intent
+                        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+                        //key,values to send to main.
+                        nextScreen.putExtra("email", emailCred);
+                        Log.e("d", emailCred + " succesfully logged in.");
+                        startActivity(nextScreen);
 
-                /*if(checkEmail() && checkPassphrase()) {
+                    }else{
+                        Toast failedLoginToast = Toast.makeText(LoginActivity.this, "Invalid Credentials: If you are a new user, please register using the link provided.", Toast.LENGTH_LONG);
+                        failedLoginToast.setGravity(Gravity.CENTER, 0, 0);
+                        failedLoginToast.show();
+                    }
+                };
+            }
+        });
 
-                };*/
+        mTermsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity FA = new FragmentActivity();
+                TermsFragment termFrag =
+                        (TermsFragment) FA.getSupportFragmentManager().findFragmentById(R.id.terms);
+
+            }
+        });
+
+        //Direct user to registration activity.
+        mRegisterLabel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
 
+    }
+
+    private boolean emailFormatCheck(final String theEmail) {
+        return true;
+    }
+
+    private boolean passFormatCheck(final String thePassphrase) {
+        return true;
     }
 
     @Override
