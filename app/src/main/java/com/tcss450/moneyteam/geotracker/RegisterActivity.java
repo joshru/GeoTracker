@@ -1,17 +1,42 @@
 package com.tcss450.moneyteam.geotracker;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 
 public class RegisterActivity extends ActionBarActivity {
 
+    //alex is dumb
+    EditText mEmail;
+    EditText mPassword;
+    EditText mRepeatPassword;
+    Spinner mSecuritySpinner;
+    EditText mSecurityAnswer;
+    Button mRegisterButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mEmail = (EditText) findViewById(R.id.register_email);
+        mPassword = (EditText) findViewById(R.id.register_password);
+        mRepeatPassword = (EditText) findViewById(R.id.register_repeat_password);
+        mSecuritySpinner = (Spinner) findViewById(R.id.register_security_spinner);
+        mSecurityAnswer = (EditText) findViewById(R.id.register_security_answer);
+        mRegisterButton = (Button) findViewById(R.id.register_register_button);
+
+        /*Assign Spinner Values*/
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSecuritySpinner.setAdapter(adapter);
     }
 
     @Override
