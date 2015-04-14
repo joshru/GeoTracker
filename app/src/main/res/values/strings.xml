@@ -14,5 +14,8 @@
     <string name="title_activity_register">Registration</string>
     <string name="frag_test">Click to show fragment</string>
     <string name="action_log_out">Sign Out</string>
+    <string name="bad_creds_toast">Invalid Credentials: If you are a new user, please register using the link provided.</string>
+    <string name="bad_email_toast">Email does no contain correct specifier/s {@, . }, or is less then 5 characters.</string>
+    <string name="bad_pass_toast">Passphrase must be minimum 6 characters in length, and must contain alphabetic (A, b, Z), numeric(1, 4, 5) and symbolic($, *, %) values.</string>
 
 </resources>
