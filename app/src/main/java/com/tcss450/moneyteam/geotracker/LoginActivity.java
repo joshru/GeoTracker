@@ -81,12 +81,14 @@ public class LoginActivity extends Activity {
         mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 //Launch Register Activity, starting a new intent.
                 Intent nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
                 //key,values to send to main.
                 nextScreen.putExtra("email", mEmailText.getText().toString());
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
+                */
             }
         });
     }

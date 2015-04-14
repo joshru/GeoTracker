@@ -18,6 +18,8 @@ public class TermsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater theInflater, ViewGroup theContainer,
                              Bundle theSavedState) {
+        super.onCreateView(theInflater, theContainer,
+                theSavedState);
         if (theSavedState != null) {
             mCurrentPosition = theSavedState.getInt("position");
         }
