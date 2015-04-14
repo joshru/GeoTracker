@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 
 import android.app.Activity;
 
+//import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import android.support.v4.app.FragmentActivity;
+//import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 
 public class LoginActivity extends Activity {
 
@@ -76,8 +79,21 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 FragmentActivity FA = new FragmentActivity();
-                TermsFragment termFrag =
-                        (TermsFragment) FA.getSupportFragmentManager().findFragmentById(R.id.terms);
+                FA.setContentView(R.layout.terms_view);
+
+                TermsFragment tFrag = new TermsFragment();
+                tFrag.setArguments(getIntent().getExtras());
+                FA.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tFrag).commit();
+
+
+//                Bundle args = new Bundle();
+//                args.putInt("position", -1);
+//                tFrag.setArguments(args);
+//                FragmentTransaction transaction = FA.getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.terms, tFrag);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+
 
             }
         });
