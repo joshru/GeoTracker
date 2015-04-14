@@ -11,11 +11,14 @@
     <string name="sign_in_label">Sign In</string>
     <string name="register_label">New to GeoTracker? Register here.</string>
     <string name="pip_edition">Pip Edition</string>
-    <string name="title_activity_register">Registration</string>
+
     <string name="frag_test">Click to show fragment</string>
-    <string name="action_log_out">Sign Out</string>
-    <string name="bad_creds_toast">Invalid Credentials: If you are a new user, please register using the link provided.</string>
-    <string name="bad_email_toast">Email does not contain correct specifier/s \n{@, . }, or is less then 5 characters.</string>
-    <string name="bad_pass_toast">Passphrase must be minimum 6 characters in length, and must contain alphabetic (A, b, Z), numeric(1, 4, 5) and symbolic($, *, %) values.</string>
+
+    <string-array name="security_questions_array">
+        <item>Ass or boobs?</item>
+        <item>Brand of mother's favorite panties?</item>
+        <item>When was the last time you murdered for pleasure?</item>
+    </string-array>
+
 
 </resources>
