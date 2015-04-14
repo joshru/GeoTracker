@@ -4,13 +4,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="Login">Login</string>
-    <string name="pasphrase_label">Passphrase</string>
-    <string name="email_label">Email</string>
-    <string name="email_example_label">example@email.com</string>
-    <string name="passphrase_example_label">********</string>
-    <string name="sign_in_label">Sign In</string>
-    <string name="register_label">New to GeoTracker? Register here.</string>
-    <string name="pip_edition">Pip Edition</string>
+
 
 
 </resources>
