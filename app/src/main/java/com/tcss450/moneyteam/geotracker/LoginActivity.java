@@ -81,22 +81,12 @@ public class LoginActivity extends FragmentActivity {
         mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
                 //Launch Register Activity, starting a new intent.
                 Intent nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
                 //key,values to send to main.
                 nextScreen.putExtra("email", mEmailText.getText().toString());
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
-                */
-
-                setContentView(R.layout.fragment_terms);
-                if (findViewById(R.id.fragment_container) != null) {
-                    TermsFragment frag = new TermsFragment();
-                    frag.setArguments(getIntent().getExtras());
-                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, frag).commit();
-                }
-
             }
         });
     }

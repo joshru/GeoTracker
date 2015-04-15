@@ -17,6 +17,10 @@
     <string name="bad_creds_toast">Invalid User Credentials: If you are a new user, please register with the link provided.</string>
     <string name="bad_email_toast">Invalid email format.</string>
     <string name="bad_pass_toast">Invalid password format.</string>
+    <string name="tos_text">TERMS OF SERVICE HERE</string>
+    <string name="tos_refuse_button">Refuse</string>
+    <string name="tos_accept_button">Accept</string>
+    <string name="tos_checkbox_text">Please read and accept Terms of Service here.</string>
 
     <string-array name="security_questions_array">
         <item>Ass or boobs?</item>

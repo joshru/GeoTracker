@@ -98,6 +98,14 @@
             android:id="@+id/register_security_answer"
              />
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tos_checkbox_text"
+            android:id="@+id/register_checkBox"
+            android:layout_gravity="center_horizontal"
+            android:checked="false" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
