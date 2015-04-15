@@ -2,6 +2,7 @@ package com.tcss450.moneyteam.geotracker;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -38,6 +39,10 @@ public class RegisterActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        Intent i = getIntent();
+        // Receiving the Data
+        String userEmail = i.getStringExtra("email");
+
         mTermsBool = false;
         mEmail = (EditText) findViewById(R.id.register_email);
         mPassword = (EditText) findViewById(R.id.register_password);
@@ -46,6 +51,7 @@ public class RegisterActivity extends ActionBarActivity {
         mSecurityAnswer = (EditText) findViewById(R.id.register_security_answer);
         mRegisterButton = (Button) findViewById(R.id.register_register_button);
         mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
+        mEmail.setText(userEmail);
 
         // update
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
