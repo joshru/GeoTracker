@@ -84,6 +84,7 @@ public class LoginActivity extends FragmentActivity {
                 //Launch Register Activity, starting a new intent.
                 Intent nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
                 //key,values to send to main.
+                //Take this
                 nextScreen.putExtra("email", mEmailText.getText().toString());
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
