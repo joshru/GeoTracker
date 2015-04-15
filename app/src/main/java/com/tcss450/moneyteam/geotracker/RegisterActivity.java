@@ -3,6 +3,7 @@ package com.tcss450.moneyteam.geotracker;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,13 +13,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import static com.tcss450.moneyteam.geotracker.R.id.tos_fragment;
 
-public class RegisterActivity extends ActionBarActivity implements TermsFragment.TermsListener {
 
-    //alex is dumb
+public class RegisterActivity extends ActionBarActivity {
+
     EditText mEmail;
     EditText mPassword;
     EditText mRepeatPassword;
@@ -39,19 +42,7 @@ public class RegisterActivity extends ActionBarActivity implements TermsFragment
         mSecuritySpinner = (Spinner) findViewById(R.id.register_security_spinner);
         mSecurityAnswer = (EditText) findViewById(R.id.register_security_answer);
         mRegisterButton = (Button) findViewById(R.id.register_register_button);
-        mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkBox);
-
-        mTermsCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TermsFragment fragment = new TermsFragment();
-                ViewGroup fragId = (ViewGroup) fragment.getView().getParent();
-                fragmentTransaction.add(fragId, fragment);
-                fragmentTransaction.commit();
-            }
-        });
+        mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
 
         /*Assign Spinner Values*/
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
@@ -81,15 +72,5 @@ public class RegisterActivity extends ActionBarActivity implements TermsFragment
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void termsAgreed(boolean termsAccepted) {
-        if(termsAccepted) {
-            mTermsCheckBox.setChecked(true);
-            mTermsBool = true;
-        } else {
-            Toast.makeText(RegisterActivity.this, "Terms must be accepted in order to create an account.", Toast.LENGTH_LONG).show();
-        }
     }
 }

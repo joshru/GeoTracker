@@ -39,26 +39,5 @@
 
             android:text="@string/tos_text"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@android:drawable/bottom_bar"
-            android:gravity="center_vertical">
-            <Button
-                android:layout_width="0dip"
-                android:layout_weight="1.0"
-                android:layout_height="wrap_content"
-
-                android:text="@string/tos_accept_button"
-                android:id="@+id/tos_accept_button" />
-            <Button
-                android:layout_width="0dip"
-                android:layout_weight="1.0"
-                android:layout_height="wrap_content"
-
-                android:text="@string/tos_refuse_button"
-                android:id="@+id/tos_refuse_button" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>
