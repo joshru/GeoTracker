@@ -45,19 +45,7 @@ public class RegisterActivity extends ActionBarActivity {
         mRegisterButton = (Button) findViewById(R.id.register_register_button);
         mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
 
-        mTermsCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mTermsBool ^= true;
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TermsFragment fragment = new TermsFragment();
-                ViewGroup fragId = (ViewGroup) fragment.getView().getParent();
-                fragmentTransaction.add(fragId, fragment);
-                fragmentTransaction.commit();
-            }
-        });
-
+        // update
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
