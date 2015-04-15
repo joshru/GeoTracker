@@ -98,6 +98,11 @@
             android:id="@+id/register_security_answer"
              />
 
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal" />
+
         <fragment android:name="com.tcss450.moneyteam.geotracker.TermsFragment"
             android:id="@+id/tos_fragment_view"
             android:layout_weight="1"
@@ -105,7 +110,7 @@
             android:layout_height="wrap_content" />
 
         <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="I have read and understand the terms of service, and agree to them completely."
             android:id="@+id/register_checkbox"
