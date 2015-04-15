@@ -29,6 +29,7 @@ public class RegisterActivity extends ActionBarActivity {
     EditText mSecurityAnswer;
     Button mRegisterButton;
     CheckBox mTermsCheckBox;
+
     private boolean mTermsBool;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,32 @@ public class RegisterActivity extends ActionBarActivity {
         mSecurityAnswer = (EditText) findViewById(R.id.register_security_answer);
         mRegisterButton = (Button) findViewById(R.id.register_register_button);
         mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
+
+        mTermsCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mTermsBool ^= true;
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                TermsFragment fragment = new TermsFragment();
+                ViewGroup fragId = (ViewGroup) fragment.getView().getParent();
+                fragmentTransaction.add(fragId, fragment);
+                fragmentTransaction.commit();
+            }
+        });
+
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTermsBool) {
+                    String email = mEmail.getText().toString();
+                    String password = mPassword.getText().toString();
+                    String question = mSecuritySpinner.getSelectedItem().toString();
+                    String answer = mSecurityAnswer.getText().toString();
+                    User newUser = new User(email, password, question, answer);
+                }
+            }
+        });
 
         /*Assign Spinner Values*/
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
