@@ -7,23 +7,45 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import de.greenrobot.event.EventBus;
 
 // Brandon Bell test comment
 //
 public class MainActivity extends ActionBarActivity {
     TextView mTestLabel;
+    ArrayList<User> mUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTestLabel = (TextView) findViewById(R.id.UID_test_label);
+        mUsers = new ArrayList<>();
+
+
 
         Intent i = getIntent();
         // Receiving the Data
         String UID = i.getStringExtra("email");
         mTestLabel.setText(UID);
+        EventBus.getDefault().register(this);
     }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        EventBus.getDefault().unregister(this);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,5 +77,18 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onEvent(UserEvent theUser) {
+        Log.w("Event", "Entered the Event Method in Main");
+//        addUser(theUser);
+        Toast.makeText(this, theUser.mUser.mEmail, Toast.LENGTH_SHORT).show();
+    }
+
+    public void addUser(final User theUser) {
+        if (!mUsers.contains(theUser)) {
+            mUsers.add(theUser);
+        }
+
     }
 }

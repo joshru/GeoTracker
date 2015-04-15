@@ -17,6 +17,8 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import de.greenrobot.event.EventBus;
+
 import static com.tcss450.moneyteam.geotracker.R.id.tos_fragment;
 
 
@@ -55,7 +57,10 @@ public class RegisterActivity extends ActionBarActivity {
                     String question = mSecuritySpinner.getSelectedItem().toString();
                     String answer = mSecurityAnswer.getText().toString();
                     User newUser = new User(email, password, question, answer);
+                    UserEvent uEvent = new UserEvent(newUser);
+                    EventBus.getDefault().post(uEvent);
                 }
+                finish();
             }
         });
 
