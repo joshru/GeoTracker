@@ -29,4 +29,31 @@ public class Authenticator {
         }
         return hash.toString();
     }
+
+
+    /**
+     * Verifies that the email has proper qualities of an email.
+     * @param theEmail the email string to be tested.
+     * @return the boolean indicating if its succesful(true), or not(false).
+     */
+    public static boolean emailFormatCheck(final String theEmail) {
+        boolean testBool = (theEmail.contains("@")) && (theEmail.contains(".")) && (theEmail.length() > 4);
+        return testBool;
+    }
+
+    /**
+     * Verifies that the password contains proper values.
+     * <ul>
+     *     <li>Must be minimum 8 characters in length.</li>
+     *     <li>Must contain minimum 1, alphabetic character.</li>
+     *     <li>Must contain minimum 1, numeric character.</li>
+     *     <li>Must contain minimum 1, special character (@#$%^&+=).</li>
+     * </ul>
+     * @param thePass to be verified with the regex.
+     * @return the boolean regarding if it has a valid form
+     */
+    public static boolean passFormatCheck(final String thePass) {
+        final String passPattern = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+        return thePass.matches(passPattern);
+    }
 }
