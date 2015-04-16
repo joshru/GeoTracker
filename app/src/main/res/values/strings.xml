@@ -33,6 +33,7 @@
         <item>Whats your favorite kind of food?</item>
         <item>How many times have you raged while watching \'Game of Thrones\'?</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
