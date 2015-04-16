@@ -34,7 +34,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/Login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/pip_font" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
