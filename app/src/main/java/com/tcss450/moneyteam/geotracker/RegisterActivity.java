@@ -58,20 +58,6 @@ public class RegisterActivity extends ActionBarActivity {
         mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
         mEmail.setText(userEmail);
 
-        // update
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTermsBool) {
-                    String email = mEmail.getText().toString();
-                    String password = mPassword.getText().toString();
-                    String question = mSecuritySpinner.getSelectedItem().toString();
-                    String answer = mSecurityAnswer.getText().toString();
-                }
-                finish();
-            }
-        });
-
         /*Assign Spinner Values*/
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
                 android.R.layout.simple_spinner_item);
