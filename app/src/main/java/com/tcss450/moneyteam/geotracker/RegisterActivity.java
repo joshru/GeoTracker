@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -48,6 +49,7 @@ public class RegisterActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Intent i = getIntent();
         // Receiving the Data
@@ -82,7 +84,7 @@ public class RegisterActivity extends ActionBarActivity {
     public void registerUser(View view) {
         SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-        String toastString;
+        String toastString = "Erorr Registering";
         final String email = mEmail.getText().toString();
         final String passphrase = mPassword.getText().toString();
         final String repeatedPass = mRepeatPassword.getText().toString();
@@ -96,6 +98,11 @@ public class RegisterActivity extends ActionBarActivity {
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
+        Log.e("d", "EmailValid: " + validEmail +"");
+        Log.e("d", "PasswordValid: " + validPass + "");
+        Log.e("d", "RepeatValid: " + validRepeat + "");
+        Log.e("d", "QuestionResponseValid: " + validQuestionResponse + "");
+
 
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString("userEmail", email);
@@ -104,7 +111,7 @@ public class RegisterActivity extends ActionBarActivity {
             myPrefEditor.putString("userQuestionResponse", answer);
             myPrefEditor.apply();
             toastString = getString(R.string.register_succesful);
-            preceed();
+            finish();
         } else if(!validEmail) {
             toastString = getString(R.string.register_email_invalid_toast);
         } else if(!validPass) {
@@ -116,16 +123,6 @@ public class RegisterActivity extends ActionBarActivity {
         } else if(!mTermsCheckBox.isChecked()) {
             toastString = getString(R.string.tos_toast);
         }
-
+        Toast.makeText(this, toastString, Toast.LENGTH_LONG).show();
     }
-
-    private void preceed() {
-        //Launch MainActivity, starting a new intent.
-        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
-        //key,values to send to main.
-        nextScreen.putExtra("email", mEmail.getText().toString());
-        Log.e("d", mEmail.getText().toString() + " succesfully logged in.");
-        startActivity(nextScreen);
-    }
-
 }

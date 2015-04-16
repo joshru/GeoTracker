@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.os.Bundle;
 import android.view.Menu;
@@ -56,6 +57,10 @@ public class LoginActivity extends FragmentActivity {
         });
     }
 
+    /**
+     * Acting OnClickListener for the login button.
+     * @param view
+     */
     public void loginUser(View view) {
         String toastString = "";
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
@@ -75,9 +80,11 @@ public class LoginActivity extends FragmentActivity {
         if (emailForm && passForm && userEmail != null) {
             if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
                 //Launch MainActivity, starting a new intent.
-                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+                Intent nextScreen = new Intent(this, MainActivity.class);
                 //key,values to send to main.
                 nextScreen.putExtra("email", emailCred);
+                Log.e("pass", userPassHash);
+                Log.e("pass", passCredHash);
                 Log.e("d", emailCred + " succesfully logged in.");
                 startActivity(nextScreen);
 
