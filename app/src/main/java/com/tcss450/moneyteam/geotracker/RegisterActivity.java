@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -48,6 +49,7 @@ public class RegisterActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Intent i = getIntent();
         // Receiving the Data
@@ -109,7 +111,7 @@ public class RegisterActivity extends ActionBarActivity {
             myPrefEditor.putString("userQuestionResponse", answer);
             myPrefEditor.apply();
             toastString = getString(R.string.register_succesful);
-            preceed();
+            finish();
         } else if(!validEmail) {
             toastString = getString(R.string.register_email_invalid_toast);
         } else if(!validPass) {
@@ -123,14 +125,4 @@ public class RegisterActivity extends ActionBarActivity {
         }
         Toast.makeText(this, toastString, Toast.LENGTH_LONG).show();
     }
-
-    private void preceed() {
-        //Launch MainActivity, starting a new intent.
-        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
-        //key,values to send to main.
-        nextScreen.putExtra("email", mEmail.getText().toString());
-        Log.e("d", mEmail.getText().toString() + " succesfully logged in.");
-        startActivity(nextScreen);
-    }
-
 }

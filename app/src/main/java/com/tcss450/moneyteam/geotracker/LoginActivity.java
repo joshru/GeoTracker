@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.os.Bundle;
 import android.view.Menu;
