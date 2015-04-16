@@ -62,9 +62,6 @@ public class RegisterActivity extends ActionBarActivity {
                     String password = mPassword.getText().toString();
                     String question = mSecuritySpinner.getSelectedItem().toString();
                     String answer = mSecurityAnswer.getText().toString();
-                    User newUser = new User(email, password, question, answer);
-                    UserEvent uEvent = new UserEvent(newUser);
-                    EventBus.getDefault().post(uEvent);
                 }
                 finish();
             }
