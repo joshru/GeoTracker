@@ -7,7 +7,9 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 
 //import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.animation.Animation;
@@ -53,16 +55,18 @@ public class LoginActivity extends FragmentActivity {
             public void onClick(View v) {
                 final String emailCred = mEmailText.getText().toString();
                 final String passCredHash = Authenticator.generateHash(mPassText.getText().toString());
-                final String userEmail = "";
-                final String userPassHash = "";
+                final String userEmail;
+                final String userPassHash;
                 final boolean emailForm = emailFormatCheck(emailCred);
                 final boolean passForm = passFormatCheck(passCredHash);
 
                 //Get Shared Preferences
-
+                SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                userEmail = myPreferences.getString("userEmail", "");
+                userPassHash = myPreferences.getString("userPassphraseHash", "");
 
                 v.startAnimation(animAlpha);
-                if(emailForm && passForm) {
+                if(emailForm && passForm && userEmail != null) {
                     if((emailCred.equals(userEmail)) &&(passCredHash.equals(userPassHash))) {
                         //Launch MainActivity, starting a new intent.
                         Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);

@@ -8,12 +8,15 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Authenticator {
 
-    public static String generateHash(String input) {
+    private static final String SALT = "MONEY_TEAM_!";
+
+    public static String generateHash(final String input) {
+        final String saltedPass = SALT + input;
         StringBuilder hash = new StringBuilder();
 
         try {
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
-            byte[] hashedBytes = sha.digest(input.getBytes());
+            byte[] hashedBytes = sha.digest(saltedPass.getBytes());
             char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                     'a', 'b', 'c', 'd', 'e', 'f' };
             for (int idx = 0; idx < hashedBytes.length;++idx) {
@@ -24,7 +27,6 @@ public class Authenticator {
         } catch (NoSuchAlgorithmException e) {
             // handle error here.
         }
-
         return hash.toString();
     }
 }
