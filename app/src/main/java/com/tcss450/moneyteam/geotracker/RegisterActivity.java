@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,19 +74,50 @@ public class RegisterActivity extends ActionBarActivity {
     public void registerUser(View view) {
         SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-        String email = mEmail.getText().toString();
-        String passphraseHash = Authenticator.generateHash(mPassword.getText().toString());
-        String question = mSecuritySpinner.getSelectedItem().toString();
-        String answer = mSecurityAnswer.getText().toString();
+        String toastString;
+        final String email = mEmail.getText().toString();
+        final String passphrase = mPassword.getText().toString();
+        final String repeatedPass = mRepeatPassword.getText().toString();
+        final String passphraseHash = Authenticator.generateHash(passphrase);
+        final String question = mSecuritySpinner.getSelectedItem().toString();
+        final String answer = mSecurityAnswer.getText().toString();
 
-        myPrefEditor.putString("userEmail", email);
-        myPrefEditor.putString("userPassphraseHash", passphraseHash);
-        myPrefEditor.putString("userQuestion", question);
-        myPrefEditor.putString("userQuestionResponse", answer);
-        myPrefEditor.apply();
+        //Field testing
+        final boolean validEmail = Authenticator.emailFormatCheck(email);
+        final boolean validPass = Authenticator.passFormatCheck(passphrase);
+        final boolean validRepeat = passphrase.equals(repeatedPass);
+        final boolean validQuestionResponse = (answer.length() > 0);
 
-        Toast.makeText(this, "Registered succesful", Toast.LENGTH_LONG).show();
 
+        if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
+            myPrefEditor.putString("userEmail", email);
+            myPrefEditor.putString("userPassphraseHash", passphraseHash);
+            myPrefEditor.putString("userQuestion", question);
+            myPrefEditor.putString("userQuestionResponse", answer);
+            myPrefEditor.apply();
+            toastString = getString(R.string.register_succesful);
+            preceed();
+        } else if(!validEmail) {
+            toastString = getString(R.string.register_email_invalid_toast);
+        } else if(!validPass) {
+            toastString = getString(R.string.register_pass_short_toast);
+        } else if(!validQuestionResponse) {
+            toastString = getString(R.string.register_question_response_invalid_toast);
+        } else if(!validRepeat) {
+            toastString = getString(R.string.register_pass_invalid_toast);
+        } else if(!mTermsCheckBox.isChecked()) {
+            toastString = getString(R.string.tos_toast);
+        }
+
+    }
+
+    private void preceed() {
+        //Launch MainActivity, starting a new intent.
+        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+        //key,values to send to main.
+        nextScreen.putExtra("email", mEmail.getText().toString());
+        Log.e("d", mEmail.getText().toString() + " succesfully logged in.");
+        startActivity(nextScreen);
     }
 
 }

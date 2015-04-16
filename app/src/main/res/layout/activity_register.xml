@@ -15,15 +15,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView4"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/email_label"
             android:id="@+id/textView3"
             android:singleLine="true"
@@ -140,7 +131,7 @@
                     android:paddingRight="6dip"
                     android:paddingBottom="6dip"
 
-                    android:text="@string/tos_text"/>
+                    android:text="@string/tos_text" />
 
             </LinearLayout>
         </ScrollView>

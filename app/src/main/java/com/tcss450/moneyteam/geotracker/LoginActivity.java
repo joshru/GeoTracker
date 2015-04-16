@@ -32,10 +32,6 @@ public class LoginActivity extends FragmentActivity {
 
     private EditText mPassText;
     private EditText mEmailText;
-    private Button mLoginButton;
-    private TextView mRegisterLabel;
-
-    private Button mTermsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,49 +40,7 @@ public class LoginActivity extends FragmentActivity {
 
         mPassText = (EditText) findViewById(R.id.passphrase_text);
         mEmailText = (EditText) findViewById(R.id.email_text);
-        mLoginButton = (Button) findViewById(R.id.login_button);
-        mRegisterLabel = (TextView) findViewById(R.id.register_label);
-
-        final Animation animAlpha  = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
-
-        //Verify credentials format, then legitimacy.
-        mLoginButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String emailCred = mEmailText.getText().toString();
-                final String passCredHash = Authenticator.generateHash(mPassText.getText().toString());
-                final String userEmail;
-                final String userPassHash;
-                final boolean emailForm = Authenticator.emailFormatCheck(emailCred);
-                final boolean passForm = Authenticator.passFormatCheck(passCredHash);
-
-                //Get Shared Preferences
-                SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-                userEmail = myPreferences.getString("userEmail", "");
-                userPassHash = myPreferences.getString("userPassphraseHash", "");
-
-                v.startAnimation(animAlpha);
-                if(emailForm && passForm && userEmail != null) {
-                    if((emailCred.equals(userEmail)) &&(passCredHash.equals(userPassHash))) {
-                        //Launch MainActivity, starting a new intent.
-                        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
-                        //key,values to send to main.
-                        nextScreen.putExtra("email", emailCred);
-                        Log.e("d", emailCred + " succesfully logged in.");
-                        startActivity(nextScreen);
-
-                    }else{
-                        Toast failedLoginToast = Toast.makeText(LoginActivity.this, getString(R.string.bad_creds_toast), Toast.LENGTH_LONG);
-                        failedLoginToast.show();
-                    }
-                } else if(!emailForm) {
-                    Toast.makeText(LoginActivity.this, getString(R.string.bad_email_toast), Toast.LENGTH_LONG).show();
-                } else if(!passForm) {
-                    Toast.makeText(LoginActivity.this, getString(R.string.bad_pass_toast), Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
+        final TextView mRegisterLabel = (TextView) findViewById(R.id.register_label);
 
         mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
@@ -101,7 +55,44 @@ public class LoginActivity extends FragmentActivity {
             }
         });
     }
+
+    public void loginUser(View view) {
+        String toastString = "";
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+        final String emailCred = mEmailText.getText().toString();
+        final String passCredHash = Authenticator.generateHash(mPassText.getText().toString());
+        final String userEmail;
+        final String userPassHash;
+        final boolean emailForm = Authenticator.emailFormatCheck(emailCred);
+        final boolean passForm = Authenticator.passFormatCheck(mPassText.getText().toString());
+
+        //Get Shared Preferences
+        SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        userEmail = myPreferences.getString("userEmail", "");
+        userPassHash = myPreferences.getString("userPassphraseHash", "");
+
+        view.startAnimation(animAlpha);
+        if (emailForm && passForm && userEmail != null) {
+            if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
+                //Launch MainActivity, starting a new intent.
+                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+                //key,values to send to main.
+                nextScreen.putExtra("email", emailCred);
+                Log.e("d", emailCred + " succesfully logged in.");
+                startActivity(nextScreen);
+
+            } else {
+                toastString = getString(R.string.bad_creds_toast);
+            }
+        } else if (!emailForm) {
+            toastString = getString(R.string.bad_email_toast);
+        } else if (!passForm) {
+            toastString = getString(R.string.bad_pass_toast);
+        }
+        Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
+    }
 }
+
 
 
 
