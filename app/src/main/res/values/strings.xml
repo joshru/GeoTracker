@@ -42,5 +42,8 @@
     <string name="register_succesful">Registration Succesful</string>
     <string name="login_success">Log in was succesful</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
