@@ -112,6 +112,7 @@ public class RegisterActivity extends ActionBarActivity {
             myPrefEditor.apply();
             toastString = getString(R.string.register_succesful);
             finish();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if(!validEmail) {
             toastString = getString(R.string.register_email_invalid_toast);
         } else if(!validPass) {

@@ -26,21 +26,7 @@ public class MainActivity extends ActionBarActivity {
         Intent i = getIntent();
         // Receiving the Data
         String UID = i.getStringExtra("email");
-        mTestLabel.setText(UID);
-        EventBus.getDefault().register(this);
     }
-
-      @Override
-      public void onStart() {
-          super.onStart();
-          EventBus.getDefault().register(this);
-      }
-
-      @Override
-      protected void onStop() {
-          super.onStop();
-          EventBus.getDefault().unregister(this);
-      }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

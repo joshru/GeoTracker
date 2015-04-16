@@ -53,6 +53,7 @@ public class LoginActivity extends FragmentActivity {
                 nextScreen.putExtra("email", mEmailText.getText().toString());
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
@@ -79,15 +80,15 @@ public class LoginActivity extends FragmentActivity {
         view.startAnimation(animAlpha);
         if (emailForm && passForm && userEmail != null) {
             if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
-                //Launch MainActivity, starting a new intent.
-                Intent nextScreen = new Intent(this, MainActivity.class);
+                //Launch Main Activity, starting a new intent.
+                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
                 //key,values to send to main.
-                nextScreen.putExtra("email", emailCred);
-                Log.e("pass", userPassHash);
-                Log.e("pass", passCredHash);
-                Log.e("d", emailCred + " succesfully logged in.");
+                //Take this
+                nextScreen.putExtra("email", mEmailText.getText().toString());
+                Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
-
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                toastString = getString(R.string.login_success);
             } else {
                 toastString = getString(R.string.bad_creds_toast);
             }

@@ -40,6 +40,7 @@
     <string name="register_pass_short_toast">Password length is to short (minimum 6 characters)</string>
     <string name="register_email_invalid_toast">Invalid email format</string>
     <string name="register_succesful">Registration Succesful</string>
+    <string name="login_success">Log in was succesful</string>
 
 
 </resources>
