@@ -21,7 +21,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/pip_edition"
         android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/pasphrase_label"
         android:id="@+id/pasphrase_label"
-        android:paddingRight="12dp" />
+        android:paddingTop="10dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -75,7 +76,8 @@
         android:id="@+id/login_button"
         android:layout_gravity="fill_horizontal"
         android:outlineProvider="background"
-        android:onClick="loginUser" />
+        android:onClick="loginUser"
+        android:paddingTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,7 +86,9 @@
         android:text="@string/register_label"
         android:id="@+id/register_label"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingTop="@dimen/abc_text_size_small_material"
+        android:textColorLink="@color/abc_secondary_text_material_dark" />
 
     <TextView
         android:layout_width="wrap_content"

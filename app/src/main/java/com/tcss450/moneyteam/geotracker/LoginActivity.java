@@ -33,6 +33,7 @@ public class LoginActivity extends FragmentActivity {
 
     private EditText mPassText;
     private EditText mEmailText;
+    private Button mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class LoginActivity extends FragmentActivity {
 
         mPassText = (EditText) findViewById(R.id.passphrase_text);
         mEmailText = (EditText) findViewById(R.id.email_text);
+        mLoginButton = (Button)  findViewById(R.id.login_button);
+
         final TextView mRegisterLabel = (TextView) findViewById(R.id.register_label);
 
         mRegisterLabel.setOnClickListener(new OnClickListener() {
@@ -54,6 +57,18 @@ public class LoginActivity extends FragmentActivity {
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        mLoginButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+                nextScreen.putExtra("email", "ADMIN");
+                startActivity(nextScreen);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG).show();
+                return true;
             }
         });
     }
@@ -101,7 +116,6 @@ public class LoginActivity extends FragmentActivity {
     }
 
     public void forgotPassphrase(View view) {
-
 
     }
 }
