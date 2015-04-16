@@ -99,6 +99,11 @@ public class LoginActivity extends FragmentActivity {
         }
         Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
     }
+
+    public void forgotPassphrase(View view) {
+
+
+    }
 }
 
 

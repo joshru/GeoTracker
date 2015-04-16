@@ -98,12 +98,6 @@ public class RegisterActivity extends ActionBarActivity {
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
-        Log.e("d", "EmailValid: " + validEmail +"");
-        Log.e("d", "PasswordValid: " + validPass + "");
-        Log.e("d", "RepeatValid: " + validRepeat + "");
-        Log.e("d", "QuestionResponseValid: " + validQuestionResponse + "");
-
-
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString("userEmail", email);
             myPrefEditor.putString("userPassphraseHash", passphraseHash);
