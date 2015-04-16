@@ -98,12 +98,6 @@ public class RegisterActivity extends ActionBarActivity {
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
-        Log.e("d", "EmailValid: " + validEmail +"");
-        Log.e("d", "PasswordValid: " + validPass + "");
-        Log.e("d", "RepeatValid: " + validRepeat + "");
-        Log.e("d", "QuestionResponseValid: " + validQuestionResponse + "");
-
-
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString("userEmail", email);
             myPrefEditor.putString("userPassphraseHash", passphraseHash);
@@ -112,6 +106,7 @@ public class RegisterActivity extends ActionBarActivity {
             myPrefEditor.apply();
             toastString = getString(R.string.register_succesful);
             finish();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if(!validEmail) {
             toastString = getString(R.string.register_email_invalid_toast);
         } else if(!validPass) {

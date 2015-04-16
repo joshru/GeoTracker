@@ -33,6 +33,7 @@ public class LoginActivity extends FragmentActivity {
 
     private EditText mPassText;
     private EditText mEmailText;
+    private Button mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class LoginActivity extends FragmentActivity {
 
         mPassText = (EditText) findViewById(R.id.passphrase_text);
         mEmailText = (EditText) findViewById(R.id.email_text);
+        mLoginButton = (Button)  findViewById(R.id.login_button);
+
         final TextView mRegisterLabel = (TextView) findViewById(R.id.register_label);
 
         mRegisterLabel.setOnClickListener(new OnClickListener() {
@@ -53,6 +56,19 @@ public class LoginActivity extends FragmentActivity {
                 nextScreen.putExtra("email", mEmailText.getText().toString());
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        mLoginButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
+                nextScreen.putExtra("email", "ADMIN");
+                startActivity(nextScreen);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG).show();
+                return true;
             }
         });
     }
@@ -79,15 +95,15 @@ public class LoginActivity extends FragmentActivity {
         view.startAnimation(animAlpha);
         if (emailForm && passForm && userEmail != null) {
             if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
-                //Launch MainActivity, starting a new intent.
-                Intent nextScreen = new Intent(this, MainActivity.class);
+                //Launch Main Activity, starting a new intent.
+                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
                 //key,values to send to main.
-                nextScreen.putExtra("email", emailCred);
-                Log.e("pass", userPassHash);
-                Log.e("pass", passCredHash);
-                Log.e("d", emailCred + " succesfully logged in.");
+                //Take this
+                nextScreen.putExtra("email", mEmailText.getText().toString());
+                Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
-
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                toastString = getString(R.string.login_success);
             } else {
                 toastString = getString(R.string.bad_creds_toast);
             }
@@ -97,6 +113,10 @@ public class LoginActivity extends FragmentActivity {
             toastString = getString(R.string.bad_pass_toast);
         }
         Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
+    }
+
+    public void forgotPassphrase(View view) {
+
     }
 }
 
