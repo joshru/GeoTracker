@@ -52,12 +52,18 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 final String emailCred = mEmailText.getText().toString();
-                final String passCred = mPassText.getText().toString();
+                final String passCredHash = Authenticator.generateHash(mPassText.getText().toString());
+                final String userEmail = "";
+                final String userPassHash = "";
                 final boolean emailForm = emailFormatCheck(emailCred);
-                final boolean passForm = passFormatCheck(passCred);
+                final boolean passForm = passFormatCheck(passCredHash);
+
+                //Get Shared Preferences
+
+
                 v.startAnimation(animAlpha);
                 if(emailForm && passForm) {
-                    if(emailCred.equals("valid@email.com")) {
+                    if((emailCred.equals(userEmail)) &&(passCredHash.equals(userPassHash))) {
                         //Launch MainActivity, starting a new intent.
                         Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
                         //key,values to send to main.

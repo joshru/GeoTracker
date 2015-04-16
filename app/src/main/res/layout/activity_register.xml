@@ -160,7 +160,8 @@
             android:id="@+id/register_register_button"
             android:layout_marginBottom="31dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.06" />
+            android:layout_weight="0.06"
+            android:onClick="registerUser" />
 
     </LinearLayout>
 </ScrollView>
