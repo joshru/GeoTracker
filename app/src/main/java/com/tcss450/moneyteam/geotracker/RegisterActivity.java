@@ -82,7 +82,7 @@ public class RegisterActivity extends ActionBarActivity {
     public void registerUser(View view) {
         SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-        String toastString;
+        String toastString = "Erorr Registering";
         final String email = mEmail.getText().toString();
         final String passphrase = mPassword.getText().toString();
         final String repeatedPass = mRepeatPassword.getText().toString();
@@ -95,6 +95,11 @@ public class RegisterActivity extends ActionBarActivity {
         final boolean validPass = Authenticator.passFormatCheck(passphrase);
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
+
+        Log.e("d", "EmailValid: " + validEmail +"");
+        Log.e("d", "PasswordValid: " + validPass + "");
+        Log.e("d", "RepeatValid: " + validRepeat + "");
+        Log.e("d", "QuestionResponseValid: " + validQuestionResponse + "");
 
 
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
@@ -116,7 +121,7 @@ public class RegisterActivity extends ActionBarActivity {
         } else if(!mTermsCheckBox.isChecked()) {
             toastString = getString(R.string.tos_toast);
         }
-
+        Toast.makeText(this, toastString, Toast.LENGTH_LONG).show();
     }
 
     private void preceed() {
