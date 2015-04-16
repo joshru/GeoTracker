@@ -132,6 +132,7 @@
                     android:layout_marginBottom="12dip" />
 
                 <TextView
+                    android:id="@+id/tos_text_view"
                     android:layout_width="fill_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -140,7 +141,7 @@
                     android:paddingRight="6dip"
                     android:paddingBottom="6dip"
 
-                    android:text="@string/tos_text"/>
+                    />
 
             </LinearLayout>
         </ScrollView>
