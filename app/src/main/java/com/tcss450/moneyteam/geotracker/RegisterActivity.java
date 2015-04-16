@@ -66,6 +66,10 @@ public class RegisterActivity extends ActionBarActivity {
         mSecuritySpinner.setAdapter(adapter);
     }
 
+    /**
+     * Acting OnClickListener for the Registration button.
+     * @param view
+     */
     public void registerUser(View view) {
         SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor myPrefEditor = myPreferences.edit();
