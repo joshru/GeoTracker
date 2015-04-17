@@ -125,22 +125,23 @@
         android:gravity="center_horizontal"
         android:paddingBottom="20dp" />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/pip_bar_bottom"
-        android:onClick="iAmANoob"
-        android:src="@drawable/pip_101"
-        android:paddingBottom="35dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/pip_bar_bottom" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/pip_bar_bottom"
+            android:onClick="iAmANoob" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pip_101"
+            android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    />
 
 
 </LinearLayout>
