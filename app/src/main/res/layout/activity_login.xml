@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Forgot passphrase? Recover it here."
-        android:id="@+id/textView9"
+        android:id="@+id/login_forgot_password_label"
         android:layout_gravity="center_horizontal"
         android:onClick="forgotPassphrase"
         android:paddingTop="@dimen/abc_text_size_small_material" />

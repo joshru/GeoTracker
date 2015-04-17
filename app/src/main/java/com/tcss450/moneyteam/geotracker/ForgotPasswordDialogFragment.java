@@ -4,18 +4,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 
 /**
@@ -31,13 +32,14 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private TextView mNewPassText;
-    private TextView mNewPassRepeatText;
+    private EditText mNewPassText;
+    private EditText mNewPassRepeatText;
     private View mFragmentView;
     private OnFragmentInteractionListener mListener;
     private TextView mDialogUserQuestion;
     private EditText mDialogSecurityAnswer;
     private Button mDialogSubmitButton;
+    private Activity mActivity;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,30 +74,93 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //return super.onCreateDialog(savedInstanceState);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        mFragmentView = inflater.inflate(R.layout.fragment_forgot_password_dialog, null);
-        builder.setView(mFragmentView);
+
+        mNewPassText = (EditText) mActivity.findViewById((R.id.dialog_security_newpass));
+        mNewPassRepeatText = (EditText) mActivity.findViewById(R.id.dialog_security_repeatpass);
+        mDialogUserQuestion = (TextView) mActivity.findViewById(R.id.dialog_security_user_question);
+        mDialogSecurityAnswer = (EditText) mActivity.findViewById(R.id.dialog_security_answer);
+        mDialogSubmitButton = (Button) mActivity.findViewById(R.id.dialog_submit_button);//return super.onCreateDialog(savedInstanceState);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        LayoutInflater inflater = mActivity.getLayoutInflater();
+
+        //Obtain security question and answer
+        SharedPreferences myPreferences = mActivity
+                .getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+        final SharedPreferences.Editor myPrefEditor = myPreferences.edit();
+        final String question = myPreferences
+                .getString(getString(R.string.saved_question_key),
+                        getString(R.string.default_restore_key));
+        final String correctAnswer = myPreferences
+                .getString(getString(R.string.saved_question_answer_key),
+                        getString(R.string.default_restore_key));
+
+
 
         /* USE the .setVisibility(View.VISIBLE) to make the password text visible once the user
         enters the correct answer.
          */
-        /*
-        mNewPassText = (TextView) mFragmentView.findViewById(R.id.dialog_security_newpass);
-        mNewPassRepeatText = (TextView) mFragmentView.findViewById(R.id.dialog_security_repeatpass);
+       /* mNewPassText = (EditText) mFragmentView.findViewById(R.id.dialog_security_newpass);
+        mNewPassRepeatText = (EditText) mFragmentView.findViewById(R.id.dialog_security_repeatpass);
         mDialogUserQuestion = (TextView) mFragmentView.findViewById(R.id.dialog_security_user_question);
         mDialogSecurityAnswer = (EditText) mFragmentView.findViewById(R.id.dialog_security_answer);
         mDialogSubmitButton = (Button) mFragmentView.findViewById(R.id.dialog_submit_button);
+*/
+        mDialogUserQuestion.setText(question);
 
+        mDialogSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        mNewPassText.setVisibility(View.VISIBLE);
-        mNewPassRepeatText.setVisibility(View.VISIBLE);
-        */
+                if (mDialogSecurityAnswer.getText().toString().equals(correctAnswer)) {
+                    mNewPassText.setVisibility(View.VISIBLE);
+                    mNewPassRepeatText.setVisibility(View.VISIBLE);
+                    mDialogSubmitButton.setVisibility(View.INVISIBLE);
+                    Toast.makeText(mActivity, getString(R.string.toast_security_correct),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mActivity, getString(R.string.toast_security_incorrect),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        mFragmentView = inflater.inflate(R.layout.fragment_forgot_password_dialog, null);
+        builder.setView(mFragmentView)
+            .setPositiveButton(R.string.reset_confirm_button, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (Authenticator.passFormatCheck(mNewPassText.getText().toString())
+                        && mNewPassRepeatText
+                            .getText().toString().equals(mNewPassText.getText().toString())) {
+                        myPrefEditor.putString(getString(R.string.saved_pass_key),
+                                Authenticator.generateHash(mNewPassText.getText().toString()));
+                        Toast.makeText(mActivity, getString(R.string.toast_security_password_changed),
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(mActivity, getString(R.string.toast_security_password_failed),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            })
+        .setNegativeButton(R.string.reset_cancel_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ForgotPasswordDialogFragment.this.getDialog().cancel();
+                Toast.makeText(mActivity, getString(R.string.reset_cancel_button),
+                        Toast.LENGTH_LONG).show();
+                //dialog.cancel();
+            }
+        });
+
 
         return builder.create();
     }
@@ -104,6 +169,7 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_forgot_password_dialog, container, false);
     }
 
@@ -123,6 +189,7 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        mActivity = activity;
     }
 
     @Override

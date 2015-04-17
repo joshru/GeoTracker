@@ -1,35 +1,25 @@
 package com.tcss450.moneyteam.geotracker;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-
-import android.app.Activity;
-
-//import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.WindowManager;
-import android.view.animation.Animation;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.support.v4.app.FragmentActivity;
 //import android.app.FragmentTransaction;
-import android.support.v4.app.FragmentTransaction;
+//import android.app.FragmentTransaction;
 
-public class LoginActivity extends FragmentActivity {
+public class LoginActivity extends FragmentActivity implements ForgotPasswordDialogFragment.OnFragmentInteractionListener {
 
     private EditText mPassText;
     private EditText mEmailText;
@@ -57,6 +47,15 @@ public class LoginActivity extends FragmentActivity {
                 Log.e("d", "Changed to RegisterActivity");
                 startActivity(nextScreen);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        final TextView mForgotLabel = (TextView) findViewById(R.id.login_forgot_password_label);
+        mForgotLabel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
+                dialog.show(getFragmentManager(), "forgotPW");
             }
         });
 
@@ -117,6 +116,11 @@ public class LoginActivity extends FragmentActivity {
 
     public void forgotPassphrase(View view) {
 
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //Do nothing - data altered via shared preferences
     }
 }
 

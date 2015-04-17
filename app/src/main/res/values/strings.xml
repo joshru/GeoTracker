@@ -42,6 +42,25 @@
     <string name="register_succesful">Registration Succesful</string>
     <string name="login_success">Log in was succesful</string>
 
+    <string name="reset_confirm_button">Reset</string>
+    <string name="reset_cancel_button">Cancel Reset</string>
+
+    <!--Toasts-->
+    <string name="toast_security_correct">I knew it was you.</string>
+    <string name="toast_security_incorrect">INTRUDER ALERT!!!</string>
+    <string name="toast_security_password_changed">Password changed successfully.</string>
+    <string name="toast_security_password_failed">Password change failed.</string>
+
+    <!--Shared Preferences Keys-->
+    <string name="shared_pref_key">userInfo</string>
+    <string name="saved_email_key">userEmail</string>
+    <string name="saved_pass_key">userPassphraseHash</string>
+    <string name="saved_question_key">userQuestion</string>
+    <string name="saved_question_answer_key">userQuestionResponse</string>
+
+    <!--Default values-->
+    <string name="default_restore_key">These are not the droids you are looking for.</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dialog_security_submit_button">Submit</string>
@@ -51,8 +70,7 @@
     <string name="main_map_title">Map</string>
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
-    <string name="dialog_security_question_label">null</string>
-    <string name="drawer_text"> &lt;&lt;Pip Navigation Window&gt;&gt;</string>
+    <string name="dialog_security_question_label">Security Question</string>
 
 
 </resources>

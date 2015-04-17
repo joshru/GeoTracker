@@ -1,37 +1,20 @@
 package com.tcss450.moneyteam.geotracker;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Set;
-
-import de.greenrobot.event.EventBus;
-
-import static com.tcss450.moneyteam.geotracker.R.id.tos_fragment;
 
 
 public class RegisterActivity extends ActionBarActivity {
@@ -82,9 +65,9 @@ public class RegisterActivity extends ActionBarActivity {
      * @param view
      */
     public void registerUser(View view) {
-        SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-        String toastString = "Erorr Registering";
+        String toastString = "Error Registering";
         final String email = mEmail.getText().toString();
         final String passphrase = mPassword.getText().toString();
         final String repeatedPass = mRepeatPassword.getText().toString();
@@ -99,10 +82,10 @@ public class RegisterActivity extends ActionBarActivity {
         final boolean validQuestionResponse = (answer.length() > 0);
 
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
-            myPrefEditor.putString("userEmail", email);
-            myPrefEditor.putString("userPassphraseHash", passphraseHash);
-            myPrefEditor.putString("userQuestion", question);
-            myPrefEditor.putString("userQuestionResponse", answer);
+            myPrefEditor.putString(getString(R.string.saved_email_key), email);
+            myPrefEditor.putString(getString(R.string.saved_pass_key), passphraseHash);
+            myPrefEditor.putString(getString(R.string.saved_question_key), question);
+            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
             myPrefEditor.apply();
             toastString = getString(R.string.register_succesful);
             finish();
