@@ -33,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
+        android:src="@drawable/pip_satalite"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
@@ -57,7 +58,8 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:id="@+id/email_text"
-        android:hint="@string/email_example_label" />
+        android:hint="@string/email_example_label"
+        android:background="@drawable/pip_dock_bar" />
 
     <TextView
         android:layout_width="wrap_content"
