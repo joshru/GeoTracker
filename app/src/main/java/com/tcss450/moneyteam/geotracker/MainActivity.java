@@ -30,6 +30,9 @@ import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 
+/**
+ * Default map activity
+ */
 public class MainActivity extends FragmentActivity {
     private String[] mItemTitles;
     private DrawerLayout mDrawerLayout;
