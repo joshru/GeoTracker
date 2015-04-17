@@ -98,6 +98,7 @@ public class ForgotPasswordDialog extends DialogFragment {
                                 .getText().toString().equals(mNewPassText.getText().toString())) {
                             myPrefEditor.putString(getString(R.string.saved_pass_key),
                                     Authenticator.generateHash(mNewPassText.getText().toString()));
+                            myPrefEditor.commit();
                             Toast.makeText(getActivity(), getString(R.string.toast_security_password_changed),
                                     Toast.LENGTH_LONG).show();
                         } else {
