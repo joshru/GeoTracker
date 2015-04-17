@@ -3,7 +3,6 @@ package com.tcss450.moneyteam.geotracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -19,7 +18,7 @@ import android.widget.Toast;
 //import android.app.FragmentTransaction;
 //import android.app.FragmentTransaction;
 
-public class LoginActivity extends FragmentActivity implements ForgotPasswordDialogFragment.OnFragmentInteractionListener {
+public class LoginActivity extends FragmentActivity {
 
     private EditText mPassText;
     private EditText mEmailText;
@@ -51,6 +50,8 @@ public class LoginActivity extends FragmentActivity implements ForgotPasswordDia
         });
 
         final TextView mForgotLabel = (TextView) findViewById(R.id.login_forgot_password_label);
+
+        //Forgot password dialog comes up here
         mForgotLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +75,7 @@ public class LoginActivity extends FragmentActivity implements ForgotPasswordDia
 
     /**
      * Acting OnClickListener for the login button.
-     * @param view
+     * @param view the view
      */
     public void loginUser(View view) {
         String toastString = "";
@@ -118,10 +119,7 @@ public class LoginActivity extends FragmentActivity implements ForgotPasswordDia
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        //Do nothing - data altered via shared preferences
-    }
+
 }
 
 
