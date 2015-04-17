@@ -1,3 +1,4 @@
+/*
 package com.tcss450.moneyteam.geotracker;
 
 import android.app.Activity;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+*/
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -26,7 +28,8 @@ import android.widget.Toast;
  * to handle interaction events.
  * Use the {@link ForgotPasswordDialogFragment#newInstance} factory method to
  * create an instance of this fragment.
- */
+ *//*
+
 public class ForgotPasswordDialogFragment extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,14 +48,16 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
     private String mParam1;
     private String mParam2;
 
-    /**
+    */
+/**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment ForgotPasswordDialogFragment.
-     */
+     *//*
+
     // TODO: Rename and change types and number of parameters
     public static ForgotPasswordDialogFragment newInstance(String param1, String param2) {
         ForgotPasswordDialogFragment fragment = new ForgotPasswordDialogFragment();
@@ -103,15 +108,19 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
 
 
 
-        /* USE the .setVisibility(View.VISIBLE) to make the password text visible once the user
+        */
+/* USE the .setVisibility(View.VISIBLE) to make the password text visible once the user
         enters the correct answer.
-         */
-       /* mNewPassText = (EditText) mFragmentView.findViewById(R.id.dialog_security_newpass);
+         *//*
+
+       */
+/* mNewPassText = (EditText) mFragmentView.findViewById(R.id.dialog_security_newpass);
         mNewPassRepeatText = (EditText) mFragmentView.findViewById(R.id.dialog_security_repeatpass);
         mDialogUserQuestion = (TextView) mFragmentView.findViewById(R.id.dialog_security_user_question);
         mDialogSecurityAnswer = (EditText) mFragmentView.findViewById(R.id.dialog_security_answer);
         mDialogSubmitButton = (Button) mFragmentView.findViewById(R.id.dialog_submit_button);
-*/
+*//*
+
         mDialogUserQuestion.setText(question);
 
         mDialogSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +207,8 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
         mListener = null;
     }
 
-    /**
+    */
+/**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -207,10 +217,12 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     *//*
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
 }
+*/
