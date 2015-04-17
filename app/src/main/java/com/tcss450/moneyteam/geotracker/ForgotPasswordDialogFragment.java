@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 /**
@@ -25,12 +31,17 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private TextView mNewPassText;
+    private TextView mNewPassRepeatText;
+    private View mFragmentView;
+    private OnFragmentInteractionListener mListener;
+    private TextView mDialogUserQuestion;
+    private EditText mDialogSecurityAnswer;
+    private Button mDialogSubmitButton;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -67,14 +78,24 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //return super.onCreateDialog(savedInstanceState);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        mFragmentView = inflater.inflate(R.layout.fragment_forgot_password_dialog, null);
+        builder.setView(mFragmentView);
 
-        builder.setView(inflater.inflate(R.layout.fragment_forgot_password_dialog, null));
-
-        /*
-        Not done here. Will add code for confirm and deny later.
+        /* USE the .setVisibility(View.VISIBLE) to make the password text visible once the user
+        enters the correct answer.
          */
+        /*
+        mNewPassText = (TextView) mFragmentView.findViewById(R.id.dialog_security_newpass);
+        mNewPassRepeatText = (TextView) mFragmentView.findViewById(R.id.dialog_security_repeatpass);
+        mDialogUserQuestion = (TextView) mFragmentView.findViewById(R.id.dialog_security_user_question);
+        mDialogSecurityAnswer = (EditText) mFragmentView.findViewById(R.id.dialog_security_answer);
+        mDialogSubmitButton = (Button) mFragmentView.findViewById(R.id.dialog_submit_button);
+
+
+        mNewPassText.setVisibility(View.VISIBLE);
+        mNewPassRepeatText.setVisibility(View.VISIBLE);
+        */
 
         return builder.create();
     }
