@@ -71,7 +71,7 @@
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
     <string name="dialog_security_question_label">Security Question</string>
-    <string name="drawer_text">temp val</string>
+    <string name="drawer_text">&lt;&lt;Pip Tracker Options&gt;&gt;</string>
 
 
 </resources>

@@ -6,6 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/abc_text_size_medium_material"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/pip_background"
     android:orientation="vertical"
     tools:context="com.tcss450.moneyteam.geotracker.LoginActivity">
 
@@ -16,7 +17,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:hint="@string/app_name"/>
+        android:hint="@string/app_name"
+        android:text="Pip Tracker 3000" />
 
     <TextView
         android:layout_width="wrap_content"
