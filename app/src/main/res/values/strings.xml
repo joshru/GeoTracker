@@ -51,6 +51,8 @@
     <string name="main_map_title">Map</string>
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
+    <string name="dialog_security_question_label">null</string>
+    <string name="drawer_text"> &lt;&lt;Pip Navigation Window&gt;&gt;</string>
 
 
 </resources>
