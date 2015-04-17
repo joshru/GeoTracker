@@ -33,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:src="@drawable/pip_satalite"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pip_i_have_no_idea_wtf" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -81,7 +81,8 @@
         android:hint="@string/passphrase_example_label"
         android:gravity="center_vertical|center"
         android:background="@drawable/pip_bottom_hook"
-        android:textColorHint="#6b11f97c" />
+        android:textColorHint="#6b11f97c"
+        android:textColor="#ff11f97c" />
 
     <Space
         android:layout_width="match_parent"
@@ -129,8 +130,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/pip_101"
-        android:onClick="iAmANoob" />
+        android:background="@drawable/pip_bar_bottom"
+        android:onClick="iAmANoob"
+        android:src="@drawable/pip_101"
+        android:paddingBottom="35dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pip_bar_bottom" />
 
 
 </LinearLayout>
