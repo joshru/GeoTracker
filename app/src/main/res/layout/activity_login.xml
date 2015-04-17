@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/pip_edition"
+        android:text="Stalker Edition"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="10dp" />
@@ -59,7 +59,11 @@
         android:inputType="textEmailAddress"
         android:id="@+id/email_text"
         android:hint="@string/email_example_label"
-        android:background="@drawable/pip_dock_bar" />
+        android:background="@drawable/pip_bottom_hook"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
+        android:textColor="#ff11f97c"
+        android:textColorHint="#6b11f97c" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,7 +78,15 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:id="@+id/passphrase_text"
-        android:hint="@string/passphrase_example_label"/>
+        android:hint="@string/passphrase_example_label"
+        android:gravity="center_vertical|center"
+        android:background="@drawable/pip_bottom_hook"
+        android:textColorHint="#6b11f97c" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="fill_parent"
@@ -82,9 +94,12 @@
         android:text="@string/sign_in_label"
         android:id="@+id/login_button"
         android:layout_gravity="fill_horizontal"
-        android:outlineProvider="background"
         android:onClick="loginUser"
-        android:paddingTop="10dp" />
+        android:paddingTop="0dp"
+        android:background="@drawable/pip_dock_bar"
+        android:textColor="#ff11f97c"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
+        android:outlineProvider="background" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,14 +113,24 @@
         android:textColorLink="@color/abc_secondary_text_material_dark" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Forgot passphrase? Recover it here."
         android:id="@+id/login_forgot_password_label"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:onClick="forgotPassphrase"
-        android:paddingTop="@dimen/abc_text_size_small_material" />
+        android:paddingTop="@dimen/abc_text_size_small_material"
+        android:gravity="center_horizontal"
+        android:paddingBottom="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pip_101"
+        android:onClick="iAmANoob" />
 
 
 </LinearLayout>

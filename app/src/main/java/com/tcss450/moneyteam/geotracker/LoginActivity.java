@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -27,6 +30,8 @@ public class LoginActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         mPassText = (EditText) findViewById(R.id.passphrase_text);
@@ -115,10 +120,19 @@ public class LoginActivity extends FragmentActivity {
         Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
     }
 
-    public void forgotPassphrase(View view) {
+    public void iAmANoob (View view) {
+        Toast.makeText(this, "Yes you are a noob.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "You cant even figure out how to log in..", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "....", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Yes that was intentionally blank.", Toast.LENGTH_LONG).show();
+        Toast tease = Toast.makeText(this, "You have successfully logged in.", Toast.LENGTH_LONG);
+        tease.setGravity(Gravity.CENTER_VERTICAL,0,0);
+        tease.show();
+        Toast.makeText(this, "Just kidding..", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "No Im not stopping soon.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Just kidding, hurry and log in already.", Toast.LENGTH_LONG).show();
 
     }
-
 
 }
 
