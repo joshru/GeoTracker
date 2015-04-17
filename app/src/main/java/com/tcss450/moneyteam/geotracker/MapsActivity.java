@@ -10,6 +10,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity {
 
+    private static final double SEATTLE_LONG = 47.6097;
+    private static final double SEATTLE_LAT = 122.3331;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @Override
@@ -60,6 +62,6 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(SEATTLE_LAT, SEATTLE_LONG)).title("Marker"));
     }
 }

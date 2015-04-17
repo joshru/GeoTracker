@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drawer_titles_array">
+        <item>Home</item>
+        <item>Map</item>
+        <item>Account Settings</item>
+    </string-array>
+</resources>
