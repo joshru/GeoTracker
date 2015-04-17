@@ -140,8 +140,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/pip_101"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:paddingBottom="10dp" />
+            android:layout_alignParentBottom="false"
+            android:paddingBottom="5dp" />
         </RelativeLayout>
     />
 
