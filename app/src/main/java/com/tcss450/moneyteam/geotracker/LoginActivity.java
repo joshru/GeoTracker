@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -18,45 +17,51 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import android.app.FragmentTransaction;
-//import android.app.FragmentTransaction;
-
+/**
+ *
+ */
 public class LoginActivity extends FragmentActivity {
 
+    /** Password text label. */
     private EditText mPassText;
+    /** Email text label. */
     private EditText mEmailText;
+    /** Login button*/
     private Button mLoginButton;
 
+    private TextView mRegisterLabel;
+
+    private TextView mForgotLabel;
+
+    private int mLoginTries;
+
+    /**
+     * onCreate is called when the LoginActivity is instantiated.
+     * @param savedInstanceState the bundle containing intent info.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+        mRegisterLabel = (TextView) findViewById(R.id.register_label);
+        mForgotLabel = (TextView) findViewById(R.id.login_forgot_password_label);
 
         mPassText = (EditText) findViewById(R.id.passphrase_text);
         mEmailText = (EditText) findViewById(R.id.email_text);
         mLoginButton = (Button)  findViewById(R.id.login_button);
+        mLoginTries = 0;
 
-        final TextView mRegisterLabel = (TextView) findViewById(R.id.register_label);
-
+        //REGISTER LABEL ONCLICK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mRegisterLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Launch Register Activity, starting a new intent.
-                Intent nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
-                //key,values to send to main.
-                //Take this
-                nextScreen.putExtra("email", mEmailText.getText().toString());
-                Log.e("d", "Changed to RegisterActivity");
-                startActivity(nextScreen);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                launchActivity("register");
             }
         });
 
-        final TextView mForgotLabel = (TextView) findViewById(R.id.login_forgot_password_label);
-
-        //Forgot password dialog comes up here
+        //FORGOT PASSWORD LABEL ONCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mForgotLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,15 +69,12 @@ public class LoginActivity extends FragmentActivity {
                 dialog.show(getFragmentManager(), "forgotPW");
             }
         });
-        //push
 
+        //LOGIN BUTTON ONLONGCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
-                nextScreen.putExtra("email", "ADMIN");
-                startActivity(nextScreen);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                launchActivity("");
                 Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG).show();
                 return true;
             }
@@ -84,7 +86,7 @@ public class LoginActivity extends FragmentActivity {
      * @param view the view
      */
     public void loginUser(View view) {
-        String toastString = "";
+        String toastString = getString(R.string.login_no_device_user);
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
         final String emailCred = mEmailText.getText().toString();
         final String passCredHash = Authenticator.generateHash(mPassText.getText().toString());
@@ -92,49 +94,55 @@ public class LoginActivity extends FragmentActivity {
         final String userPassHash;
         final boolean emailForm = Authenticator.emailFormatCheck(emailCred);
         final boolean passForm = Authenticator.passFormatCheck(mPassText.getText().toString());
+        View badView = mLoginButton;
 
         //Get Shared Preferences
         SharedPreferences myPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         userEmail = myPreferences.getString("userEmail", "");
         userPassHash = myPreferences.getString("userPassphraseHash", "");
 
-        view.startAnimation(animAlpha);
         if (emailForm && passForm && userEmail != null) {
             if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
-                //Launch Main Activity, starting a new intent.
-                Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
-                //key,values to send to main.
-                //Take this
-                nextScreen.putExtra("email", mEmailText.getText().toString());
-                Log.e("d", "Changed to RegisterActivity");
-                startActivity(nextScreen);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                launchActivity("");
+                mLoginTries = 0;
                 toastString = getString(R.string.login_success);
             } else {
                 toastString = getString(R.string.bad_creds_toast);
+                mLoginTries++;
+                badView = (mLoginTries % 3 == 0)?(mForgotLabel):(mRegisterLabel);
+                if(badView == mForgotLabel) toastString = getString(R.string.login_forgot_pass);
             }
         } else if (!emailForm) {
+            badView = mEmailText;
             toastString = getString(R.string.bad_email_toast);
         } else if (!passForm) {
+            badView = mPassText;
             toastString = getString(R.string.bad_pass_toast);
         }
+        badView.startAnimation(animAlpha);
         Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
     }
 
     public void iAmANoob (View view) {
-        Toast.makeText(this, "Yes you are a noob.", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "You cant even figure out how to log in..", Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "....", Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Yes that was intentionally blank.", Toast.LENGTH_LONG).show();
-        Toast tease = Toast.makeText(this, "You have successfully logged in.", Toast.LENGTH_LONG);
-        tease.setGravity(Gravity.CENTER_VERTICAL,0,0);
-        tease.show();
-        Toast.makeText(this, "Just kidding..", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "No Im not stopping soon.", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Just kidding, hurry and log in already.", Toast.LENGTH_LONG).show();
 
     }
 
+    /**
+     *
+     * @param activity
+     */
+    public void launchActivity(final String activity) {
+        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);;
+        switch (activity) {
+            case "register":
+                nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
+            default:
+                nextScreen.putExtra("email", mEmailText.getText().toString());
+                startActivity(nextScreen);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                break;
+        }
+    }
 }
 
 

@@ -16,7 +16,7 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         tools:context=".MainActivity"
-        android:background="#ff2dff7d">
+        android:background="#ff11f97c">
 
         <fragment
         android:layout_width="match_parent"
