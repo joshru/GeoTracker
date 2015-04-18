@@ -74,6 +74,7 @@
     <string name="drawer_text">&lt;&lt;Pip Tracker Options&gt;&gt;</string>
     <string name="login_no_device_user">No current device user</string>
     <string name="login_forgot_pass">You forgot it, didn\'t you?</string>
+    <string name="application_name">Tracker-Boy 3000</string>
 
 
 </resources>

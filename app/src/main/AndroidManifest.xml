@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/Login"
+            android:label="@string/application_name"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:theme="@style/pip_font" >
             <intent-filter>
