@@ -105,7 +105,7 @@ public class LoginActivity extends FragmentActivity {
             if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
                 launchActivity("");
                 mLoginTries = 0;
-                toastString = getString(R.string.login_success);
+                finish();
             } else {
                 toastString = getString(R.string.bad_creds_toast);
                 mLoginTries++;
@@ -132,16 +132,19 @@ public class LoginActivity extends FragmentActivity {
      * @param activity
      */
     public void launchActivity(final String activity) {
-        Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);;
         switch (activity) {
             case "register":
-                nextScreen = new Intent(getApplicationContext(), RegisterActivity.class);
+                Intent registerScreen = new Intent(getApplicationContext(), RegisterActivity.class);
+                registerScreen.putExtra("email", mEmailText.getText().toString());
+                startActivity(registerScreen);
+                break;
             default:
-                nextScreen.putExtra("email", mEmailText.getText().toString());
-                startActivity(nextScreen);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+                mainScreen.putExtra("email", mEmailText.getText().toString());
+                startActivity(mainScreen);
                 break;
         }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
 

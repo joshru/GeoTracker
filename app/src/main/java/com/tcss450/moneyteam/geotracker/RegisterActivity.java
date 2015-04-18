@@ -1,11 +1,13 @@
 package com.tcss450.moneyteam.geotracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -17,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends Activity {
 
     EditText mEmail;
     EditText mPassword;
@@ -28,12 +30,13 @@ public class RegisterActivity extends ActionBarActivity {
     CheckBox mTermsCheckBox;
 
     private boolean mTermsBool;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
+        Log.e("d", "Made it into register");
         Intent i = getIntent();
         // Receiving the Data
         String userEmail = i.getStringExtra("email");
