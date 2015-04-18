@@ -42,7 +42,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/pip_textview_hook">
+        android:background="@drawable/pip_textview_hook"
+        android:paddingBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,11 +51,11 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/email_label"
             android:id="@+id/email_label"
-            android:paddingRight="31dp"
-            android:layout_alignParentStart="false" />
+            android:layout_alignParentStart="true"
+            android:elegantTextHeight="false" />
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:id="@+id/email_text"
@@ -66,29 +67,33 @@
             android:background="@drawable/pip_blank_background" />
     </RelativeLayout>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/pasphrase_label"
-        android:id="@+id/pasphrase_label"
-        android:paddingTop="10dp" />
+        android:background="@drawable/pip_textview_long_hook"
+        android:paddingBottom="20dp">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:id="@+id/passphrase_text"
-        android:hint="@string/passphrase_example_label"
-        android:gravity="center_vertical|center"
-        android:background="@drawable/pip_bottom_hook"
-        android:textColorHint="#6b11f97c"
-        android:textColor="#ff11f97c" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/pasphrase_label"
+            android:id="@+id/pasphrase_label"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="false" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_gravity="center_horizontal" />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/passphrase_text"
+            android:hint="@string/passphrase_example_label"
+            android:gravity="center_vertical|center"
+            android:textColorHint="#6b11f97c"
+            android:textColor="#ff11f97c"
+            android:background="@drawable/pip_blank_background" />
+    </RelativeLayout>
 
     <Button
         android:layout_width="fill_parent"
