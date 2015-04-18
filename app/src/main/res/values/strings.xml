@@ -75,6 +75,14 @@
     <string name="login_no_device_user">No current device user</string>
     <string name="login_forgot_pass">You forgot it, didn\'t you?</string>
     <string name="application_name">Tracker-Boy 3000</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_text">TextActivity</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="map_fragment_label">THIS IS THE MAP FRAGMENT</string>
+    <string name="tracking_label">This is the tracking label</string>
+    <string name="account_settings_fragment_label">THIS SHOULD BE THE ACCOUNT SETTINGS FRAGMENT</string>
 
+    <!-- NOT FOR OUR STUFF -->
 </resources>

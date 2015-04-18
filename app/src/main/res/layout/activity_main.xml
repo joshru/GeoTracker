@@ -3,7 +3,8 @@
     tools:context="com.tcss450.moneyteam.geotracker.MapsActivity"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@android:style/Theme.WithActionBar">
 
     <!-- The main content view -->
     <RelativeLayout
@@ -22,23 +23,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/drawer_text" ></TextView>
     </RelativeLayout>
 
     <!-- The navigation drawer -->
 
     <ListView
         android:id="@+id/drawer"
-        android:layout_width="320dp"
+        android:layout_width="3220dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#F3F3F4"
+        android:background="#ff318831"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" ></ListView>
+        android:dividerHeight="0dp"
+        android:clickable="false">
+
+
+        </ListView>
 
 </android.support.v4.widget.DrawerLayout>
