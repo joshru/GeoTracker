@@ -52,10 +52,12 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         ActionBar actionBar = getActionBar();
 
         // Hide Actionbar Icon
-        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         // Hide Actionbar Title
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Create Actionbar Tabs
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -116,47 +118,54 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
-        return false;
+        Log.d(DEBUG_TAG, "onDSingleTapConfirmed: " + e.toString());
+        return true;
     }
 
     @Override
     public boolean onDoubleTap(MotionEvent e) {
-        return false;
+        Log.d(DEBUG_TAG, "onDoubleTap: " + e.toString());
+        return true;
     }
 
     @Override
     public boolean onDoubleTapEvent(MotionEvent e) {
-        return false;
+        Log.d(DEBUG_TAG, "onDoubleTapEvent: " + e.toString());
+        return true;
     }
 
     @Override
     public boolean onDown(MotionEvent e) {
-        return false;
+        Log.d(DEBUG_TAG, "onDown: " + e.toString());
+        return true;
     }
 
     @Override
     public void onShowPress(MotionEvent e) {
-
+        Log.d(DEBUG_TAG, "onShowPress: " + e.toString());
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        return false;
+        Log.d(DEBUG_TAG, "onSingleTapUp: " + e.toString());
+        return true;
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
+        Log.d(DEBUG_TAG, "onScroll: e1:" + e1.toString() + " e2:" + e2.toString() + "(dX, dY):(" + distanceX + ", " + distanceY + ")");
+        return true;
     }
 
     @Override
     public void onLongPress(MotionEvent e) {
-
+        Log.d(DEBUG_TAG, "onLongPress: " + e.toString());
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
+        Log.d(DEBUG_TAG, "onFling: e1:" + e1.toString() + " e2:" + e2.toString() + "(vX, vY):(" + velocityX + ", " + velocityY + ")");
+        return true;
     }
 }
 
