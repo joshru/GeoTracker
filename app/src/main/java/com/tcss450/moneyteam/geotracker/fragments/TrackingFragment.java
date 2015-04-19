@@ -1,4 +1,4 @@
-package com.tcss450.moneyteam.geotracker.tab_fragments;
+package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;

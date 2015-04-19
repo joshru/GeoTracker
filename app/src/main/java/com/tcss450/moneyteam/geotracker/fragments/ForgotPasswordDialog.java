@@ -1,4 +1,4 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Authenticator;
 
 /**
  * Created by Brandon on 4/16/2015.
