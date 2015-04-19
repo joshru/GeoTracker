@@ -1,22 +1,20 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.activities;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.Window;
 
-import com.tcss450.moneyteam.geotracker.tab_fragments.AccountFragment;
-import com.tcss450.moneyteam.geotracker.tab_fragments.MapFragment;
-import com.tcss450.moneyteam.geotracker.tab_fragments.TrackingFragment;
+import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.listeners.PipTabListener;
+import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
+import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
+import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
 
 import java.util.ArrayList;
 import java.util.List;

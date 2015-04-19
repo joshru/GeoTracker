@@ -1,11 +1,10 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -17,6 +16,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
+import com.tcss450.moneyteam.geotracker.model.Authenticator;
 
 /**
  *

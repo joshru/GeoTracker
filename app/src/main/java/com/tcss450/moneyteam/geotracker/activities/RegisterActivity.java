@@ -1,11 +1,10 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.activities;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +16,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.model.Authenticator;
 
 
 public class RegisterActivity extends Activity {
