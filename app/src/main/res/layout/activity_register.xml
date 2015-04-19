@@ -1,6 +1,36 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:id="@+id/register_activity"
+    android:background="@drawable/pip_background">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#fd000000"
+        android:clickable="true">
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:id="@+id/toggleButton"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:background="@drawable/pip_advent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp" />
+    </RelativeLayout>
+
+    <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
@@ -12,39 +42,58 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="1"
-        android:background="@drawable/pip_background">
+        android:paddingTop="90dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/email_label"
-            android:id="@+id/textView3"
-            android:singleLine="true"
-            android:layout_marginTop="64dp"
-             />
-
-        <EditText
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/register_email"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
-            android:inputType="textEmailAddress" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email_label"
+                android:id="@+id/textView3"
+                android:singleLine="true"
+                android:textColor="#ff11f97c" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:id="@+id/textView5"
-            android:layout_marginTop="30dp"
-            />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_email"
 
-        <EditText
+                android:inputType="textEmailAddress"
+                android:textColor="#ff11f97c"
+                android:layout_alignTop="@+id/textView3"
+                android:background="@drawable/pip_textview_hook" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/register_password"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
-            android:password="true"
-            android:inputType="text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:id="@+id/textView5"
+                android:textColor="#ff11f97c"
+                android:layout_alignTop="@+id/register_password" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_password"
+
+                android:password="true"
+                android:inputType="text"
+                android:textColor="#ff11f97c"
+                android:autoText="false"
+                android:background="@drawable/pip_textview_long_hook" />
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,14 +101,15 @@
             android:text="Repeat Password"
             android:id="@+id/textView6"
             android:singleLine="true"
-             />
+            android:textColor="#ff11f97c" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/register_repeat_password"
             android:password="true"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="#ff11f97c" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,7 +117,8 @@
             android:text="Security Question"
             android:id="@+id/textView7"
 
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="30dp"
+            android:textColor="#ff11f97c" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -76,25 +127,32 @@
             android:spinnerMode="dropdown"
             android:textAlignment="center"
             android:touchscreenBlocksFocus="false"
-            />
+            android:textColor="#ff11f97c"
+            android:background="@drawable/pip_blank_background" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Answer"
-            android:id="@+id/textView8"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/register_security_answer"
-             />
-
-        <Space
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="25dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_security_answer"
+                android:textColor="#ff11f97c"
+                android:background="@drawable/pip_textview_long_hook"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Answer"
+                android:id="@+id/textView8"
+                android:textColor="#ff11f97c"
+                android:layout_alignTop="@+id/register_security_answer"
+                android:layout_marginLeft="20dp" />
+        </RelativeLayout>
 
         <ScrollView
             android:id="@+id/tos_fragment"
@@ -105,24 +163,30 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="6dip"
-                    android:paddingRight="6dip"
-                    android:paddingTop="6dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="GeoTracker: Terms of Service"
-                    android:layout_gravity="center_horizontal" />
 
-                <View
+                <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="1dip"
-                    android:background="#ff000000"
-                    android:layout_marginLeft="6dip"
-                    android:layout_marginRight="6dip"
-                    android:layout_marginTop="6dip"
-                    android:layout_marginBottom="12dip" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Terms of Service"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#ff11f97c"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignTop="@+id/imageView11" />
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView11"
+                        android:background="@drawable/pip_title_hook" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tos_text_view"
@@ -133,11 +197,23 @@
                     android:paddingLeft="6dip"
                     android:paddingRight="6dip"
                     android:paddingBottom="6dip"
-                    android:text="@string/tos_text" />
+                    android:text="@string/tos_text"
+                    android:textColor="#ff11f97c"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:autoText="false" />
                     />
 
             </LinearLayout>
         </ScrollView>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView12"
+            android:background="@drawable/pip_hud_flat_bar"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <CheckBox
             android:layout_width="fill_parent"
@@ -145,7 +221,9 @@
             android:text="I have read and understand the terms of service, and agree to them completely."
             android:id="@+id/register_checkbox"
             android:layout_gravity="center_horizontal"
-            android:checked="false" />
+            android:checked="false"
+            android:textColor="#ff11f97c"
+            android:buttonTint="#ff11f97c" />
 
         <Button
             android:layout_width="fill_parent"
@@ -159,3 +237,5 @@
 
     </LinearLayout>
 </ScrollView>
+
+</RelativeLayout>
