@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:fillViewport="true"
 
-    tools:context="com.tcss450.moneyteam.geotracker.RegisterActivity">
+    tools:context="com.tcss450.moneyteam.geotracker.activities.RegisterActivity">
     <!--Alex likes crack-->
     <LinearLayout
         android:layout_width="fill_parent"
