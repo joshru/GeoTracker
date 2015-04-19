@@ -4,7 +4,8 @@ import android.app.ActionBar;
         import android.app.ActionBar.Tab;
         import android.app.Fragment;
         import android.app.FragmentTransaction;
-        import android.app.ActionBar;
+
+import com.tcss450.moneyteam.geotracker.R;
 
 public class PipTabListener implements ActionBar.TabListener {
 

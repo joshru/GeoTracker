@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.model.Authenticator;
+import com.tcss450.moneyteam.geotracker.Authenticator;
 
 
 public class RegisterActivity extends Activity {

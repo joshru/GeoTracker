@@ -11,7 +11,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.listeners.PipTabListener;
+import com.tcss450.moneyteam.geotracker.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;

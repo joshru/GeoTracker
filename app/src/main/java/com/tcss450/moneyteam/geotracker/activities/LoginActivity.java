@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
-import com.tcss450.moneyteam.geotracker.model.Authenticator;
+import com.tcss450.moneyteam.geotracker.Authenticator;
 
 /**
  *
