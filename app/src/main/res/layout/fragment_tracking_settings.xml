@@ -7,87 +7,123 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/pip_title_hook"
-        android:paddingBottom="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView10"
+            android:background="@drawable/pip_title_hook"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Starting Point"
-            android:id="@+id/textView10"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Date"
-            android:id="@+id/f_tracking_date"
-            android:layout_below="@+id/textView10"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Time"
-            android:id="@+id/f_tracking_time"
-            android:layout_below="@+id/f_tracking_date"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/f_tracking_date_input"
-            android:layout_toRightOf="@+id/f_tracking_date"
-            android:layout_below="@+id/textView10"
-            android:layout_above="@+id/f_tracking_time" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/f_tracking_time_input"
-            android:layout_alignTop="@+id/f_tracking_time"
-            android:layout_alignBottom="@+id/f_tracking_time"
-            android:layout_toRightOf="@+id/f_tracking_time" />
+            android:id="@+id/textView17"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ff11f97c"
+            android:layout_alignTop="@+id/imageView10" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@drawable/pip_title_hook_inverse"
-        android:paddingTop="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Date"
-            android:id="@+id/textView11"
+            android:id="@+id/textView10"
             android:paddingEnd="10dp"
-            android:paddingStart="10dp" />
+            android:textSize="25dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#ff11f97c"
+            android:password="false"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_alignParentLeft="false" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#ff11f97c"
+            android:background="@drawable/pip_button_background_alpha"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_toRightOf="@+id/textView10"
+            android:layout_alignTop="@+id/textView10"
+            android:layout_alignBottom="@+id/textView10" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/pip_hud_flat_bar"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Time"
-            android:id="@+id/textView12"
-            android:layout_below="@+id/textView11"
+            android:text="Date"
+            android:id="@+id/textView19"
             android:paddingEnd="10dp"
-            android:paddingStart="10dp" />
+            android:textSize="25dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#ff11f97c"
+            android:password="false"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editText3"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#ff11f97c"
+            android:background="@drawable/pip_button_background_alpha"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_toRightOf="@+id/textView19"
+            android:layout_alignBottom="@+id/textView19"
+            android:layout_alignTop="@+id/textView19" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:background="@drawable/pip_title_hook_inverse"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,30 +131,9 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Ending Point"
             android:id="@+id/textView13"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentBottom="false"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textView12" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editText"
-            android:layout_toRightOf="@+id/textView11"
-            android:layout_alignTop="@+id/textView11"
-            android:layout_alignBottom="@+id/textView11" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_alignBottom="@+id/textView12"
-            android:layout_alignTop="@+id/textView12"
-            android:layout_toRightOf="@+id/textView12" />
+            android:textColor="#ff11f97c"
+            android:layout_alignBottom="@+id/imageView5"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </LinearLayout>

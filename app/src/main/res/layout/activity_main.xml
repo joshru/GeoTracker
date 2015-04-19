@@ -17,7 +17,7 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         tools:context=".MainActivity"
-        android:background="#ff11f97c">
+        android:background="@drawable/pip_button_background_alpha">
 
         <fragment
         android:layout_width="match_parent"

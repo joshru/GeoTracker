@@ -118,12 +118,14 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/pip_button_background_alpha">
+        android:layout_height="60dp"
+        android:background="@drawable/pip_button_background_alpha"
+        android:clickable="true"
+        android:id="@+id/login_button_layout">
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="@string/sign_in_label"
             android:id="@+id/login_button"
             android:layout_gravity="fill_horizontal"
@@ -188,8 +190,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView2"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/pip_bottom_left_hook_box"
-                android:layout_alignParentBottom="true" />
+
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/pip_bottom_left_hook_box" />
 
             <TextView
                 android:layout_width="wrap_content"

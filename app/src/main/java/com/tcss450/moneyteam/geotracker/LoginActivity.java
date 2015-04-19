@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends FragmentActivity {
     private TextView mForgotLabel;
 
     private int mLoginTries;
+    private RelativeLayout mLoginButtonLayout;
 
     /**
      * onCreate is called when the LoginActivity is instantiated.
@@ -51,6 +53,7 @@ public class LoginActivity extends FragmentActivity {
         mPassText = (EditText) findViewById(R.id.passphrase_text);
         mEmailText = (EditText) findViewById(R.id.email_text);
         mLoginButton = (Button)  findViewById(R.id.login_button);
+        mLoginButtonLayout = (RelativeLayout) findViewById(R.id.login_button_layout);
         mLoginTries = 0;
 
         //REGISTER LABEL ONCLICK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,6 +122,7 @@ public class LoginActivity extends FragmentActivity {
             badView = mPassText;
             toastString = getString(R.string.bad_pass_toast);
         }
+        mLoginButtonLayout.startAnimation(animAlpha);
         badView.startAnimation(animAlpha);
         Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
     }
