@@ -50,6 +50,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     private ImageView mProgressBar;
     private PipTextEnterListener mEnterListener;
     private ImageView mProgressBarIcon;
+    private Animation animAlpha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
         mTermsBool = false;
         progressArr = new int[5];
+
         mEmail = (EditText) findViewById(R.id.register_email);
         mPassword = (EditText) findViewById(R.id.register_password);
         mRepeatPassword = (EditText) findViewById(R.id.register_repeat_password);
@@ -75,6 +77,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         htmlTOS.setText(Html.fromHtml(getString(R.string.tos_agreement)));
         mEnterListener = new PipTextEnterListener();
         mProgressBarIcon = (ImageView) findViewById(R.id.register_progress_icon);
+        animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
         //ADD LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mEmail.setOnEditorActionListener(mEnterListener);
@@ -239,6 +242,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 progress = R.drawable.pip_progress_5;
                 icon = R.drawable.pip_man;
             }
+            mProgressBarIcon.startAnimation(animAlpha);
+            mProgressBar.startAnimation(animAlpha);
             mProgressBar.setBackgroundDrawable(getResources().getDrawable(progress));
             mProgressBarIcon.setBackgroundDrawable(getResources().getDrawable(icon));
         }
