@@ -208,16 +208,23 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
 
-        <Button
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
-            android:id="@+id/register_register_button"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.06"
+            android:layout_margin="10dp"
             android:onClick="registerUser"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:background="@drawable/pip_button_background_alpha">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:id="@+id/register_register_button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="registerUser"
+                android:background="@drawable/pip_button_outline"
+                android:textColor="#ff11f97c" />
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>

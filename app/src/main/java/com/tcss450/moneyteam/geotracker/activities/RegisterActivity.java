@@ -11,6 +11,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -123,6 +125,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         final String passphraseHash = Authenticator.generateHash(passphrase);
         final String question = mSecuritySpinner.getSelectedItem().toString();
         final String answer = mSecurityAnswer.getText().toString();
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
         //Field testing
         final boolean validEmail = Authenticator.emailFormatCheck(email);
@@ -151,6 +154,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             toastString = getString(R.string.tos_toast);
         }
         Toast.makeText(this, toastString, Toast.LENGTH_LONG).show();
+        mRegisterButton.startAnimation(animAlpha);
     }
 
     @Override
