@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Authenticator;
+import com.tcss450.moneyteam.geotracker.R;
 
 /**
  * Created by Brandon on 4/16/2015.
@@ -28,7 +28,7 @@ public class ForgotPasswordDialog extends DialogFragment {
     private TextView mDialogUserQuestion;
     private EditText mDialogSecurityAnswer;
     private Button mDialogSubmitButton;
-
+    private boolean mResetSuccessful;
 
     public static ForgotPasswordDialog newInstance() {
         ForgotPasswordDialog fragment = new ForgotPasswordDialog();
@@ -41,7 +41,7 @@ public class ForgotPasswordDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+        mResetSuccessful = false;
         View v = getActivity().getLayoutInflater().inflate(R.layout.fragment_forgot_password_dialog, null);
 
         mNewPassText = (EditText) v.findViewById((R.id.dialog_security_newpass));
@@ -91,28 +91,20 @@ public class ForgotPasswordDialog extends DialogFragment {
         });
 
       //  mFragmentView = inflater.inflate(R.layout.fragment_forgot_password_dialog, null);
+
         builder.setView(v)
+                //.setCancelable(false)
                 .setPositiveButton(R.string.reset_confirm_button, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (Authenticator.passFormatCheck(mNewPassText.getText().toString())
-                                && mNewPassRepeatText
-                                .getText().toString().equals(mNewPassText.getText().toString())) {
-                            myPrefEditor.putString(getString(R.string.saved_pass_key),
-                                    Authenticator.generateHash(mNewPassText.getText().toString()));
-                            myPrefEditor.commit();
-                            Toast.makeText(getActivity(), getString(R.string.toast_security_password_changed),
-                                    Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getActivity(), getString(R.string.toast_security_password_failed),
-                                    Toast.LENGTH_LONG).show();
-                        }
+                     //blank, manually overriden later
                     }
                 })
                 .setNegativeButton(R.string.reset_cancel_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        setCancelable(false);
                         ForgotPasswordDialog.this.getDialog().cancel();
                         Toast.makeText(getActivity(), getString(R.string.reset_cancel_button),
                                 Toast.LENGTH_LONG).show();
@@ -120,7 +112,35 @@ public class ForgotPasswordDialog extends DialogFragment {
                     }
                 });
 
+        final AlertDialog dialog = builder.create();
+        dialog.show();
 
-        return builder.create();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Authenticator.passFormatCheck(mNewPassText.getText().toString())
+                        && mNewPassRepeatText
+                        .getText().toString().equals(mNewPassText.getText().toString())) {
+                    myPrefEditor.putString(getString(R.string.saved_pass_key),
+                            Authenticator.generateHash(mNewPassText.getText().toString()));
+                    myPrefEditor.apply();
+
+
+                    mResetSuccessful = true;
+
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.toast_security_password_failed),
+                            Toast.LENGTH_LONG).show();
+                }
+                if (mResetSuccessful) {
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), getString(R.string.toast_security_password_changed),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+      return dialog;
     }
 }
