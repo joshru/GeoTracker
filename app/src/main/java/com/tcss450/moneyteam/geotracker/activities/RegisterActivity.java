@@ -242,7 +242,6 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 progress = R.drawable.pip_progress_5;
                 icon = R.drawable.pip_man;
             }
-//            animAlpha.setStartOffset(1);
             mProgressBarIcon.startAnimation(animAlpha);
             mProgressBar.startAnimation(animAlpha);
             mProgressBar.setBackgroundDrawable(getResources().getDrawable(progress));
