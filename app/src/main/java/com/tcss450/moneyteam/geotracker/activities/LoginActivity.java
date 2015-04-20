@@ -109,6 +109,7 @@ public class LoginActivity extends FragmentActivity {
 
         if (emailForm && passForm && userEmail != null) {
             if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
+                toastString = "Welcome Friend";
                 launchActivity("");
                 mLoginTries = 0;
                 finish();

@@ -97,13 +97,14 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         if(Authenticator.emailFormatCheck(userEmail)) {
             mEmail.setText(userEmail);
             progressArr[0] = 1;
+            mEnterListener.set();
         }
 
 
         /*Assign Spinner Values*/
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
                 R.layout.item_spinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
 
         mSecuritySpinner.setAdapter(adapter);
     }
