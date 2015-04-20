@@ -7,7 +7,9 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <ImageView
             android:layout_width="fill_parent"
@@ -31,8 +33,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
             android:text="Date"
             android:id="@+id/textView10"
             android:paddingEnd="10dp"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:layout_marginTop="5dp"
             android:textColor="#ff11f97c"
             android:password="false"
@@ -63,7 +65,8 @@
             android:layout_column="1"
             android:layout_toRightOf="@+id/textView10"
             android:layout_alignTop="@+id/textView10"
-            android:layout_alignBottom="@+id/textView10" />
+            android:layout_alignBottom="@+id/textView10"
+            android:paddingLeft="10dp" />
     </RelativeLayout>
 
     <ImageView
@@ -79,8 +82,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,8 +92,7 @@
             android:text="Date"
             android:id="@+id/textView19"
             android:paddingEnd="10dp"
-            android:textSize="25dp"
-            android:layout_marginTop="5dp"
+            android:textSize="20dp"
             android:textColor="#ff11f97c"
             android:password="false"
             android:layout_row="1"
@@ -110,12 +112,15 @@
             android:layout_column="1"
             android:layout_toRightOf="@+id/textView19"
             android:layout_alignBottom="@+id/textView19"
-            android:layout_alignTop="@+id/textView19" />
+            android:layout_alignTop="@+id/textView19"
+            android:paddingLeft="10dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <ImageView
             android:layout_width="fill_parent"
