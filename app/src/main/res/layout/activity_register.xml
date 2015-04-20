@@ -6,49 +6,24 @@
     android:id="@+id/register_activity"
     android:background="@drawable/pip_background">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#fd000000"
-        android:clickable="true">
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:id="@+id/toggleButton"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:background="@drawable/pip_advent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp" />
-    </RelativeLayout>
-
     <ScrollView
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
 
-    tools:context="com.tcss450.moneyteam.geotracker.activities.RegisterActivity">
+    tools:context="com.tcss450.moneyteam.geotracker.activities.RegisterActivity"
+        android:layout_marginBottom="80dp">
     <!--Alex likes crack-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="1"
-        android:paddingTop="90dp">
+        android:weightSum="1">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,23 +40,20 @@
 
                 android:inputType="textEmailAddress"
                 android:textColor="#ff11f97c"
-                android:layout_alignTop="@+id/textView3"
-                android:background="@drawable/pip_textview_hook" />
+                android:layout_below="@+id/textView3" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Password"
                 android:id="@+id/textView5"
-                android:textColor="#ff11f97c"
-                android:layout_alignTop="@+id/register_password" />
+                android:textColor="#ff11f97c" />
 
             <EditText
                 android:layout_width="fill_parent"
@@ -92,66 +64,74 @@
                 android:inputType="text"
                 android:textColor="#ff11f97c"
                 android:autoText="false"
-                android:background="@drawable/pip_textview_long_hook" />
+                android:layout_below="@+id/textView5" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Repeat Password"
-            android:id="@+id/textView6"
-            android:singleLine="true"
-            android:textColor="#ff11f97c" />
-
-        <EditText
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/register_repeat_password"
-            android:password="true"
-            android:inputType="text"
-            android:textColor="#ff11f97c" />
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Security Question"
-            android:id="@+id/textView7"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repeat Password"
+                android:id="@+id/textView6"
+                android:singleLine="true"
+                android:textColor="#ff11f97c" />
 
-            android:layout_marginTop="30dp"
-            android:textColor="#ff11f97c" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/register_security_spinner"
-            android:spinnerMode="dropdown"
-            android:textAlignment="center"
-            android:touchscreenBlocksFocus="false"
-            android:textColor="#ff11f97c"
-            android:background="@drawable/pip_blank_background" />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_repeat_password"
+                android:password="true"
+                android:inputType="text"
+                android:textColor="#ff11f97c"
+                android:layout_below="@+id/textView6" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Security Question"
+                android:id="@+id/textView7"
+
+                android:textColor="#ff11f97c" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_security_spinner"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:touchscreenBlocksFocus="false"
+                android:textColor="#ff11f97c"
+                android:background="@drawable/pip_blank_background"
+                android:layout_below="@+id/textView7" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Answer"
+                android:id="@+id/textView8"
+                android:singleLine="true"
+                android:textColor="#ff11f97c"
+                android:layout_below="@+id/register_security_spinner" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_security_answer"
                 android:textColor="#ff11f97c"
-                android:background="@drawable/pip_textview_long_hook"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:singleLine="true"
+                android:layout_below="@+id/textView8" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Answer"
-                android:id="@+id/textView8"
-                android:textColor="#ff11f97c"
-                android:layout_alignTop="@+id/register_security_answer"
-                android:layout_marginLeft="20dp" />
         </RelativeLayout>
 
         <ScrollView
@@ -223,19 +203,74 @@
             android:layout_gravity="center_horizontal"
             android:checked="false"
             android:textColor="#ff11f97c"
-            android:buttonTint="#ff11f97c" />
+            android:buttonTint="#ff11f97c"
+            android:clickable="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Register"
             android:id="@+id/register_register_button"
-            android:layout_marginBottom="31dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.06"
-            android:onClick="registerUser" />
+            android:onClick="registerUser"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
     </LinearLayout>
 </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView14"
+            android:background="@drawable/pip_hud_flat_bar"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:baselineAligned="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Registration Progress"
+                android:id="@+id/textView11"
+                android:textColor="#ff11f97c"
+                android:layout_marginLeft="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/register_progress"
+                android:src="@drawable/pip_progress_0"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:contentDescription="0" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_progress_icon"
+            android:background="@drawable/pip_advent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp" />
+    </RelativeLayout>
 
 </RelativeLayout>
