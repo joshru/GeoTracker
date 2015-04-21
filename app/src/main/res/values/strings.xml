@@ -88,6 +88,12 @@
     <string name="login_welcome_toast">Welcome Friend</string>
     <string name="user_info_main_key">userInfo</string>
     <string name="register_error_toast">Error Registering</string>
+    <string name="tracking_date_label">Date</string>
+    <string name="general_team_name">Moneyteam</string>
+    <string name="login_forgot_pass_label">Forgot passphrase? Recover it here.</string>
+    <string name="general_content_description_101">101</string>
+    <string name="general_version_number">v.1.2</string>
+    <string name="tracking_ending_point">Ending Point</string>
 
     <!-- NOT FOR OUR STUFF -->
 </resources>

@@ -21,11 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Moneyteam"
+            android:text="@string/general_team_name"
             android:id="@+id/textView14"
             android:layout_alignParentBottom="false"
             android:layout_centerHorizontal="true"
-            android:textSize="10dp"
+            android:textSize="12sp"
             android:layout_gravity="bottom"
             android:layout_below="@+id/textView2" />
 
@@ -36,7 +36,7 @@
             android:id="@+id/textView2"
             android:layout_gravity="center_horizontal"
             android:hint="@string/app_name"
-            android:text="Tracker-boy 3000"
+            android:text="@string/application_name"
             android:gravity="top|center_horizontal"
             android:background="@drawable/pip_title_hook"
             android:textSize="@dimen/abc_text_size_medium_material" />
@@ -124,8 +124,7 @@
             android:textColor="#ff11f97c"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:outlineProvider="none"
-            android:background="@drawable/pip_button_outline"
-            android:capitalize="characters" />
+            android:background="@drawable/pip_button_outline" />
     </RelativeLayout>
 
     <TextView
@@ -143,10 +142,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Forgot passphrase? Recover it here."
+        android:text="@string/login_forgot_pass_label"
         android:id="@+id/login_forgot_password_label"
         android:layout_gravity="center"
-        android:onClick="forgotPassphrase"
         android:paddingTop="@dimen/abc_text_size_small_material"
         android:gravity="center_horizontal"
         android:paddingBottom="20dp" />
@@ -162,7 +160,7 @@
             android:background="@drawable/pip_reaper"
             android:onClick="iAmANoob"
             android:clickable="true"
-            android:contentDescription="101"
+            android:contentDescription="@string/general_content_description_101"
             android:layout_alignParentBottom="true"
             android:paddingBottom="10dp"
             android:cropToPadding="false"
@@ -189,13 +187,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="v.1.2"
+                android:text="@string/general_version_number"
                 android:id="@+id/textView"
                 android:layout_alignBottom="@+id/imageView2"
-                android:layout_alignRight="@+id/imageView2"
-                android:layout_marginRight="6dp"
+                android:layout_alignEnd="@+id/imageView2"
+                android:layout_marginEnd="6dp"
                 android:layout_marginBottom="3dp"
-                android:textSize="13dp" />
+                android:textSize="13sp" />
         </RelativeLayout>
 
     </RelativeLayout>
