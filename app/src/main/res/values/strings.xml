@@ -1,106 +1,23 @@
 <resources>
+
+
+    <!-- GENERAL USAGE -->
     <string name="app_name">GeoTracker</string>
     <string name="action_settings">Settings</string>
+    <string name="application_name">Tracker-Boy 3000</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="Login">Login</string>
-    <string name="pasphrase_label">Passphrase</string>
-    <string name="email_label">Email</string>
-    <string name="email_example_label">example@email.com</string>
-    <string name="passphrase_example_label">********</string>
-    <string name="sign_in_label">Sign In</string>
-    <string name="register_label">New to GeoTracker? Register here.</string>
-    <string name="pip_edition">Pip Edition</string>
-    <string name="title_activity_register">New User Registration</string>
-    <string name="frag_test">Click to show fragment</string>
     <string name="action_log_out">Sign Out</string>
-    <string name="bad_creds_toast">Invalid User Credentials: If you are a new user, please register with the link provided.</string>
-    <string name="bad_email_toast">Invalid email format.</string>
-    <string name="bad_pass_toast">Invalid password format.</string>
-    <string name="tos_text">TERMS OF SERVICE HERE</string>
-    <string name="tos_refuse_button">Refuse</string>
-    <string name="tos_accept_button">Accept</string>
-    <string name="tos_checkbox_text">Please read and accept Terms of Service here.</string>
-
-    <string-array name="security_questions_array">
-        <item>Sass or noobs?</item>
-        <item>Hospital you were born in?</item>
-        <item>When was the last time you murdered for pleasure?</item>
-        <item>What is your mother\'s maiden name?</item>
-        <item>What was the name of your first pet?</item>
-        <item>What was the name of your highschool?</item>
-        <item>Whats the name of your favorite television show?</item>
-        <item>Whats your favorite kind of food?</item>
-        <item>How many times have you raged while watching \'Game of Thrones\'?</item>
-    </string-array>
-    <string name="title_activity_maps">Map</string>
-    <string name="tos_toast">You must agree to our terms of service</string>
-    <string name="register_pass_invalid_toast">Passwords do not match</string>
-    <string name="register_question_response_invalid_toast">Question Response cannot be empty</string>
-    <string name="register_pass_short_toast">Password length is to short (minimum 6 characters)</string>
-    <string name="register_email_invalid_toast">Invalid email format</string>
-    <string name="register_succesful">Registration Succesful</string>
-    <string name="login_success">Log in was succesful</string>
-
-    <string name="reset_confirm_button">Reset</string>
-    <string name="reset_cancel_button">Cancel Reset</string>
-
-    <!--Toasts-->
-    <string name="toast_security_correct">I knew it was you.</string>
-    <string name="toast_security_incorrect">INTRUDER ALERT!!!</string>
-    <string name="toast_security_password_changed">Password changed successfully.</string>
-    <string name="toast_security_password_failed">Password change failed.</string>
-
-    <!--Shared Preferences Keys-->
-    <string name="shared_pref_key">userInfo</string>
-    <string name="saved_email_key">userEmail</string>
-    <string name="saved_pass_key">userPassphraseHash</string>
-    <string name="saved_question_key">userQuestion</string>
-    <string name="saved_question_answer_key">userQuestionResponse</string>
-    <string name="logged_in_boolean">userLoggedIn</string>
-
-    <!--Default values-->
-    <string name="default_restore_key">These are not the droids you are looking for.</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dialog_security_submit_button">Submit</string>
-    <string name="dialog_security_question">[Security Question]</string>
-    <string name="main_home_title">Home</string>
-    <string name="main_account_settings_title">Account Settings</string>
-    <string name="main_map_title">Map</string>
-    <string name="open_drawer">Open</string>
-    <string name="close_drawer">Close</string>
-    <string name="dialog_security_question_label">Security Question</string>
-    <string name="drawer_text">&lt;&lt;Pip Tracker Options&gt;&gt;</string>
-    <string name="login_no_device_user">No current device user</string>
-    <string name="login_forgot_pass">You forgot it, didn\'t you?</string>
-    <string name="application_name">Tracker-Boy 3000</string>
-    <string name="title_activity_splash">SplashActivity</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_text">TextActivity</string>
-    <string name="title_activity_tab">TabActivity</string>
-    <string name="map_fragment_label">THIS IS THE MAP FRAGMENT</string>
-    <string name="tracking_label">This is the tracking label</string>
-    <string name="account_settings_fragment_label">THIS SHOULD BE THE ACCOUNT SETTINGS FRAGMENT</string>
-    <string name="title_activity_startup">StartupActivity</string>
-    <string name="login_welcome_toast">Welcome Friend</string>
-    <string name="user_info_main_key">userInfo</string>
-    <string name="register_error_toast">Error Registering</string>
-    <string name="tracking_date_label">Date</string>
-    <string name="general_team_name">Moneyteam</string>
-    <string name="login_forgot_pass_label">Forgot passphrase? Recover it here.</string>
     <string name="general_content_description_101">101</string>
+    <string name="general_team_name">Moneyteam</string>
     <string name="general_version_number">v.1.2</string>
-    <string name="account_details_title">Account Details</string>
-    <string name="account_registered_email">Registered E-mail</string>
-    <string name="account_fill">{FILL}</string>
-    <string name="account_security_question_current">Security Question</string>
-    <string name="account_fill_text">{FILL}</string>
-    <string name="account_current_account_question">Question Response</string>
-    <string name="tracking_starting_point">Starting Point</string>
-    <string name="tracking_ending_point">Ending Point</string>
+
+
+
+    <!-- REGISTER ACTIVITY -->
+    <string name="tos_checkbox_text">Please read and accept Terms of Service here.</string>
+    <string name="register_succesful">Registration Succesful</string>
     <string name="register_pass_reset">Password Reset</string>
     <string name="register_fill_w_question">FILL WITH QUESTION</string>
     <string name="register_security_answer">Security Answer</string>
@@ -114,6 +31,98 @@
     <string name="register_register">Register</string>
     <string name="registration_progress">Registration Progress</string>
     <string name="register_zero">0</string>
+
+
+    <!-- LOGIN ACTIVITY -->
+    <string name="pasphrase_label">Passphrase</string>
+    <string name="email_label">Email</string>
+    <string name="email_example_label">example@email.com</string>
+    <string name="passphrase_example_label">********</string>
+    <string name="sign_in_label">Sign In</string>
+    <string name="register_label">New to GeoTracker? Register here.</string>
+    <string name="title_activity_register">New User Registration</string>
+    <string name="login_no_device_user">No current device user</string>
+    <string name="login_forgot_pass">You forgot it, didn\'t you?</string>
+    <string name="login_forgot_pass_label">Forgot passphrase? Recover it here.</string>
+
+
+    <!-- MAIN ACTIVITY -->
+    <string name="main_home_title">Home</string>
+    <string name="main_account_settings_title">Account Settings</string>
+    <string name="main_map_title">Map</string>
+
+
+    <!-- ACCOUNT FRAGMENT -->
+    <string name="account_details_title">Account Details</string>
+    <string name="account_registered_email">Registered E-mail</string>
+    <string name="account_fill">{FILL}</string>
+    <string name="account_security_question_current">Security Question</string>
+    <string name="account_fill_text">{FILL}</string>
+    <string name="account_current_account_question">Question Response</string>
+
+
+    <!-- TRACKING FRAGMENT -->
+    <string name="tracking_starting_point">Starting Point</string>
+    <string name="tracking_ending_point">Ending Point</string>
+    <string name="tracking_label">This is the tracking label</string>
+    <string name="tracking_date_label">Date</string>
+
+    <!-- STARTUP ACTIVITY -->
+    <string name="title_activity_startup">StartupActivity</string>
+
+
+    <!-- FORGOT PASSWORD DIALOG -->
+    <string name="reset_confirm_button">Reset</string>
+    <string name="reset_cancel_button">Cancel Reset</string>
+    <string name="default_restore_key">These are not the droids you are looking for.</string>
+    <string name="dialog_security_submit_button">Submit</string>
+    <string name="dialog_security_question">[Security Question]</string>
+    <string name="dialog_security_question_label">Security Question</string>
+    <!-- -->
+
+
+    <!-- ARRAYS -->
+    <string-array name="security_questions_array">
+        <item>Sass or noobs?</item>
+        <item>Hospital you were born in?</item>
+        <item>When was the last time you murdered for pleasure?</item>
+        <item>What is your mother\'s maiden name?</item>
+        <item>What was the name of your first pet?</item>
+        <item>What was the name of your highschool?</item>
+        <item>Whats the name of your favorite television show?</item>
+        <item>Whats your favorite kind of food?</item>
+        <item>How many times have you raged while watching \'Game of Thrones\'?</item>
+    </string-array>
+
+
+    <!-- TOASTS -->
+    <string name="toast_security_correct">I knew it was you.</string>
+    <string name="toast_security_incorrect">INTRUDER ALERT!!!</string>
+    <string name="toast_security_password_changed">Password changed successfully.</string>
+    <string name="toast_security_password_failed">Password change failed.</string>
+    <string name="bad_creds_toast">Invalid User Credentials: If you are a new user, please register with the link provided.</string>
+    <string name="bad_email_toast">Invalid email format.</string>
+    <string name="bad_pass_toast">Invalid password format.</string>
+    <string name="tos_toast">You must agree to our terms of service</string>
+    <string name="register_pass_invalid_toast">Passwords do not match</string>
+    <string name="register_question_response_invalid_toast">Question Response cannot be empty</string>
+    <string name="register_pass_short_toast">Password length is to short (minimum 6 characters)</string>
+    <string name="register_email_invalid_toast">Invalid email format</string>
+    <string name="login_welcome_toast">Welcome Friend</string>
+    <string name="register_error_toast">Error Registering</string>
+
+
+    <!-- SHARED PREFERENCE KEYS -->
+    <string name="shared_pref_key">userInfo</string>
+    <string name="saved_email_key">userEmail</string>
+    <string name="saved_pass_key">userPassphraseHash</string>
+    <string name="saved_question_key">userQuestion</string>
+    <string name="saved_question_answer_key">userQuestionResponse</string>
+    <string name="logged_in_boolean">userLoggedIn</string>
+    <string name="user_info_main_key">userInfo</string>
+
+
+    <!-- UNSORTED VALUES-->
 
     <!-- NOT FOR OUR STUFF -->
 </resources>
