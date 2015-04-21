@@ -93,6 +93,13 @@
     <string name="login_forgot_pass_label">Forgot passphrase? Recover it here.</string>
     <string name="general_content_description_101">101</string>
     <string name="general_version_number">v.1.2</string>
+    <string name="account_details_title">Account Details</string>
+    <string name="account_registered_email">Registered E-mail</string>
+    <string name="account_fill">{FILL}</string>
+    <string name="account_security_question_current">Security Question</string>
+    <string name="account_fill_text">{FILL}</string>
+    <string name="account_current_account_question">Question Response</string>
+    <string name="tracking_starting_point">Starting Point</string>
     <string name="tracking_ending_point">Ending Point</string>
     <string name="register_pass_reset">Password Reset</string>
     <string name="register_fill_w_question">FILL WITH QUESTION</string>
