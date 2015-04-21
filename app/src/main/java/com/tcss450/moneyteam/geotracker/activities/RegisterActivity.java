@@ -34,6 +34,7 @@ import com.tcss450.moneyteam.geotracker.Authenticator;
  */
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
+    /** TODO Josh add javadoc for all these please*/
     EditText mEmail;
     EditText mPassword;
     EditText mRepeatPassword;
@@ -51,25 +52,30 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
      */
     int[] progressArr;
 
-    private boolean mTermsBool;
+    /** TODO these too*/
     private ImageView mProgressBar;
     private PipTextEnterListener mEnterListener;
     private ImageView mProgressBarIcon;
     private Animation animAlpha;
 
+    /**
+     * TODO Josh here too.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //SUPER CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+
+        //THIS CALLS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        this.setContentView(R.layout.activity_register);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Log.e("d", "Made it into register");
+
+        //READ IN FROM CALLING ACTIVITY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Intent i = getIntent();
-        // Receiving the Data
         String userEmail = i.getStringExtra("email");
 
-        mTermsBool = false;
-        progressArr = new int[5];
-
+        //REFERENCES TO VIEWS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mEmail = (EditText) findViewById(R.id.register_email);
         mPassword = (EditText) findViewById(R.id.register_password);
         mRepeatPassword = (EditText) findViewById(R.id.register_repeat_password);
@@ -83,6 +89,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mEnterListener = new PipTextEnterListener();
         mProgressBarIcon = (ImageView) findViewById(R.id.register_progress_icon);
         animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+
+        //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        progressArr = new int[5];
 
         //ADD LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mEmail.setOnEditorActionListener(mEnterListener);
@@ -103,7 +112,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             }
         });
 
-        //SET EMAIL IF PASSED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //SET EMAIL PROGRESS IF PASSED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(Authenticator.emailFormatCheck(userEmail)) {
             mEmail.setText(userEmail);
             progressArr[0] = 1;
@@ -111,22 +120,23 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         }
 
 
-        /*Assign Spinner Values*/
+        //ASSIGN SPINNER VALUES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-
         mSecuritySpinner.setAdapter(adapter);
     }
 
     /**
      * Acting OnClickListener for the Registration button.
-     * @param view
+     * @param view the register label view.
      */
     public void registerUser(View view) {
+        //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-        String toastString = "Error Registering";
+        //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        String toastString = getString(R.string.register_error_toast);
         final String email = mEmail.getText().toString();
         final String passphrase = mPassword.getText().toString();
         final String repeatedPass = mRepeatPassword.getText().toString();
@@ -135,12 +145,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         final String answer = mSecurityAnswer.getText().toString();
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
-        //Field testing
+        //CREDENTIAL TESTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         final boolean validEmail = Authenticator.emailFormatCheck(email);
         final boolean validPass = Authenticator.passFormatCheck(passphrase);
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
+        //DISPLAY TOAST BASED ON CREDENTIAL TESTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString(getString(R.string.saved_email_key), email);
             myPrefEditor.putString(getString(R.string.saved_pass_key), passphraseHash);
@@ -165,72 +176,104 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mRegisterButton.startAnimation(animAlpha);
     }
 
+    /**
+     * Currently unimplemented.
+     * @param v
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
+        //TODO update progress bar when views lose focus.
         return true;
     }
 
+    /**
+     * TODO Josh
+     * @author Alexander Cherry(akac92@uw.edu)
+     */
     public class PipTextEnterListener implements TextView.OnEditorActionListener {
 
+        /**
+         * Empty constructor call to super.
+         */
         public PipTextEnterListener() {
             super();
         }
 
+        /**
+         * TODO Josh
+         * @param v
+         * @param actionId
+         * @param event
+         * @return
+         */
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            //CHECK FOR KEY INPUT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             if (actionId == EditorInfo.IME_ACTION_DONE ||
                     actionId == EditorInfo.IME_ACTION_NEXT ||
                     actionId == EditorInfo.IME_ACTION_UNSPECIFIED ||
                     actionId == EditorInfo.IME_ACTION_NONE) {
-                    switch (v.getId()){
-                        case R.id.register_email:
-                            if(progressArr[0] == 0 && Authenticator.emailFormatCheck(mEmail.getText().toString())) {
-                                progressArr[0] = 1;
-                            } else if(!Authenticator.emailFormatCheck(mEmail.getText().toString())) {
-                                progressArr[0] = 0;
-                            }
-                            break;
-                        case R.id.register_password:
-                            if(progressArr[1] == 0 && Authenticator.passFormatCheck(mPassword.getText().toString())) {
-                                progressArr[1] = 1;
-                            } else if(!Authenticator.passFormatCheck(mPassword.getText().toString())) {
-                                progressArr[1] = 0;
-                            }
-                            break;
-                        case R.id.register_repeat_password:
-                            if(progressArr[1] == 1 &&
-                                    mRepeatPassword.getText().toString().equals(mPassword.getText().toString())) {
-                                progressArr[2] = 1;
-                            } else if(progressArr[1] == 0
-                            || !mRepeatPassword.getText().toString().equals(mPassword.getText().toString())) {
-                                progressArr[2] = 0;
-                            }
-                            break;
-                        case R.id.register_security_answer:
-                            if(progressArr[3] == 0 && (mSecurityAnswer.getText().length() > 0)) {
-                                progressArr[3] = 1;
-                            } else if(!(mSecurityAnswer.getText().length() > 0)){
-                                progressArr[3] = 0;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    set();
-                    return false; // consume.
+                //CASES BASED ON VIEW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                switch (v.getId()) {
+                    //REGISTER EMAIL UPDATE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    case R.id.register_email:
+                        if (progressArr[0] == 0 && Authenticator.emailFormatCheck(mEmail.getText().toString())) {
+                            progressArr[0] = 1;
+                        } else if (!Authenticator.emailFormatCheck(mEmail.getText().toString())) {
+                            progressArr[0] = 0;
+                        }
+                        break;
+                    //REGISTER PASSWORD UPDATE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    case R.id.register_password:
+                        if (progressArr[1] == 0 && Authenticator.passFormatCheck(mPassword.getText().toString())) {
+                            progressArr[1] = 1;
+                        } else if (!Authenticator.passFormatCheck(mPassword.getText().toString())) {
+                            progressArr[1] = 0;
+                        }
+                        break;
+                    //REGISTER REPEAT PASSWORD UPDATE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    case R.id.register_repeat_password:
+                        if (progressArr[1] == 1 &&
+                                mRepeatPassword.getText().toString().equals(mPassword.getText().toString())) {
+                            progressArr[2] = 1;
+                        } else if (progressArr[1] == 0
+                                || !mRepeatPassword.getText().toString().equals(mPassword.getText().toString())) {
+                            progressArr[2] = 0;
+                        }
+                        break;
+                    //REGISTER SECURITY ANSWER UPDATE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    case R.id.register_security_answer:
+                        if (progressArr[3] == 0 && (mSecurityAnswer.getText().length() > 0)) {
+                            progressArr[3] = 1;
+                        } else if (!(mSecurityAnswer.getText().length() > 0)) {
+                            progressArr[3] = 0;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                set();
+                return false; //DO NOT CONSUME (leave as return false)
             }
-            return false; // pass on to other listeners
+            return false;
         }
 
+        /**
+         *
+         */
         public void set() {
+            //GET RESOURCE REFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            int progress = R.drawable.pip_progress_0;
+            int icon = R.drawable.pip_101;
+            //SET COUNTER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             int totalProgress = 0;
+            //GET HOW MANY ARE SET~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             for (int i = 0; i < 5; i++) {
                 totalProgress += progressArr[i];
             }
-            Log.e("REGISTER", "set Called with progress count: " + totalProgress);
-            int progress = R.drawable.pip_progress_0;
-            int icon = R.drawable.pip_101;
+            //BASED ON NUMBER OF PROPERLY SET REGISTER FIELDS~~~~~~~~~~~~~~~~~~~~~~~
             if (totalProgress == 1) {
                 progress = R.drawable.pip_progress_1;
                 icon = R.drawable.pip_fresh_rads_here;
@@ -247,6 +290,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 progress = R.drawable.pip_progress_5;
                 icon = R.drawable.pip_man;
             }
+            //CALL ANIMATION/SET ICON~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mProgressBarIcon.startAnimation(animAlpha);
             mProgressBar.startAnimation(animAlpha);
             mProgressBar.setBackgroundDrawable(getResources().getDrawable(progress));

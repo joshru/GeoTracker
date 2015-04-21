@@ -85,6 +85,7 @@
     <string name="account_settings_fragment_label">THIS SHOULD BE THE ACCOUNT SETTINGS FRAGMENT</string>
     <string name="login_welcome_toast">Welcome Friend</string>
     <string name="user_info_main_key">userInfo</string>
+    <string name="register_error_toast">Error Registering</string>
 
     <!-- NOT FOR OUR STUFF -->
 </resources>
