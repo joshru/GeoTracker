@@ -83,6 +83,8 @@
     <string name="map_fragment_label">THIS IS THE MAP FRAGMENT</string>
     <string name="tracking_label">This is the tracking label</string>
     <string name="account_settings_fragment_label">THIS SHOULD BE THE ACCOUNT SETTINGS FRAGMENT</string>
+    <string name="login_welcome_toast">Welcome Friend</string>
+    <string name="user_info_main_key">userInfo</string>
 
     <!-- NOT FOR OUR STUFF -->
 </resources>

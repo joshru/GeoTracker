@@ -26,7 +26,12 @@ import android.widget.Toast;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Authenticator;
 
-
+/**
+ * TODO Josh
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
+ */
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     EditText mEmail;
