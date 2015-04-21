@@ -40,7 +40,7 @@ public class AccountFragment extends Fragment {
             mUserAnswerLabel = (TextView) rootView.findViewById(R.id.f_account_answer);
 
             //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            SharedPreferences myPreferences = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+            SharedPreferences myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
             String userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
             String userQuestion = myPreferences.getString(getString(R.string.saved_question_key), "");
             String userAnswer = myPreferences.getString(getString(R.string.saved_question_answer_key), "");
