@@ -19,11 +19,16 @@ import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TODO javadoc dis
+ * @author Alexander Cherry(akac92@uw.edu)
+ */
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
+    /** TODO javadoc these up yo.
+     */
     private static final String DEBUG_TAG = "MAIN ACTIVITY DEBUG";
-    private List<Fragment> tabFragmentList = new ArrayList<>();
 
     private Tab mAccountSettingsTab;
     private Fragment mAccountSettingsFragment;
@@ -36,28 +41,28 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     private GestureDetectorCompat mDetector;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //SUPER CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_tab);
+        //THIS CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        this.setContentView(R.layout.activity_main_tab);
 
-        //Create fragments
+        //CREATE FRAGMENTS (TABS)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mAccountSettingsFragment = new AccountFragment();
         mTrackingFragment = new TrackingFragment();
         mMapFragment = new MapFragment();
 
+        //GET ACTION BAR AND ADJUST SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ActionBar actionBar = getActionBar();
-
-        // Hide Actionbar Icon
         actionBar.setDisplayShowHomeEnabled(true);
-
-        // Hide Actionbar Title
         actionBar.setDisplayShowTitleEnabled(true);
-
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        // Create Actionbar Tabs
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         //ACCOUNT SETTINGS TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,6 +92,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
+    //FOLLOWING TOUCH LISTENERS HAVE NOT BEEN IMPLEMENTED (IGNORE)~~~~~~~~~~~~~~~~~~
+    //TODO (PHASE II) IMPLEMENTED WANTED EVENTS, CODE REVIEWRS CAN IGNORE~~~~~~~~~~~
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -167,85 +174,5 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-    // GOOGLE MAPS FUNCTIONALITY (DO NOT TOUCH)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    @Override
-    protected void onResume() {
-        Log.e(MAIN_ACTIVITY_ERROR_KEY, "onResume");
-        super.onResume();
-        setUpMapIfNeeded();
-    }
-
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link com.google.android.gms.maps.SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     *//*
-    private void setUpMapIfNeeded() {
-        Log.e(MAIN_ACTIVITY_ERROR_KEY, "setUpMapIfNeeded");
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
-        }
-    }
-
-/*
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     *//*
-    private void setUpMap() {
-        Log.e(MAIN_ACTIVITY_ERROR_KEY, "setUpMap");
-
-        Marker defaultMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Fallout Seattle Zone")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(140.0F)));
-    }
-}
-        */
 
 
