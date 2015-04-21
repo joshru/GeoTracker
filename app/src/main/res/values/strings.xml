@@ -94,6 +94,19 @@
     <string name="general_content_description_101">101</string>
     <string name="general_version_number">v.1.2</string>
     <string name="tracking_ending_point">Ending Point</string>
+    <string name="register_pass_reset">Password Reset</string>
+    <string name="register_fill_w_question">FILL WITH QUESTION</string>
+    <string name="register_security_answer">Security Answer</string>
+    <string name="register_new_password">New Password</string>
+    <string name="register_repeat_password">Repeat Password</string>
+    <string name="register_password">Password</string>
+    <string name="register_security_question">Security Question</string>
+    <string name="register_your_answer">Your Answer</string>
+    <string name="register_tos">Terms of Service</string>
+    <string name="register_agree_tos">I have read and understand the terms of service, and agree to them completely.</string>
+    <string name="register_register">Register</string>
+    <string name="registration_progress">Registration Progress</string>
+    <string name="register_zero">0</string>
 
     <!-- NOT FOR OUR STUFF -->
 </resources>
