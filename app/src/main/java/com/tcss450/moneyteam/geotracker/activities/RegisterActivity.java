@@ -34,13 +34,25 @@ import com.tcss450.moneyteam.geotracker.Authenticator;
  */
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
-    /** TODO Josh add javadoc for all these please */
+    /** The email text field */
     EditText mEmail;
+
+    /** The password text field*/
     EditText mPassword;
+
+    /** The repeat password text field*/
     EditText mRepeatPassword;
+
+    /** The spinner of security questions*/
     Spinner mSecuritySpinner;
+
+    /** The text field for user's security answer*/
     EditText mSecurityAnswer;
+
+    /** The button to register new user*/
     Button mRegisterButton;
+
+    /** The checkbox for accepting terms of service*/
     CheckBox mTermsCheckBox;
     /**
      * States of register views (1 - input, 0 - empty)
@@ -52,15 +64,21 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
      */
     int[] progressArr;
 
-    /** TODO these too*/
+    /** The registration progress bar*/
     private ImageView mProgressBar;
+
+    /** The listener for detecting entered text*/
     private PipTextEnterListener mEnterListener;
+
+    /** The progree bar icon*/
     private ImageView mProgressBarIcon;
+
+    /** The animation alpha effect*/
     private Animation animAlpha;
 
     /**
-     * TODO Josh here too.
-     * @param savedInstanceState
+     * Creates the registration activity and sets all appropriate listeners.
+     * @param savedInstanceState the saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,9 +196,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     /**
      * Currently unimplemented.
-     * @param v
-     * @param event
-     * @return
+     * @param v the view
+     * @param event the motion event
+     * @return true
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -189,8 +207,10 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     }
 
     /**
-     * TODO Josh
-     * @author Alexander Cherry(akac92@uw.edu)
+     * Listener for detecting entered text
+     * @author Brandon Bell
+     * @author Alexander Cherry
+     * @author Joshua Rueschenberg
      */
     public class PipTextEnterListener implements TextView.OnEditorActionListener {
 
@@ -202,11 +222,11 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         }
 
         /**
-         * TODO Josh
-         * @param v
-         * @param actionId
-         * @param event
-         * @return
+         * Listener for actions in the editor
+         * @param v the text view
+         * @param actionId the action ID
+         * @param event the key event
+         * @return boolean
          */
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -261,7 +281,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         }
 
         /**
-         *
+         * Method for setting all fancy visual stuff such as colors and icons in the activity.
          */
         public void set() {
             //GET RESOURCE REFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
