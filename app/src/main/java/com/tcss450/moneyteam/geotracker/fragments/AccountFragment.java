@@ -12,21 +12,27 @@ import android.widget.TextView;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * TODO
- * @author Alexander Cherry(akac92@uw.edu)
+ * The account settings and information fragment for main activity
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class AccountFragment extends Fragment {
-    /** TODO */
+    /** The user email text view*/
     private TextView mUserEmailLabel;
+
+    /** The user secret answer text view*/
     private TextView mUserAnswerLabel;
+
+    /** The user secret question text view*/
     private TextView mUserQuestionLabel;
 
     /**
-     * TODO
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * Createst the account information fragment and assigns all relevant listeners
+     * @param inflater the inflater
+     * @param container the container
+     * @param savedInstanceState the saved instance state
+     * @return the root view
      */
     @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,

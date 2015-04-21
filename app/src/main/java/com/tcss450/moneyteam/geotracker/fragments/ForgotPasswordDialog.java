@@ -17,22 +17,34 @@ import com.tcss450.moneyteam.geotracker.Authenticator;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * TODO JAVADOC
- * @author  Brandon Bell
+ * The forgot password fragment for resetting user password with secret question check.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class ForgotPasswordDialog extends DialogFragment {
 
-    /** TODO */
+    /** The new password edit text field*/
     private EditText mNewPassText;
+
+    /** The edit text field for repeating new password*/
     private EditText mNewPassRepeatText;
+
+    /** The user's secret question text view*/
     private TextView mDialogUserQuestion;
+
+    /** The secret question answer edit text field*/
     private EditText mDialogSecurityAnswer;
+
+    /** The button for submitting answer and new password*/
     private Button mDialogSubmitButton;
+
+    /** Boolean for checking if the password reset was successful*/
     private boolean mResetSuccessful;
 
     /**
-     * TODO
-     * @return
+     * Creates and returns a new forgot password fragment
+     * @return the forgot password fragment
      */
     public static ForgotPasswordDialog newInstance() {
         ForgotPasswordDialog fragment = new ForgotPasswordDialog();
@@ -40,9 +52,9 @@ public class ForgotPasswordDialog extends DialogFragment {
     }
 
     /**
-     * TODO
-     * @param savedInstanceState
-     * @return
+     * Creates a new forgot password fragment and assigns all relevant listeners
+     * @param savedInstanceState the saved instance state
+     * @return alert dialog
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

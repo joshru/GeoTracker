@@ -9,11 +9,20 @@ import android.view.ViewGroup;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * TODO
  * Activity for handling logic inside the tracking settings fragment.
- * @author Alexander Cherry(akac92@uw.edu)
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class TrackingFragment extends Fragment {
+
+    /**
+     * Creates the new fragment for handling tracking settings
+     * @param inflater the inflater
+     * @param container the container
+     * @param savedInstanceState the saved instance state
+     * @return the root view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

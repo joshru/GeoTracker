@@ -15,21 +15,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * TODO
- * @author Alexander Cherry(akac92@uw.edu)
+ * The fragment for displaying Google Map activity.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class MapFragment extends Fragment {
 
-    /** TODO */
+    /** The Google Map view*/
     private MapView mMapView;
+
+    /** The actual Google Map*/
     private GoogleMap mMap;
 
     /**
-     * TODO
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * Creates the new Google Map fragment
+     * @param inflater the inflater
+     * @param container the container
+     * @param savedInstanceState the saved instance state
+     * @return the root view
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
