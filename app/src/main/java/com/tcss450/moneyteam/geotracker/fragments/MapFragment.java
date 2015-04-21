@@ -15,32 +15,41 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * Created by Alex on 4/18/2015.
+ * TODO
+ * @author Alexander Cherry(akac92@uw.edu)
  */
 public class MapFragment extends Fragment {
 
-    MapView mMapView;
+    /** TODO */
+    private MapView mMapView;
     private GoogleMap mMap;
-    private LatLng mSeattleLatLng;
 
+    /**
+     * TODO
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // inflat and return the layout
-        View v = inflater.inflate(R.layout.fragment_map, container,
-                false);
-        mMapView = (MapView) v.findViewById(R.id.mapView);
+        //GET ROOT VIEW AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+
+        //REFERENCES FOR MAP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
+        mMap = mMapView.getMap();
+        //DISPLAY MAP NOW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mMapView.onResume();
 
-        mMapView.onResume();// needed to get the map to display immediately
-
+        //TRY TO LOAD MAP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        mMap = mMapView.getMap();
 
         //GENERATE MARKER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 LatLng sydney = new LatLng(-33.867, 151.206);
@@ -48,23 +57,16 @@ public class MapFragment extends Fragment {
         //SETUP MAP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
-
         mMap.addMarker(new MarkerOptions()
                 .title("Sydney")
                 .snippet("The most populous city in Australia.")
                 .position(sydney));
 
-        /* adding marker
-        googleMap.addMarker(marker);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(mSeattleLatLng).zoom(8).build();
-        googleMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
-
-        // Perform any camera updates here*/
-        return v;
+        //PERFORM CAMERA UPDATES HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        return rootView;
     }
 
+    //UNIMPLEMENTED CAN BE IGNORED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override
     public void onResume() {
         super.onResume();

@@ -12,15 +12,17 @@ import android.widget.TextView;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * Created by Alex on 4/18/2015.
+ * TODO
+ * @author Alexander Cherry(akac92@uw.edu)
  */
 public class AccountFragment extends Fragment {
+    /** TODO */
     private TextView mUserEmailLabel;
     private TextView mUserAnswerLabel;
     private TextView mUserQuestionLabel;
 
     /**
-     *
+     * TODO
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -29,6 +31,7 @@ public class AccountFragment extends Fragment {
     @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            //GET ROOT VIEW REFERENCE AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~
             View rootView = inflater.inflate(R.layout.fragment_account_settings, container, false);
 
             //GET REFERENCE TO VIEW FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
