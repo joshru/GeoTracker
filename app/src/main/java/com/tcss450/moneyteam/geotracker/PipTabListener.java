@@ -7,13 +7,17 @@ import android.app.ActionBar;
 
 /**
  * Actionbar listener for all tabs on inside MainActivity.
- * @author Alexander Cherry(akac92@uw.edu)
+ * @author Alexander, Brandon, Josh
  */
 public class PipTabListener implements ActionBar.TabListener {
 
     /** The fragment context.*/
     Fragment mFragment;
 
+    /**
+     *
+     * @param fragment
+     */
     public PipTabListener(Fragment fragment) {
         this.mFragment = fragment;
     }

@@ -23,7 +23,7 @@ import com.tcss450.moneyteam.geotracker.Authenticator;
 
 /**
  * This Activity handles all user log in procedures and proper redirects.
- * @author Alexander Cherry(akac92@uw.edu)
+ * @author Alex, Brandon, Josh.
  */
 public class LoginActivity extends FragmentActivity {
 
@@ -162,7 +162,7 @@ public class LoginActivity extends FragmentActivity {
     }
 
     /**
-     * TODO Josh
+     * Launches the login activity and displays it to the user.
      * @param activity
      */
     public void launchActivity(final String activity) {

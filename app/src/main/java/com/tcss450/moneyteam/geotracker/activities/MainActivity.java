@@ -20,29 +20,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO javadoc dis
- * @author Alexander Cherry(akac92@uw.edu)
+ * The Main Activity class. Account and location recording data will be displayed to the user here.
+ * @author Alex, Brandon, Josh
  */
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
 
-    /** TODO javadoc these up yo.
-     */
+    /** String used for logcat debugging*/
     private static final String DEBUG_TAG = "MAIN ACTIVITY DEBUG";
 
+    /** The account setting tab*/
     private Tab mAccountSettingsTab;
+
+    /** The account settings fragment to be displayed via Account Settings Tab*/
     private Fragment mAccountSettingsFragment;
 
+    /** The location tracking tab*/
     private Tab mTrackingTab;
+
+    /** The tracking information fragment to be displayed via Tracking Tab*/
     private Fragment mTrackingFragment;
 
+    /** The Google maps tab*/
     private Tab mMapTab;
+
+    /** Google maps with location data will be displayed to user via Map Tab*/
     private Fragment mMapFragment;
 
+    /** The gesture detector object*/
     private GestureDetectorCompat mDetector;
 
     /**
-     *
+     * Instantiates all fields for the Main Activity, populates tab layout, and sets listeners.
      * @param savedInstanceState
      */
     @SuppressWarnings("deprecation")
@@ -92,8 +101,15 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
+
     //FOLLOWING TOUCH LISTENERS HAVE NOT BEEN IMPLEMENTED (IGNORE)~~~~~~~~~~~~~~~~~~
     //TODO (PHASE II) IMPLEMENTED WANTED EVENTS, CODE REVIEWRS CAN IGNORE~~~~~~~~~~~
+
+    /**
+     * Method used for printing debug messages to the android log for debugging purposes.
+     * @param event the motion event
+     * @return the on touch event
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -121,55 +137,106 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         }
     }
 
+    /**
+     * For debugging single taps on main activity.
+     * @param e the motion event.
+     * @return true
+     */
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
         Log.d(DEBUG_TAG, "onDSingleTapConfirmed: " + e.toString());
         return true;
     }
 
+    /**
+     * For debugging double taps on main activity.
+     * @param e the motion event.
+     * @return true
+     */
     @Override
     public boolean onDoubleTap(MotionEvent e) {
         Log.d(DEBUG_TAG, "onDoubleTap: " + e.toString());
         return true;
     }
 
+    /**
+     * For debugging double tap events on the main activity.
+     * @param e the motion event.
+     * @return true
+     */
     @Override
     public boolean onDoubleTapEvent(MotionEvent e) {
         Log.d(DEBUG_TAG, "onDoubleTapEvent: " + e.toString());
         return true;
     }
 
+    /**
+     * For debugging touch activity on the main activity.
+     * @param e the motion event.
+     * @return true.
+     */
     @Override
     public boolean onDown(MotionEvent e) {
         Log.d(DEBUG_TAG, "onDown: " + e.toString());
         return true;
     }
 
+    /**
+     * For debugging long holds to show data on main activity.
+     * @param e the motion event.
+     */
     @Override
     public void onShowPress(MotionEvent e) {
         Log.d(DEBUG_TAG, "onShowPress: " + e.toString());
     }
 
+    /**
+     * For debugging when the user taps on the Main Event
+     * @param e the the motion event.
+     * @return true
+     */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         Log.d(DEBUG_TAG, "onSingleTapUp: " + e.toString());
         return true;
     }
 
+    /**
+     * For debugging when the user has scrolled on the Main Event
+     * @param e1 the motion event 1
+     * @param e2 the motion event 2
+     * @param distanceX the x distance
+     * @param distanceY the y distance
+     * @return true
+     */
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        Log.d(DEBUG_TAG, "onScroll: e1:" + e1.toString() + " e2:" + e2.toString() + "(dX, dY):(" + distanceX + ", " + distanceY + ")");
+        Log.d(DEBUG_TAG, "onScroll: e1:" + e1.toString() + " e2:" + e2.toString() + "(dX, dY):("
+                          + distanceX + ", " + distanceY + ")");
         return true;
     }
 
+    /**
+     * For debugging when the user long presses on the main event.
+     * @param e the motion event
+     */
     @Override
     public void onLongPress(MotionEvent e) {
         Log.d(DEBUG_TAG, "onLongPress: " + e.toString());
     }
 
+    /**
+     * For debugging when the user performs a fling on main event.
+     * @param e1 the motion event 1
+     * @param e2 the motion event 2
+     * @param velocityX x velocity
+     * @param velocityY y velocity
+     * @return true
+     */
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.d(DEBUG_TAG, "onFling: e1:" + e1.toString() + " e2:" + e2.toString() + "(vX, vY):(" + velocityX + ", " + velocityY + ")");
+        Log.d(DEBUG_TAG, "onFling: e1:" + e1.toString() + " e2:" + e2.toString() + "(vX, vY):("
+                          + velocityX + ", " + velocityY + ")");
         return true;
     }
 }
