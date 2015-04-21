@@ -51,7 +51,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="@string/register_password"
                 android:id="@+id/textView5"
                 android:textColor="#ff11f97c" />
 
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repeat Password"
+                android:text="@string/register_repeat_password"
                 android:id="@+id/textView6"
                 android:singleLine="true"
                 android:textColor="#ff11f97c" />
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Security Question"
+                android:text="@string/register_security_question"
                 android:id="@+id/textView7"
 
                 android:textColor="#ff11f97c" />
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Answer"
+                android:text="@string/register_your_answer"
                 android:id="@+id/textView8"
                 android:singleLine="true"
                 android:textColor="#ff11f97c"
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Terms of Service"
+                        android:text="@string/register_tos"
                         android:layout_gravity="center_horizontal"
                         android:textColor="#ff11f97c"
                         android:layout_centerHorizontal="true"
@@ -198,7 +198,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="I have read and understand the terms of service, and agree to them completely."
+            android:text="@string/register_agree_tos"
             android:id="@+id/register_checkbox"
             android:layout_gravity="center_horizontal"
             android:checked="false"
@@ -218,7 +218,7 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Register"
+                android:text="@string/register_register"
                 android:id="@+id/register_register_button"
                 android:layout_gravity="center_horizontal"
                 android:onClick="registerUser"
@@ -248,25 +248,25 @@
             android:layout_height="wrap_content"
             android:baselineAligned="true"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Registration Progress"
+                android:text="@string/registration_progress"
                 android:id="@+id/textView11"
                 android:textColor="#ff11f97c"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginStart="10dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_progress"
                 android:src="@drawable/pip_progress_0"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:contentDescription="0" />
+                android:contentDescription="@string/register_zero" />
 
         </LinearLayout>
 
@@ -275,8 +275,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/register_progress_icon"
             android:background="@drawable/pip_advent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp" />
     </RelativeLayout>
 
