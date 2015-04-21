@@ -124,6 +124,10 @@ public class LoginActivity extends FragmentActivity {
                 toastString = getString(R.string.login_welcome_toast);
                 launchActivity("");
                 mLoginTries = 0;
+
+               //keep track of which activity to start up on --B
+                getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE).edit()
+                        .putBoolean(getString(R.string.logged_in_boolean), true).apply();
                 finish();
             } else {
                 //BAD USER CREDENTIALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

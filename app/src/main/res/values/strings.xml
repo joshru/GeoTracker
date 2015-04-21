@@ -24,7 +24,7 @@
 
     <string-array name="security_questions_array">
         <item>Sass or noobs?</item>
-        <item>Brand of mother\'s favorite panties?</item>
+        <item>Hospital you were born in?</item>
         <item>When was the last time you murdered for pleasure?</item>
         <item>What is your mother\'s maiden name?</item>
         <item>What was the name of your first pet?</item>
@@ -57,6 +57,7 @@
     <string name="saved_pass_key">userPassphraseHash</string>
     <string name="saved_question_key">userQuestion</string>
     <string name="saved_question_answer_key">userQuestionResponse</string>
+    <string name="logged_in_boolean">userLoggedIn</string>
 
     <!--Default values-->
     <string name="default_restore_key">These are not the droids you are looking for.</string>
@@ -83,6 +84,7 @@
     <string name="map_fragment_label">THIS IS THE MAP FRAGMENT</string>
     <string name="tracking_label">This is the tracking label</string>
     <string name="account_settings_fragment_label">THIS SHOULD BE THE ACCOUNT SETTINGS FRAGMENT</string>
+    <string name="title_activity_startup">StartupActivity</string>
     <string name="login_welcome_toast">Welcome Friend</string>
     <string name="user_info_main_key">userInfo</string>
     <string name="register_error_toast">Error Registering</string>
