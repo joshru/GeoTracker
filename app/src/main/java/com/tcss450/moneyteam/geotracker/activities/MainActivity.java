@@ -21,7 +21,9 @@ import java.util.List;
 
 /**
  * The Main Activity class. Account and location recording data will be displayed to the user here.
- * @author Alex, Brandon, Josh
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {

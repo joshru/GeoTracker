@@ -27,14 +27,14 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Authenticator;
 
 /**
- * TODO Josh
+ * The activity for registering a new user.
  * @author Brandon Bell
  * @author Alexander Cherry
  * @author Joshua Rueschenberg
  */
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
-    /** TODO Josh add javadoc for all these please*/
+    /** TODO Josh add javadoc for all these please */
     EditText mEmail;
     EditText mPassword;
     EditText mRepeatPassword;
