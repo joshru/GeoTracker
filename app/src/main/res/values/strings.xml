@@ -120,6 +120,7 @@
     <string name="saved_question_answer_key">userQuestionResponse</string>
     <string name="logged_in_boolean">userLoggedIn</string>
     <string name="user_info_main_key">userInfo</string>
+    <string name="tos_text">EMPTY</string>
 
 
     <!-- UNSORTED VALUES-->
