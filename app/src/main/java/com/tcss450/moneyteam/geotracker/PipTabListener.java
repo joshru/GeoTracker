@@ -7,7 +7,9 @@ import android.app.ActionBar;
 
 /**
  * Actionbar listener for all tabs on inside MainActivity.
- * @author Alexander, Brandon, Josh
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class PipTabListener implements ActionBar.TabListener {
 
@@ -15,23 +17,38 @@ public class PipTabListener implements ActionBar.TabListener {
     Fragment mFragment;
 
     /**
-     *
-     * @param fragment
+     * Listener for the tab view
+     * @param fragment the fragment selected by user
      */
     public PipTabListener(Fragment fragment) {
         this.mFragment = fragment;
     }
 
+    /**
+     * Called when a tab enters the selected state
+     * @param tab the tab selected
+     * @param ft the fragment transaction
+     */
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
         ft.replace(R.id.fragment_container, mFragment);
     }
 
+    /**
+     * Called when a tab exits the selected state
+     * @param tab the tab selected
+     * @param ft the fragment transaction
+     */
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
         ft.remove(mFragment);
     }
 
+    /**
+     * (Unused) Called when a tab that is already is selected is chosen again by the user
+     * @param tab
+     * @param ft
+     */
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
     }

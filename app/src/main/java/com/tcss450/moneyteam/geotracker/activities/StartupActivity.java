@@ -9,10 +9,18 @@ import android.os.Bundle;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * Simple activity created to test whether or not the user is signed in and open the appropriate activity.
+ * Simple activity created to test whether or not the user is signed in and opens the appropriate activity.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class StartupActivity extends Activity {
 
+    /**
+     * Creates the startup activity and decides what activity to display based on whether a user is
+     * logged in or not
+     * @param savedInstanceState the saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

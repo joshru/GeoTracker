@@ -6,8 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * TODO Josh
- * @author Alexander Cherry(akac92@uw.edu)
+ * The authenticator class for hashing passwords and making sure entered emails are in a valid format.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class Authenticator {
 
@@ -15,9 +17,9 @@ public class Authenticator {
     private static final String SALT = "MONEY_TEAM_!";
 
     /**
-     * TODO Josh
-     * @param input
-     * @return
+     * Hashes the entered password for security purposes.
+     * @param input the entered password string
+     * @return the hashed password string
      */
     public static String generateHash(final String input) {
         final String saltedPass = SALT + input;
@@ -43,7 +45,7 @@ public class Authenticator {
     /**
      * Verifies that the email has proper qualities of an email.
      * @param theEmail the email string to be tested.
-     * @return the boolean indicating if its succesful(true), or not(false).
+     * @return the boolean indicating if the email was valid succesful(true), or not(false).
      */
     public static boolean emailFormatCheck(final String theEmail) {
         boolean isValid = false;
@@ -58,9 +60,9 @@ public class Authenticator {
     }
 
     /**
-     * Verifies that the password is atleast 5 characters in length.
+     * Verifies that the password is at least 5 characters in length.
      * @param thePass to be verified with the regex.
-     * @return the boolean regarding if it has a valid form
+     * @return the boolean regarding if it has a valid length
      */
     public static boolean passFormatCheck(final String thePass) {
         return (thePass.length() > 5);
