@@ -10,7 +10,7 @@ import android.util.Log;
  * Created by Brandon on 4/21/2015.
  */
 public class UserTable {
-
+    //test
     //Database table tags
     public static final String Table_USER = "user_table";
     public static final String COLUMN_ID = "_id";
