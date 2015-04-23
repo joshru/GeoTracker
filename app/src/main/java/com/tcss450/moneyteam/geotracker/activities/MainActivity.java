@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
+import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
 
@@ -106,6 +107,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         mDetector = new GestureDetectorCompat(this,this);
         mDetector.setOnDoubleTapListener(this);
 
+    }
+
+    /**
+     * OnClickListener for change password button.
+     */
+    public void changePassword() {
+        ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
+        dialog.show(getFragmentManager(), "forgotPW");
     }
 
     /**

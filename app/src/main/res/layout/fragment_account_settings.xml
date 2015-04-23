@@ -145,4 +145,24 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="133dp"
+        android:layout_height="47dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pip_button_background_alpha">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_reset_password_button"
+            android:id="@+id/account_password_reset"
+            android:onClick="changePassword"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/pip_button_outline"
+            android:textColor="@color/pip_light_neon"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
 </LinearLayout>

@@ -121,6 +121,7 @@
     <string name="logged_in_boolean">userLoggedIn</string>
     <string name="user_info_main_key">userInfo</string>
     <string name="tos_text">EMPTY</string>
+    <string name="account_reset_password_button">Change Password</string>
 
 
     <!-- UNSORTED VALUES-->
