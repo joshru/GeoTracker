@@ -131,7 +131,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         });
 
         //SET EMAIL PROGRESS IF PASSED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        if(Authenticator.emailFormatCheck(userEmail)) {
+        if(userEmail != null && Authenticator.emailFormatCheck(userEmail)) {
             mEmail.setText(userEmail);
             progressArr[0] = 1;
             mEnterListener.set();
