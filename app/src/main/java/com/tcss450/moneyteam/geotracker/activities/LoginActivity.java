@@ -5,19 +5,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
 import com.tcss450.moneyteam.geotracker.Authenticator;
 
@@ -95,6 +101,18 @@ public class LoginActivity extends FragmentActivity {
                 return true;
             }
         });
+
+
+        //JOSH TESTING CUSTOM TOASTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ImageView toastTest = (ImageView) findViewById(R.id.imageView3);
+
+        toastTest.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Poptart.display(LoginActivity.this, "Testing ze testicles", Toast.LENGTH_LONG);
+            }
+        });
+
     }
 
     /**
