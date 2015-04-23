@@ -110,7 +110,7 @@ public class LoginActivity extends FragmentActivity {
         toastTest.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Poptart.display(LoginActivity.this, "Testing ze testicles", Toast.LENGTH_LONG);
+                Poptart.display(LoginActivity.this, "Testing ze testicles \n double line test", Toast.LENGTH_LONG);
             }
         });
 
