@@ -66,11 +66,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_password"
-
+                android:textCursorDrawable="@color/pip_light_neon"
+                android:background="@drawable/edit_text_gradient"
                 android:password="true"
                 android:inputType="text"
                 android:textColor="#ff11f97c"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:autoText="false"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_below="@+id/textView5" />
         </RelativeLayout>
 
@@ -91,9 +97,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_repeat_password"
+                android:textCursorDrawable="@color/pip_light_neon"
+                android:background="@drawable/edit_text_gradient"
                 android:password="true"
                 android:inputType="text"
                 android:textColor="#ff11f97c"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_below="@+id/textView6" />
         </RelativeLayout>
 
@@ -134,8 +147,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_security_answer"
+                android:textCursorDrawable="@color/pip_light_neon"
+                android:background="@drawable/edit_text_gradient"
                 android:textColor="#ff11f97c"
                 android:layout_alignParentStart="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="5dp"
                 android:singleLine="true"
                 android:layout_below="@+id/textView8" />
 
