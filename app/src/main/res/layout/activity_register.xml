@@ -37,10 +37,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_email"
-
+                android:textCursorDrawable="@color/pip_light_neon"
                 android:inputType="textEmailAddress"
                 android:textColor="#ff11f97c"
-                android:layout_below="@+id/textView3" />
+                android:layout_below="@+id/textView3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edit_text_gradient"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
+
         </RelativeLayout>
 
         <RelativeLayout
