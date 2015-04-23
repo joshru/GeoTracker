@@ -37,6 +37,16 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp">
 
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView9"
+            android:background="@drawable/pip_hud_flat_bar"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/f_account_email" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,16 +56,6 @@
             android:layout_alignParentEnd="false"
             android:layout_marginStart="20dp"
             android:textColor="#ff11f97c" />
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView7"
-            android:background="@drawable/pip_hud_flat_bar"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/textView15" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,17 +111,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:nestedScrollingEnabled="false"
+        android:id="@+id/account_answer_layout">
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView9"
+            android:id="@+id/account_line_bar"
             android:background="@drawable/pip_hud_flat_bar"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_alignParentBottom="false"
-            android:layout_below="@+id/textView18" />
+            android:layout_below="@+id/f_account_answer" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -141,7 +143,8 @@
             android:id="@+id/f_account_answer"
             android:textColor="#ff11f97c"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginEnd="20dp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -157,7 +160,6 @@
             android:layout_height="wrap_content"
             android:text="@string/account_reset_password_button"
             android:id="@+id/account_password_reset"
-            android:onClick="changePassword"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/pip_button_outline"

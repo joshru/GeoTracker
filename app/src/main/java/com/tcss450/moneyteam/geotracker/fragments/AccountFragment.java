@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tcss450.moneyteam.geotracker.R;
@@ -26,6 +31,8 @@ public class AccountFragment extends Fragment {
 
     /** The user secret question text view*/
     private TextView mUserQuestionLabel;
+    private Button mPasswordResetButton;
+    private RelativeLayout mAnswerLayout;
 
     /**
      * Createst the account information fragment and assigns all relevant listeners
@@ -44,6 +51,8 @@ public class AccountFragment extends Fragment {
             mUserEmailLabel = (TextView) rootView.findViewById(R.id.f_account_email);
             mUserQuestionLabel = (TextView) rootView.findViewById(R.id.f_account_question);
             mUserAnswerLabel = (TextView) rootView.findViewById(R.id.f_account_answer);
+            mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
+            mAnswerLayout = (RelativeLayout) rootView.findViewById(R.id.account_answer_layout);
 
             //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             SharedPreferences myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
@@ -57,6 +66,44 @@ public class AccountFragment extends Fragment {
             mUserAnswerLabel.setText(userAnswer);
 
             //SET ONCLICK LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            mPasswordResetButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
+                    dialog.show(getFragmentManager(), "forgotPW");
+                }
+            });
+
+            mAnswerLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageView lineView = (ImageView) getActivity().findViewById(R.id.account_line_bar);
+                    TextView answer = (TextView) getActivity().findViewById(R.id.f_account_answer);
+                    ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    anim.setDuration(700);
+                    lineView.startAnimation(anim);
+                    if(answer.getVisibility() == View.INVISIBLE) {
+                        answer.startAnimation(anim);
+                        answer.setVisibility(View.VISIBLE);
+                    }else{
+                        answer.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+
             return rootView;
         }
+
+
+    /**
+     * OnClickListener for change password button.
+     */
+    public void changePassword() {
+        View lineView = getActivity().findViewById(R.id.account_line_bar);
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(700);
+        lineView.startAnimation(anim);
+        ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
+       dialog.show(getFragmentManager(), "forgotPW");
+    }
 }
