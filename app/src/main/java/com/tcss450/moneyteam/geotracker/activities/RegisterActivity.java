@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Authenticator;
+import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 
 /**
  * The activity for registering a new user.
@@ -194,7 +195,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         } else if(!mTermsCheckBox.isChecked()) {
             toastString = getString(R.string.tos_toast);
         }
-        Toast.makeText(this, toastString, Toast.LENGTH_LONG).show();
+        Poptart.display(this, toastString, Toast.LENGTH_LONG);
         mRegisterButton.startAnimation(animAlpha);
     }
 

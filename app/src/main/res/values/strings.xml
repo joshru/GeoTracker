@@ -106,7 +106,7 @@
     <string name="tos_toast">You must agree to our terms of service</string>
     <string name="register_pass_invalid_toast">Passwords do not match</string>
     <string name="register_question_response_invalid_toast">Question Response cannot be empty</string>
-    <string name="register_pass_short_toast">Password length is to short (minimum 6 characters)</string>
+    <string name="register_pass_short_toast">Password length is too short (minimum 6 characters)</string>
     <string name="register_email_invalid_toast">Invalid email format</string>
     <string name="login_welcome_toast">Welcome Friend</string>
     <string name="register_error_toast">Error Registering</string>

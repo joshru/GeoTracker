@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.Authenticator;
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 
 /**
  * The forgot password fragment for resetting user password with secret question check.
@@ -101,11 +102,11 @@ public class ForgotPasswordDialog extends DialogFragment {
                     mNewPassText.setVisibility(View.VISIBLE);
                     mNewPassRepeatText.setVisibility(View.VISIBLE);
                     mDialogSubmitButton.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getActivity(), getString(R.string.toast_security_correct),
-                            Toast.LENGTH_SHORT).show();
+                    Poptart.display(getActivity(), getString(R.string.toast_security_correct),
+                            Toast.LENGTH_SHORT);
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.toast_security_incorrect),
-                            Toast.LENGTH_LONG).show();
+                    Poptart.display(getActivity(), getString(R.string.toast_security_incorrect),
+                            Toast.LENGTH_LONG);
                 }
             }
         });
@@ -130,8 +131,8 @@ public class ForgotPasswordDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         setCancelable(false);
                         ForgotPasswordDialog.this.getDialog().cancel();
-                        Toast.makeText(getActivity(), getString(R.string.reset_cancel_button),
-                                Toast.LENGTH_LONG).show();
+                        Poptart.display(getActivity(), getString(R.string.reset_cancel_button),
+                                Toast.LENGTH_LONG);
                         //dialog.cancel();
                     }
                 });
@@ -158,13 +159,13 @@ public class ForgotPasswordDialog extends DialogFragment {
                     mResetSuccessful = true;
 
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.toast_security_password_failed),
-                            Toast.LENGTH_LONG).show();
+                    Poptart.display(getActivity(), getString(R.string.toast_security_password_failed),
+                            Toast.LENGTH_LONG);
                 }
                 if (mResetSuccessful) {
                     dialog.dismiss();
-                    Toast.makeText(getActivity(), getString(R.string.toast_security_password_changed),
-                            Toast.LENGTH_LONG).show();
+                    Poptart.display(getActivity(), getString(R.string.toast_security_password_changed),
+                            Toast.LENGTH_LONG);
                 }
             }
         });

@@ -97,7 +97,8 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public boolean onLongClick(View v) {
                 launchActivity("");
-                Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG).show();
+                Poptart.display(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG);
+//                Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG).show();
                 return true;
             }
         });
@@ -170,7 +171,7 @@ public class LoginActivity extends FragmentActivity {
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButtonLayout.startAnimation(animAlpha);
         badView.startAnimation(animAlpha);
-        Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
+        Poptart.display(LoginActivity.this, toastString, Toast.LENGTH_LONG);
     }
 
     /**
