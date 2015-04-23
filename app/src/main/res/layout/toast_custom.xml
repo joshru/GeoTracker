@@ -4,16 +4,22 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="8dp"
+    android:padding="5dp"
     android:background="@drawable/toast_border"
     android:backgroundTint="#1D5527"
     >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pip_toast_icon"
+        android:padding="3dp"/>
 
     <TextView
         android:id="@+id/custom_toast_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="16dp"
         android:textColor="#ff11f97c"
         />
 </LinearLayout>
