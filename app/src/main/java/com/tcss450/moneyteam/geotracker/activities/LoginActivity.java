@@ -172,13 +172,13 @@ public class LoginActivity extends FragmentActivity {
             case "register":
                 //LAUNCH REGISTRATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 Intent registerScreen = new Intent(getApplicationContext(), RegisterActivity.class);
-                registerScreen.putExtra("email", mEmailText.getText().toString());
+                registerScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
                 startActivity(registerScreen);
                 break;
             default:
                 //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-                mainScreen.putExtra("email", mEmailText.getText().toString());
+                mainScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
                 startActivity(mainScreen);
                 break;
         }

@@ -175,9 +175,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             myPrefEditor.putString(getString(R.string.saved_pass_key), passphraseHash);
             myPrefEditor.putString(getString(R.string.saved_question_key), question);
             myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
+            myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), true);
             myPrefEditor.apply();
             toastString = getString(R.string.register_succesful);
-            finish();
+            //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            mainScreen.putExtra(getString(R.string.saved_email_key), email);
+            startActivity(mainScreen);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if(!validEmail) {
             toastString = getString(R.string.register_email_invalid_toast);

@@ -3,11 +3,15 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 
 import com.tcss450.moneyteam.geotracker.R;
@@ -74,6 +78,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Logout");
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         //ACCOUNT SETTINGS TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,6 +106,30 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         mDetector = new GestureDetectorCompat(this,this);
         mDetector.setOnDoubleTapListener(this);
 
+    }
+
+    /**
+     * Overides the return to home as a call to logout the user.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //GET SHARED PREFERERENCES/SET LOGGIN IN BOOL~~~~~~~~~~~~~~~~~~~~~~~~
+                SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor myPrefEditor = myPreferences.edit();
+                myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), true);
+                myPrefEditor.apply();
+                //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(loginScreen);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                return(true);
+        }
+
+        return(super.onOptionsItemSelected(item));
     }
 
 
