@@ -2,7 +2,12 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:dropDownListViewStyle">@style/mySpinnerStyle</item>
+    </style>
+
+    <style name="mySpinnerStyle" parent="android:Widget.ListView.DropDown">
+        <item name="android:divider">#00ff00</item>
+        <item name="android:dividerHeight">0dp</item>
     </style>
 
 </resources>

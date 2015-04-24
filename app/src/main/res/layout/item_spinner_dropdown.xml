@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:ellipsize="marquee"
-    android:background="@drawable/pip_button_background_alpha"
+    android:background="@color/pip_hint_shade"
+    android:textSize="14dp"
     android:textColor="#ff11f97c"
     android:alpha="0.9"/>

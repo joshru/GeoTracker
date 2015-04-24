@@ -7,7 +7,9 @@
     <corners android:radius="5dp" />
     <gradient
         android:startColor="@color/pip_hint_shade"
-        android:endColor="#1a11f97c"
+        android:centerColor="#00CCCCCC"
+        android:endColor="@color/pip_hint_shade"
         android:type="linear"
+        android:gradientRadius="1"
         android:angle="90"/>
 </shape>
