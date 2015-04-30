@@ -3,9 +3,11 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
@@ -19,10 +21,12 @@ import android.view.animation.ScaleAnimation;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.PipTabListener;
+import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
+import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,9 +110,20 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         mMapTab.setTabListener(new PipTabListener(mMapFragment));
         actionBar.addTab(mMapTab);
 
-        //GESTURE DETECTOR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!
+        //GESTURE DETECTOR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mDetector = new GestureDetectorCompat(this,this);
         mDetector.setOnDoubleTapListener(this);
+
+        //ENABLED LOCATION SERVICE INTENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        LocationIntentService.setServiceAlarm(this, true);
+
+        ComponentName receiver = new ComponentName(this, BootLoader.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+        //TODO enable disable toggle button in Account Tab
 
     }
 
