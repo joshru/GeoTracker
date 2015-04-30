@@ -14,11 +14,25 @@ public class UserDB {
     private UserDBHelper mDBHelper;
     private Context mContext;
     //private SQLiteDatabase db;
+
+    /**
+     *
+     * @param context
+     */
     public UserDB(Context context) {
         mDBHelper = new UserDBHelper(context);
         mContext = context;
     }
 
+    /**
+     *
+     * @param ID
+     * @param userName
+     * @param password
+     * @param securityQuestion
+     * @param securityAnswer
+     * @return
+     */
     public long insertUser(int ID, String userName, String password,
                String securityQuestion, String securityAnswer) {
         SQLiteDatabase db = mDBHelper.getWritableDatabase();

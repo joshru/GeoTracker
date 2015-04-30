@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Authenticator;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
+import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 
 /**
  * The activity for registering a new user.
@@ -172,13 +173,20 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
         //DISPLAY TOAST BASED ON CREDENTIAL TESTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
-            myPrefEditor.putString(getString(R.string.saved_email_key), email);
+           /* myPrefEditor.putString(getString(R.string.saved_email_key), email);
             myPrefEditor.putString(getString(R.string.saved_pass_key), passphraseHash);
             myPrefEditor.putString(getString(R.string.saved_question_key), question);
-            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
+            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);*/
             myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), true);
             myPrefEditor.apply();
-            toastString = getString(R.string.register_succesful);
+
+            /* Testing webservice */
+            WebServiceHelper webServiceHelper = new WebServiceHelper(this);
+           // webServiceHelper.addUser(this, email, passphraseHash, question, answer);
+
+            webServiceHelper.addUser(email, passphraseHash, question, answer);//getString(R.string.register_succesful);
+           // toastString = "did it work?";
+
             //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             mainScreen.putExtra(getString(R.string.saved_email_key), email);
@@ -195,7 +203,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         } else if(!mTermsCheckBox.isChecked()) {
             toastString = getString(R.string.tos_toast);
         }
-        Poptart.display(this, toastString, Toast.LENGTH_LONG);
+        //Poptart.display(this, toastString, Toast.LENGTH_LONG);
         mRegisterButton.startAnimation(animAlpha);
     }
 
