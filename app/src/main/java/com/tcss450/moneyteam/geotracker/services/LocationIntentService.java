@@ -40,7 +40,6 @@ public class LocationIntentService extends IntentService {
         Log.i(LOCATION_SERVICE_TAG, "service starting");
         //Set up location manager
         //Check for recent data from external sources, if older then 60 seconds, get your own.
-        //generateNotification(); //TODO Eventually pass the pulled location data.
         return START_REDELIVER_INTENT;
     }
 
@@ -69,30 +68,4 @@ public class LocationIntentService extends IntentService {
             alarmIntent.cancel();
         }
     }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void generateNotification() {
-        Log.i(LOCATION_SERVICE_TAG, "Notification Generated");
-        final NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(android.R.drawable.bottom_bar)
-                        .setContentTitle("Location Service")
-                        .setContentText("Location Updated!");
-        final Intent resultIntent = new Intent(this, com.tcss450.moneyteam.geotracker.activities.MainActivity.class);
-        final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-
-        stackBuilder.addParentStack(com.tcss450.moneyteam.geotracker.activities.MainActivity.class);
-        stackBuilder.addNextIntent(resultIntent);
-
-        final PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        final NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(mId, mBuilder.build());
-    }
-
 }

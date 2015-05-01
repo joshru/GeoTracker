@@ -114,17 +114,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         mDetector = new GestureDetectorCompat(this,this);
         mDetector.setOnDoubleTapListener(this);
 
-        //ENABLED LOCATION SERVICE INTENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        LocationIntentService.setServiceAlarm(this, true);
-
-        ComponentName receiver = new ComponentName(this, BootLoader.class);
-        PackageManager pm = this.getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-        //TODO enable disable toggle button in Account Tab
-
     }
 
     /**
@@ -139,12 +128,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 //GET SHARED PREFERERENCES/SET LOGGIN IN BOOL~~~~~~~~~~~~~~~~~~~~~~~~
                 SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-                myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), true);
+                myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
                 myPrefEditor.apply();
                 //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(loginScreen);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                this.finish();
                 return(true);
         }
 

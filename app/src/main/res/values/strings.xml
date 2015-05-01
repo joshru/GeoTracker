@@ -58,7 +58,7 @@
     <string name="account_fill">{FILL}</string>
     <string name="account_security_question_current">Security Question</string>
     <string name="account_fill_text">{FILL}</string>
-    <string name="account_current_account_question">Question Response</string>
+    <string name="account_current_account_question">Question Response (Tap to reveal/hide)</string>
 
 
     <!-- TRACKING FRAGMENT -->
@@ -122,6 +122,7 @@
     <string name="user_info_main_key">userInfo</string>
     <string name="tos_text">EMPTY</string>
     <string name="account_reset_password_button">Change Password</string>
+    <string name="saved_location_toggle_boolean">locationBoolean</string>
 
 
     <!-- UNSORTED VALUES-->
