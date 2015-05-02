@@ -35,16 +35,20 @@ public class WebServiceHelper {
     private ProgressDialog mProgressDialog;
     private Context mContext;
     private String mCallingMethod;
+    private DownloadWebPageTask mDownloadTask;
 
 
     public WebServiceHelper(Context context) {
         mContext = context;
+        mDownloadTask = new DownloadWebPageTask();
         mArray = null;
         mJSONObject = null;
         mCallingMethod = null;
     }
 
-
+    //******************************************************
+    //Query executors below here
+    //******************************************************
     public void addUser(final String email, final String password,
                                final String question, final String answer) {
 
@@ -53,14 +57,12 @@ public class WebServiceHelper {
                 + "&question=" + question.replace(" ", "%20").replace("?", "%3F")
                 + "&answer=" + answer.replace(" ", "%20");
 
-        String result ="debug string";
+       // String result ="debug string";
 
         Log.d("WEBQUERY", query);
 
-        DownloadWebPageTask task = new DownloadWebPageTask();
-
         mCallingMethod = "addUser";
-        task.execute(new String[] {query});
+        mDownloadTask.execute(new String[] {query});
 
         //problem is here, this code needs to wait for the task to complete before executing
 
@@ -91,6 +93,22 @@ public class WebServiceHelper {
 
         return result;*/
     }
+
+    public void loginUser(final String email, final String password) {
+
+        mCallingMethod = "loginUser";
+
+        String query = BASE_URL + "login.php?" + "email=" + email + "&password=" + password;
+        mDownloadTask.execute(new String[] {query});
+
+    }
+
+
+
+
+    //**********************************************************
+    //Post execute methods below here
+    //**********************************************************
 
     /**
      * Method to be called after thread has finished creating the user.
@@ -124,8 +142,16 @@ public class WebServiceHelper {
 
             mArray = null;
         }
-        //return result;
     }
+
+  /*  private void loginUserPostExecute() {
+        String result = "debug string";
+
+        if (mJSONObject != null) {
+            mJSONObject
+        }
+
+    }*/
 
     //not sure if making it static is kosher, we'll see.
     private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
