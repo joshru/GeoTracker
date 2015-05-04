@@ -11,7 +11,7 @@ public class LocationTableSchema {
     /*Defining table and column names.*/
     private static final String TABLE_NAME = "tablelocation";
 
-    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_ID = "_id";
     private static final String COLUMN_LATITUDE = "Latitude";
     private static final String COLUMN_LONGITUDE = "Longitude";
     private static final String COLUMN_SPEED = "Speed";

@@ -38,7 +38,7 @@ public class UserTable {
                                  int newVersion) {
         Log.w(UserTable.class.getName(), "Upgrading database from version " +
         oldVerion + "to " + newVersion +
-        ", which will destory all old data");
+        ", which will destroy all old data");
 
         database.execSQL("DROP TABLE IF EXISTS " + Table_USER);
         onCreate(database);

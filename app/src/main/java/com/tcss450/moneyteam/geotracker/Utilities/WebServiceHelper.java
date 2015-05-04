@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.tcss450.moneyteam.geotracker.activities.RegisterActivity;
+import com.tcss450.moneyteam.geotracker.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -29,6 +29,7 @@ public class WebServiceHelper {
 
     private static final String RESULT_TAG = "result";
     private static final String ERROR_TAG = "error";
+    private static final String ID_TAG = "userid";
 
     private JSONArray mArray;
     protected JSONObject mJSONObject;
@@ -144,14 +145,33 @@ public class WebServiceHelper {
         }
     }
 
-  /*  private void loginUserPostExecute() {
+    private void loginUserPostExecute() {
         String result = "debug string";
 
         if (mJSONObject != null) {
-            mJSONObject
-        }
+            try {
+                if (mJSONObject.getString(RESULT_TAG).equals("success")) {
+                    mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
+                            Context.MODE_PRIVATE)
+                            .edit()
+                            .putString(mContext.getString(R.string.saved_user_id_key),
+                            mJSONObject.getString(ID_TAG))
+                            .apply();
+                    result = "Successfully logged in.";
+                    Log.d("LOGINSUCCESS", "login successful");
+                }
+                else if (mJSONObject.getString(RESULT_TAG).equals("fail")) {
+                    result = mJSONObject.getString("error");
+                }
+            } catch (JSONException e) {
+                Log.e("LOGINFAILED", "Login failed");
+                e.printStackTrace();
+            }
 
-    }*/
+        }
+            Poptart.display(mContext, result, Toast.LENGTH_LONG);
+
+    }
 
     //not sure if making it static is kosher, we'll see.
     private class DownloadWebPageTask extends AsyncTask<String, Void, String> {

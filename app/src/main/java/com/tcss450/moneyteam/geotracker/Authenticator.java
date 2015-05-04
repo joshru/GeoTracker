@@ -16,6 +16,10 @@ public class Authenticator {
     /** A constant string used to add salting (inconsistency) to the hashing values. */
     private static final String SALT = "MONEY_TEAM_!";
 
+    private Authenticator() {
+        //prevent instantiation
+    }
+
     /**
      * Hashes the entered password for security purposes.
      * @param input the entered password string
