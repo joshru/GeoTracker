@@ -12,7 +12,7 @@ public class LocationTableSchema {
     private static final String TABLE_NAME = "tablelocation";
 
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_LATTITUDE = "Lattitude";
+    private static final String COLUMN_LATITUDE = "Latitude";
     private static final String COLUMN_LONGITUDE = "Longitude";
     private static final String COLUMN_SPEED = "Speed";
     private static final String COLUMN_HEADING = "Heading";
@@ -22,7 +22,7 @@ public class LocationTableSchema {
     /*Create table statement*/
 
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
-            + COLUMN_ID + "INTEGER AUTOINCREMENT, " + COLUMN_LATTITUDE + " DOUBLE NOT NULL, "
+            + COLUMN_ID + "INTEGER AUTOINCREMENT, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
             + COLUMN_LONGITUDE + "DOUBLE NOT NULL, " + COLUMN_SPEED + "INTEGER NOT NULL, "
             + COLUMN_HEADING + "TEXT NOT NULL, " + COLUMN_SOURCE + "INTEGER UNIQUE, "
             + COLUMN_TIMESTAMP + "TEXT PRIMARY KEY NOT NULL);";
@@ -31,11 +31,11 @@ public class LocationTableSchema {
         database.execSQL(CREATE_TABLE);
     }
 
-    public static void onUpgrade(SQLiteDatabase database, int oldVerion,
+    public static void onUpgrade(SQLiteDatabase database, int oldVersion,
                                  int newVersion) {
         Log.w(UserTable.class.getName(), "Upgrading database from version " +
-                oldVerion + "to " + newVersion +
-                ", which will destory all old data");
+                oldVersion + "to " + newVersion +
+                ", which will destroy all old data");
 
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(database);
