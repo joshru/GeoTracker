@@ -27,7 +27,7 @@ public class UserTable {
             + COLUMN_ADDRESS + " text not null, "
             + COLUMN_PASSWORD + " text not null, "
             + COLUMN_SECURITY_QUESTION + " text not null, "
-            + COLUMN_SECURITY_ANSWER + " text not null, "
+            + COLUMN_SECURITY_ANSWER + " text not null "
             + ");";
 
     public static void onCreate(SQLiteDatabase database) {
