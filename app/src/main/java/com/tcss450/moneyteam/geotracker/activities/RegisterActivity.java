@@ -175,7 +175,6 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     public void onEventMainThread(WebServiceHelper.WebServiceEvent event) {
         Poptart.displayCustomDuration(this, event.message, 6);
         if (event.success) {
-            //finishLogin();
             Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginScreen);
         }
@@ -205,53 +204,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
-
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
 
-        //DISPLAY TOAST BASED ON CREDENTIAL TESTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       // if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
-
             /* Testing webservice */
-
-
             webServiceHelper.addUser(email, passphraseHash, question, answer);
-           /* myPrefEditor.putString(getString(R.string.saved_email_key), email);
-            myPrefEditor.putString(getString(R.string.saved_pass_key), passphraseHash);
-            myPrefEditor.putString(getString(R.string.saved_question_key), question);
-            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);*//*
-            myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), true);
-            myPrefEditor.apply();
 
-            *//* Testing webservice *//*
-            WebServiceHelper webServiceHelper = new WebServiceHelper(this);
-           // webServiceHelper.addUser(this, email, passphraseHash, question, answer);
-
-            webServiceHelper.addUser(email, passphraseHash, question, answer);//getString(R.string.register_succesful);
-           // toastString = "did it work?";
-
-            //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            //Brandon FSUing stuff here. Trying to accommodate for webservices
-            //Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-
-            Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
-
-            //mainScreen.putExtra(getString(R.string.saved_email_key), email);
-            startActivity(loginScreen);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        } else if(!validEmail) {
-            toastString = getString(R.string.register_email_invalid_toast);
-        } else if(!validPass) {
-            toastString = getString(R.string.register_pass_short_toast);
-        } else if(!validQuestionResponse) {
-            toastString = getString(R.string.register_question_response_invalid_toast);
-        } else if(!validRepeat) {
-            toastString = getString(R.string.register_pass_invalid_toast);
-        } else if(!mTermsCheckBox.isChecked()) {
-            toastString = getString(R.string.tos_toast);
-        }*/
-            //Poptart.display(this, toastString, Toast.LENGTH_LONG);
             mRegisterButton.startAnimation(animAlpha);
-        //}
+
     }
 
     /**

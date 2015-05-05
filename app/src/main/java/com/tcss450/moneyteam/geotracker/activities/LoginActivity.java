@@ -1,5 +1,6 @@
 package com.tcss450.moneyteam.geotracker.activities;
 
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,8 +25,11 @@ import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
+import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
 import com.tcss450.moneyteam.geotracker.Authenticator;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * This Activity handles all user log in procedures and proper redirects.
@@ -132,8 +136,17 @@ public class LoginActivity extends FragmentActivity {
         final boolean passForm = Authenticator.passFormatCheck(mPassText.getText().toString());
         View badView = mLoginButton;
 
+        WebServiceHelper webServiceHelper = new WebServiceHelper(this);
+       // webServiceHelper.loginUser();
+
+
+
+        //if (emailForm && passForm) {
+        webServiceHelper.loginUser(emailCred, passCredHash);
+        //TODO reimplement multi-fail functionality
+       // }
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        /*SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
         userPassHash = myPreferences.getString(getString(R.string.saved_pass_key), "");
 
@@ -167,11 +180,11 @@ public class LoginActivity extends FragmentActivity {
         else if (!passForm) {
             badView = mPassText;
             toastString = getString(R.string.bad_pass_toast);
-        }
+        }*/
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButtonLayout.startAnimation(animAlpha);
-        badView.startAnimation(animAlpha);
-        Poptart.display(LoginActivity.this, toastString, Toast.LENGTH_LONG);
+       // badView.startAnimation(animAlpha);
+       // Poptart.display(LoginActivity.this, toastString, Toast.LENGTH_LONG);
     }
 
     /**
@@ -180,6 +193,33 @@ public class LoginActivity extends FragmentActivity {
      */
     public void iAmANoob (View view) {
         //TODO Add something cool here.
+        //wut
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    public void onEvent(WebServiceHelper.WebServiceEvent event) {
+        if (event.success) {
+            Poptart.displayCustomDuration(this, "Welcome, " + mEmailText.getText().toString(), 4);
+
+            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            mainScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
+            startActivity(mainScreen);
+        } else {
+            Poptart.displayCustomDuration(getApplicationContext(), event.message, 6);
+        }
+
+
     }
 
     /**

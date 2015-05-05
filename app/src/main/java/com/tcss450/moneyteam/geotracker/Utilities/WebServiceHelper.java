@@ -1,6 +1,7 @@
 package com.tcss450.moneyteam.geotracker.Utilities;
 
 import android.app.ProgressDialog;
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -153,21 +154,23 @@ public class WebServiceHelper {
 
     private void loginUserPostExecute() {
         String result = "debug string";
-
+        boolean success = false;
         if (mJSONObject != null) {
             try {
                 if (mJSONObject.getString(RESULT_TAG).equals("success")) {
-                    mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
+                   /* mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
                             Context.MODE_PRIVATE)
                             .edit()
                             .putString(mContext.getString(R.string.saved_user_id_key),
                             mJSONObject.getString(ID_TAG))
-                            .apply();
-                    result = "Successfully logged in.";
+                            .apply();*/
+
+                    result = mJSONObject.getString(ID_TAG);
+                    success = true;
                     Log.d("LOGINSUCCESS", "login successful");
                 }
                 else if (mJSONObject.getString(RESULT_TAG).equals("fail")) {
-                    result = mJSONObject.getString("error");
+                    result = mJSONObject.getString("error"); //TODO create constant
                 }
             } catch (JSONException e) {
                 Log.e("LOGINFAILED", "Login failed");
@@ -175,7 +178,9 @@ public class WebServiceHelper {
             }
 
         }
-            Poptart.display(mContext, result, 2);
+            //Poptart.display(mContext, result, 2);
+        EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
+        Log.d("LOGINEVENT", "Event posted.");
 
     }
 
