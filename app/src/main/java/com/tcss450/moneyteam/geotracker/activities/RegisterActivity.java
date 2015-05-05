@@ -28,6 +28,8 @@ import com.tcss450.moneyteam.geotracker.Authenticator;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * The activity for registering a new user.
  * @author Brandon Bell
@@ -145,6 +147,30 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mSecuritySpinner.setAdapter(adapter);
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //EVENTBUS~~~~~~~~~~~~~~~~
+        EventBus.getDefault().register(this);
+    }
+
+    /**
+     * Handles events from the webservices. Testing to see if it works.
+     */
+
+    public void onEventMainThread(WebServiceHelper.WebServiceEvent event) {
+        Poptart.display(this, event.message, Toast.LENGTH_LONG);
     }
 
     /**

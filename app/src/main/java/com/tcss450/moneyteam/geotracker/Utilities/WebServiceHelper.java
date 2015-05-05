@@ -19,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Static class used to communicate with the webserver
  * Created by Brandon on 4/29/2015.
@@ -133,9 +135,10 @@ public class WebServiceHelper {
                     result = mJSONObject.getString(ERROR_TAG);
                 }
 
-                Poptart.display(mContext, result, Toast.LENGTH_LONG);
+                //Poptart.display(mContext, result, Toast.LENGTH_LONG);
 
-
+                EventBus.getDefault().postSticky(new WebServiceEvent(result));
+                Log.d("EVENT", "Event posted");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -170,6 +173,15 @@ public class WebServiceHelper {
 
         }
             Poptart.display(mContext, result, Toast.LENGTH_LONG);
+
+    }
+
+    public class WebServiceEvent {
+        public final String message;
+
+        public WebServiceEvent(String message) {
+            this.message = message;
+        }
 
     }
 
