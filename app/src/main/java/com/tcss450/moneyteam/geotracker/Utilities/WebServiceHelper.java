@@ -240,6 +240,8 @@ public class WebServiceHelper {
                 case "addUser":
                     addUserPostExecute();
                     break;
+                case "loginUser":
+                    loginUserPostExecute();
                 default:
                     break;
 
