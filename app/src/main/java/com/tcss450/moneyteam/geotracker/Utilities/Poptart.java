@@ -1,6 +1,7 @@
 package com.tcss450.moneyteam.geotracker.Utilities;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,5 +29,32 @@ public final class Poptart {
         custom.setDuration(theDuration);
         custom.setView(myLayout);
         custom.show();
+
+    }
+    public static void displayCustomDuration(final Context theContext, final String theMessage,
+                                             final int theSeconds) {
+        LayoutInflater myInflater = (LayoutInflater)
+                theContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View myLayout = myInflater.inflate(R.layout.toast_custom, null);
+
+        TextView tText = (TextView) myLayout.findViewById(R.id.custom_toast_text);
+        tText.setText(theMessage);
+
+        final Toast custom = new Toast(theContext);
+        custom.setDuration(Toast.LENGTH_SHORT);
+        custom.setView(myLayout);
+       // custom.show();
+
+        new CountDownTimer(theSeconds * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                custom.show();
+            }
+
+            @Override
+            public void onFinish() {
+                custom.show();
+            }
+        }.start();
     }
 }

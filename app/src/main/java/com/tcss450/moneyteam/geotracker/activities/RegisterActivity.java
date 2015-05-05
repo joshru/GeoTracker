@@ -151,6 +151,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     }
 
+    /**
+     * Called after finalize(). Destroys the activity, usually done by OS to free resources.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -166,11 +169,16 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     }
 
     /**
-     * Handles events from the webservices. Testing to see if it works.
+     * Handles events from the webservices. Totally works
      */
 
     public void onEventMainThread(WebServiceHelper.WebServiceEvent event) {
-        Poptart.display(this, event.message, Toast.LENGTH_LONG);
+        Poptart.displayCustomDuration(this, event.message, 6);
+        if (event.success) {
+            //finishLogin();
+            Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(loginScreen);
+        }
     }
 
     /**
@@ -179,8 +187,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
      */
     public void registerUser(View view) {
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefEditor = myPreferences.edit();
+       // SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+      //  SharedPreferences.Editor myPrefEditor = myPreferences.edit();
         //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         String toastString = getString(R.string.register_error_toast);
         final String email = mEmail.getText().toString();
@@ -197,16 +205,24 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
+
+        WebServiceHelper webServiceHelper = new WebServiceHelper(this);
+
         //DISPLAY TOAST BASED ON CREDENTIAL TESTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
+       // if(validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
+
+            /* Testing webservice */
+
+
+            webServiceHelper.addUser(email, passphraseHash, question, answer);
            /* myPrefEditor.putString(getString(R.string.saved_email_key), email);
             myPrefEditor.putString(getString(R.string.saved_pass_key), passphraseHash);
             myPrefEditor.putString(getString(R.string.saved_question_key), question);
-            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);*/
+            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);*//*
             myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), true);
             myPrefEditor.apply();
 
-            /* Testing webservice */
+            *//* Testing webservice *//*
             WebServiceHelper webServiceHelper = new WebServiceHelper(this);
            // webServiceHelper.addUser(this, email, passphraseHash, question, answer);
 
@@ -214,9 +230,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
            // toastString = "did it work?";
 
             //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-            mainScreen.putExtra(getString(R.string.saved_email_key), email);
-            startActivity(mainScreen);
+            //Brandon FSUing stuff here. Trying to accommodate for webservices
+            //Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+
+            Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
+
+            //mainScreen.putExtra(getString(R.string.saved_email_key), email);
+            startActivity(loginScreen);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if(!validEmail) {
             toastString = getString(R.string.register_email_invalid_toast);
@@ -228,9 +248,10 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             toastString = getString(R.string.register_pass_invalid_toast);
         } else if(!mTermsCheckBox.isChecked()) {
             toastString = getString(R.string.tos_toast);
-        }
-        //Poptart.display(this, toastString, Toast.LENGTH_LONG);
-        mRegisterButton.startAnimation(animAlpha);
+        }*/
+            //Poptart.display(this, toastString, Toast.LENGTH_LONG);
+            mRegisterButton.startAnimation(animAlpha);
+        //}
     }
 
     /**

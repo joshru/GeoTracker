@@ -120,6 +120,7 @@ public class WebServiceHelper {
      */
     private void addUserPostExecute() {
         String result = "debug string";
+        boolean success;
 
         if (mJSONObject != null) {
             try {
@@ -127,21 +128,23 @@ public class WebServiceHelper {
                 Log.d("RAWJSONSTRING", mJSONObject.toString());
                 if (mJSONObject.getString(RESULT_TAG).equals("success")) {
                     Log.d("WEBSERVICE", "User successfully created");
-                    //result = "User successfully created";
+                    success = true;
                     result = mJSONObject.getString("message");
 
                 } else {
                     Log.d("ERRORSTRING", mJSONObject.getString(ERROR_TAG));
+                    success = false;
                     result = mJSONObject.getString(ERROR_TAG);
                 }
 
                 //Poptart.display(mContext, result, Toast.LENGTH_LONG);
 
-                EventBus.getDefault().postSticky(new WebServiceEvent(result));
+                EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
                 Log.d("EVENT", "Event posted");
 
             } catch (JSONException e) {
                 e.printStackTrace();
+
             }
 
             mArray = null;
@@ -172,15 +175,17 @@ public class WebServiceHelper {
             }
 
         }
-            Poptart.display(mContext, result, Toast.LENGTH_LONG);
+            Poptart.display(mContext, result, 2);
 
     }
 
     public class WebServiceEvent {
         public final String message;
+        public final boolean success;
 
-        public WebServiceEvent(String message) {
+        public WebServiceEvent(String message, boolean success) {
             this.message = message;
+            this.success = success;
         }
 
     }
