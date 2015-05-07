@@ -11,7 +11,8 @@
     <string name="action_log_out">Sign Out</string>
     <string name="general_content_description_101">101</string>
     <string name="general_team_name">Moneyteam</string>
-    <string name="general_version_number">v.1.2</string>
+    <string name="general_version_number">v.1.4</string>
+
 
 
 
@@ -78,6 +79,7 @@
     <string name="dialog_security_submit_button">Submit</string>
     <string name="dialog_security_question">[Security Question]</string>
     <string name="dialog_security_question_label">Security Question</string>
+    <string name="dialog_input_email_label">Please input email</string>
     <!-- -->
 
 

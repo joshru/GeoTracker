@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.tcss450.moneyteam.geotracker.R;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -66,32 +68,7 @@ public class WebServiceHelper {
 
         //problem is here, this code needs to wait for the task to complete before executing
 
-        /*if (mJSONObject != null) {
-            try {
-               // JSONObject object = mArray.getJSONObject(0);
-                Log.d("RAWJSONSTRING", mJSONObject.toString());
-                if (mJSONObject.getString(RESULT_TAG).equals("success")) {
-                    Log.d("WEBSERVICE", "User successfully created");
-                    result = "User successfully created";
 
-
-                } else {
-                    Log.d("ERRORSTRING", mJSONObject.getString(ERROR_TAG));
-                    result = mJSONObject.getString(ERROR_TAG);
-                }
-
-                //Poptart.display(context, result, Toast.LENGTH_SHORT);
-
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            mArray = null;
-        }
-
-        return result;*/
     }
 
     public void loginUser(final String email, final String password) {
@@ -109,6 +86,12 @@ public class WebServiceHelper {
 
     }
 
+    public void getAgreement() {
+        mCallingMethod = "getAgreement";
+        String query = BASE_URL + "agreement.php";
+        mDownloadTask.execute(new String[] {query});
+    }
+
 
 
 
@@ -119,7 +102,7 @@ public class WebServiceHelper {
     /**
      * Method to be called after thread has finished creating the user.
      * In general, I will be splitting each task into a pre and post execute method.
-     * @return
+     *
      */
     private void addUserPostExecute() {
         String result = "debug string";
@@ -159,13 +142,16 @@ public class WebServiceHelper {
         boolean success = false;
         if (mJSONObject != null) {
             try {
+                Log.d("RAWJSONSTRING", mJSONObject.toString());
+
                 if (mJSONObject.getString(RESULT_TAG).equals("success")) {
-                   /* mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
+
+                    mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
                             Context.MODE_PRIVATE)
                             .edit()
                             .putString(mContext.getString(R.string.saved_user_id_key),
                             mJSONObject.getString(ID_TAG))
-                            .apply();*/
+                            .apply();
 
                     result = mJSONObject.getString(ID_TAG);
                     success = true;
@@ -194,6 +180,8 @@ public class WebServiceHelper {
 
         if (mJSONObject != null) {
             try {
+                Log.d("RAWJSONSTRING", mJSONObject.toString());
+
                 String jsonResult = mJSONObject.getString(RESULT_TAG);
 
                 if (jsonResult.equals("success")) {
@@ -204,18 +192,49 @@ public class WebServiceHelper {
                 }
 
                 Log.d("RESETRESULT", "reset success");
+                EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
 
+            } catch (JSONException e) {
+                Log.e("ResetFailed", "Exception thrown from reset password web service");
+                e.printStackTrace();
+            }
+
+            Log.d("RESETPOSTED", "Posted reset result.");
+        }
+
+
+    }
+    private void getAgreementPostExecute() {
+      //  boolean success = true;
+
+        if (mJSONObject != null) {
+            try {
+                String jsonResult = mJSONObject.getString("agreement");
+
+                EventBus.getDefault().postSticky(new AgreementEvent(jsonResult));
+                Log.d("AGREEMENTSENT", jsonResult);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
+
+    public class AgreementEvent {
+       public final String theAgreement;
+       public AgreementEvent(final String theString) {
+           theAgreement = theString;
+       }
+
+    }
+
     /**
      * Event used to notify activities that the webservice completed.
      */
     public class WebServiceEvent {
+        /** Message to be displayed on the receiver's end.*/
         public final String message;
+        /** Whether or not the query reached success*/
         public final boolean success;
 
         public WebServiceEvent(String message, boolean success) {
@@ -298,6 +317,9 @@ public class WebServiceHelper {
                     break;
                 case "resetPassword":
                     resetPasswordPostExecute();
+                    break;
+                case "getAgreement":
+                    getAgreementPostExecute();
                     break;
                 default:
 

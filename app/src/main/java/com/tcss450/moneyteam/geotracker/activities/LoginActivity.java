@@ -141,7 +141,7 @@ public class LoginActivity extends FragmentActivity {
 
 
 
-        //if (emailForm && passForm) {
+
         webServiceHelper.loginUser(emailCred, passCredHash);
         //TODO reimplement multi-fail functionality
        // }
@@ -197,15 +197,23 @@ public class LoginActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+       // EventBus.getDefault().unregister(this);
     }
 
     @Override
     protected void onStart() {
-        super.onStart();
+        //super.onStart();
         EventBus.getDefault().register(this);
+        super.onStart();
     }
 
     public void onEvent(WebServiceHelper.WebServiceEvent event) {

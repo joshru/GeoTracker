@@ -32,10 +32,10 @@ public final class Poptart {
     }
 
     /**
-     *
-     * @param theContext
-     * @param theMessage
-     * @param theSeconds
+     * Displays a poptart for a given duration --B
+     * @param theContext to display the poptart in
+     * @param theMessage the text to be output
+     * @param theSeconds time to display the message.
      */
     public static void displayCustomDuration(final Context theContext, final String theMessage,
                                              final int theSeconds) {

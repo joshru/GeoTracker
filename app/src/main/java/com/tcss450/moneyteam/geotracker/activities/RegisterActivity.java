@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -106,14 +107,20 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mRegisterButton = (Button) findViewById(R.id.register_register_button);
         mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
         mProgressBar = (ImageView) findViewById(R.id.register_progress);
-        TextView htmlTOS = (TextView) findViewById(R.id.tos_text_view);
-        htmlTOS.setText(Html.fromHtml(getString(R.string.tos_agreement)));
+        //TextView htmlTOS = (TextView) findViewById(R.id.tos_text_view);
+        //htmlTOS.setText(Html.fromHtml(getString(R.string.tos_agreement)));
         mEnterListener = new PipTextEnterListener();
         mProgressBarIcon = (ImageView) findViewById(R.id.register_progress_icon);
         animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
         //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         progressArr = new int[5];
+
+        //Getting the agreement~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        WebServiceHelper helper = new WebServiceHelper(this);
+
+        helper.getAgreement();
+        Log.d("Getting Agreement", "called getAgreement from RegisterAct");
 
         //ADD LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mEmail.setOnEditorActionListener(mEnterListener);
@@ -148,6 +155,10 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mSecuritySpinner.setAdapter(adapter);
 
+     //   WebServiceHelper helper = new WebServiceHelper(this);
+
+      //  helper.getAgreement();
+       // Log.d("Getting Agreement", "called getAgreement from RegisterAct");
 
     }
 
@@ -166,6 +177,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         super.onStart();
         //EVENTBUS~~~~~~~~~~~~~~~~
         EventBus.getDefault().register(this);
+       /* WebServiceHelper helper = new WebServiceHelper(this);
+
+        helper.getAgreement();*/
     }
 
     /**
@@ -178,6 +192,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginScreen);
         }
+    }
+    public void onEventMainThread(WebServiceHelper.AgreementEvent event) {
+        Log.d("AGREEMENTEVENTRECEIVED", "agreement arrived.");
+        WebView htmlTOS = (WebView) findViewById(R.id.tos_text_view);
+        htmlTOS.loadData(event.theAgreement, "text/html", null);
+        //htmlTOS.setText(Html.fromHtml(event.theAgreement));
+        //htmlTOS.setText(event.theAgreement);
     }
 
     /**
