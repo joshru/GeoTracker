@@ -201,17 +201,15 @@
                 <TextView
                     android:id="@+id/tos_text_view"
                     android:layout_width="fill_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1.0"
 
                     android:paddingLeft="6dip"
                     android:paddingRight="6dip"
                     android:paddingBottom="6dip"
-                    android:text="@string/tos_text"
                     android:textColor="#ff11f97c"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:autoText="false"
                     />
 
             </LinearLayout>

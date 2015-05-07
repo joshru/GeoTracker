@@ -211,7 +211,6 @@ public class WebServiceHelper {
         if (mJSONObject != null) {
             try {
                 String jsonResult = mJSONObject.getString("agreement");
-
                 EventBus.getDefault().postSticky(new AgreementEvent(jsonResult));
                 Log.d("AGREEMENTSENT", jsonResult);
             } catch (JSONException e) {
