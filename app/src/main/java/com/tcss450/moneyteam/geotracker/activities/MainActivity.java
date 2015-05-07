@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private Tab mMapTab;
 
     /** Google maps with location data will be displayed to user via Map Tab*/
-    private Fragment mMapFragment;
+    private MapFragment mMapFragment;
 
     /** The gesture detector object*/
     private GestureDetectorCompat mDetector;

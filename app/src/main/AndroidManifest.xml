@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tcss450.moneyteam.geotracker" >
 
+    <permission
+        android:name="com.tcss450.moneyteam.geotracker.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.tcss450.moneyteam.geotracker.permission.MAPS_RECEIVE" />
+
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--
