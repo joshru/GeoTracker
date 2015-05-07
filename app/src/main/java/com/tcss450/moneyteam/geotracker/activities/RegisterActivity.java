@@ -195,10 +195,11 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     }
     public void onEventMainThread(WebServiceHelper.AgreementEvent event) {
         Log.d("AGREEMENTEVENTRECEIVED", "agreement arrived.");
-        WebView htmlTOS = (WebView) findViewById(R.id.tos_text_view);
-        htmlTOS.loadData(event.theAgreement, "text/html", null);
-        //htmlTOS.setText(Html.fromHtml(event.theAgreement));
-        //htmlTOS.setText(event.theAgreement);
+//        WebView htmlTOS = (WebView) findViewById(R.id.tos_text_view);
+//        htmlTOS.loadData(event.theAgreement, "text/html", null);
+        TextView htmlTOS = (TextView) findViewById(R.id.tos_text_view);
+        htmlTOS.setText(Html.fromHtml(event.theAgreement));
+        htmlTOS.setText(event.theAgreement);
     }
 
     /**
