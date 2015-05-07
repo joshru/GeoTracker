@@ -1,17 +1,10 @@
 package com.tcss450.moneyteam.geotracker.activities;
 
-import android.app.usage.UsageEvents;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -27,7 +20,7 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
-import com.tcss450.moneyteam.geotracker.Authenticator;
+import com.tcss450.moneyteam.geotracker.Utilities.Authenticator;
 
 import de.greenrobot.event.EventBus;
 
@@ -114,7 +107,7 @@ public class LoginActivity extends FragmentActivity {
         toastTest.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Poptart.display(LoginActivity.this, "Testing ze testicles \n double line test", Toast.LENGTH_LONG);
+                Poptart.display(LoginActivity.this, "Testing Poptarts \n double line test", Toast.LENGTH_LONG);
             }
         });
 
@@ -193,7 +186,6 @@ public class LoginActivity extends FragmentActivity {
      */
     public void iAmANoob (View view) {
         //TODO Add something cool here.
-        //wut
     }
 
     @Override

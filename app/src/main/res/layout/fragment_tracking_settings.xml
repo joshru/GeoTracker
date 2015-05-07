@@ -5,140 +5,52 @@
     android:orientation="vertical"
     android:background="@drawable/pip_background">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView10"
-            android:background="@drawable/pip_title_hook"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/tracking_starting_point"
-            android:id="@+id/textView17"
-            android:layout_centerHorizontal="true"
-            android:textColor="#ff11f97c"
-            android:layout_alignTop="@+id/imageView10" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/tracking_date_label"
-            android:id="@+id/textView10"
-            android:paddingEnd="10dp"
-            android:textSize="20sp"
-            android:layout_marginTop="5dp"
-            android:textColor="#ff11f97c"
-            android:password="false"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_alignParentStart="false" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="#ff11f97c"
-            android:background="@drawable/pip_button_background_alpha"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_toRightOf="@+id/textView10"
-            android:layout_alignTop="@+id/textView10"
-            android:layout_alignBottom="@+id/textView10"
-            android:paddingLeft="10dp" />
-    </RelativeLayout>
-
-    <ImageView
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView4"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/pip_hud_flat_bar"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_height="250dp"
+        android:id="@+id/scrollView"
+        android:layout_margin="10dp" >
+
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_margin="10dp" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/tracking_date_label"
-            android:id="@+id/textView19"
-            android:paddingEnd="10dp"
-            android:textSize="20sp"
-            android:textColor="#ff11f97c"
-            android:password="false"
-            android:layout_row="1"
-            android:layout_column="0" />
+            android:text="Location Tracking"
+            android:id="@+id/textView10"
+            android:textColor="@color/pip_light_neon"
+            android:layout_alignParentStart="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp" />
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editText3"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="#ff11f97c"
-            android:background="@drawable/pip_button_background_alpha"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_toRightOf="@+id/textView19"
-            android:layout_alignBottom="@+id/textView19"
-            android:layout_alignTop="@+id/textView19"
-            android:paddingLeft="10dp" />
+        <ToggleButton
+            android:layout_width="90dp"
+            android:layout_height="45dp"
+            android:text="New ToggleButton"
+            android:id="@+id/f_tracking_toggle_button"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:layout_alignParentEnd="true"
+            android:textOff="0ff"
+            android:textOn="0n"
+            android:textColor="@color/pip_light_neon"
+            android:background="@drawable/edit_text_gradient"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView5"
-            android:background="@drawable/pip_title_hook_inverse"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/tracking_ending_point"
-            android:id="@+id/textView13"
-            android:textColor="#ff11f97c"
-            android:layout_alignBottom="@+id/imageView5"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+        android:text="Display Map"
+        android:id="@+id/f_tracking_goto_map"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
