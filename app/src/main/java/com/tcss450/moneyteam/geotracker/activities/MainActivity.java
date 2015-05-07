@@ -43,6 +43,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     /** String used for logcat debugging*/
     private static final String DEBUG_TAG = "MAIN ACTIVITY DEBUG";
 
+    public static final String MAP_ID = "com.tcss450.moneyteam.getotracker.map_id";
+
     /** The account setting tab*/
     private Tab mAccountSettingsTab;
 
@@ -115,6 +117,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         mDetector.setOnDoubleTapListener(this);
 
     }
+
+
 
     /**
      * Overides the return to home as a call to logout the user.

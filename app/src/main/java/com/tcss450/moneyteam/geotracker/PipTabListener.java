@@ -5,6 +5,8 @@ import android.app.ActionBar;
         import android.app.Fragment;
         import android.app.FragmentTransaction;
 
+import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
+
 /**
  * Actionbar listener for all tabs on inside MainActivity.
  * @author Brandon Bell
