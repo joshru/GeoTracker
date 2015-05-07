@@ -1,13 +1,9 @@
 package com.tcss450.moneyteam.geotracker.Utilities;
 
 import android.app.ProgressDialog;
-import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.tcss450.moneyteam.geotracker.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -106,6 +102,12 @@ public class WebServiceHelper {
         mDownloadTask.execute(new String[] {query});
 
     }
+    public void resetPassword(final String email) {
+        mCallingMethod = "resetPassword";
+        String query = BASE_URL + "reset.php?email=" + email;
+        mDownloadTask.execute(new String[] {query});
+
+    }
 
 
 
@@ -180,10 +182,38 @@ public class WebServiceHelper {
         }
             //Poptart.display(mContext, result, 2);
         EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
+
         Log.d("LOGINEVENT", "Event posted.");
 
     }
 
+    private void resetPasswordPostExecute() {
+        String result = "debug string";
+        boolean success = false;
+
+
+        if (mJSONObject != null) {
+            try {
+                String jsonResult = mJSONObject.getString(RESULT_TAG);
+
+                if (jsonResult.equals("success")) {
+                    result = mJSONObject.getString("message");
+                    success  = true;
+                } else {
+                    result = mJSONObject.getString("error");
+                }
+
+                Log.d("RESETRESULT", "reset success");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Event used to notify activities that the webservice completed.
+     */
     public class WebServiceEvent {
         public final String message;
         public final boolean success;
@@ -202,6 +232,7 @@ public class WebServiceHelper {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = ProgressDialog.show(mContext, "Wait", "Parsing Server...");
+
         }
 
         @Override
@@ -264,7 +295,12 @@ public class WebServiceHelper {
                     break;
                 case "loginUser":
                     loginUserPostExecute();
+                    break;
+                case "resetPassword":
+                    resetPasswordPostExecute();
+                    break;
                 default:
+
                     break;
 
             }

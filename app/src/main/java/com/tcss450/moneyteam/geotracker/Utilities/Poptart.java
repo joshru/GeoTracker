@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +30,13 @@ public final class Poptart {
         custom.show();
 
     }
+
+    /**
+     *
+     * @param theContext
+     * @param theMessage
+     * @param theSeconds
+     */
     public static void displayCustomDuration(final Context theContext, final String theMessage,
                                              final int theSeconds) {
         LayoutInflater myInflater = (LayoutInflater)
@@ -44,8 +50,9 @@ public final class Poptart {
         custom.setDuration(Toast.LENGTH_SHORT);
         custom.setView(myLayout);
        // custom.show();
+        int timeInMillis = (theSeconds - 1) * 1000;
 
-        new CountDownTimer(theSeconds * 1000, 1000) {
+        new CountDownTimer(timeInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 custom.show();
