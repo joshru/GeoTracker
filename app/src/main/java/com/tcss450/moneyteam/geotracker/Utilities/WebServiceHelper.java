@@ -91,7 +91,7 @@ public class WebServiceHelper {
         String query = BASE_URL + "agreement.php";
         mDownloadTask.execute(new String[] {query});
     }
-
+//comment test
 
 
 
