@@ -63,20 +63,12 @@ public class AccountFragment extends Fragment {
             mUserAnswerLabel = (TextView) rootView.findViewById(R.id.f_account_answer);
             mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
             mAnswerLayout = (RelativeLayout) rootView.findViewById(R.id.account_answer_layout);
-            mToggleButton = (ToggleButton) rootView.findViewById(R.id.f_account_toggle_button);
 
             //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
             String userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
             String userQuestion = myPreferences.getString(getString(R.string.saved_question_key), "");
             String userAnswer = myPreferences.getString(getString(R.string.saved_question_answer_key), "");
-            Boolean locationToggleBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
-
-            if(locationToggleBool) {
-                toggle0n();
-            } else {
-                toggle0ff();
-            }
 
             //SET USER FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mUserEmailLabel.setText(userEmail);
@@ -109,13 +101,6 @@ public class AccountFragment extends Fragment {
                 }
             });
 
-            mToggleButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    locationToggle();
-                }
-            });
-
             return rootView;
         }
 
@@ -129,47 +114,5 @@ public class AccountFragment extends Fragment {
         lineView.startAnimation(anim);
         ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
        dialog.show(getFragmentManager(), "forgotPW");
-    }
-    
-    public void locationToggle() {
-        if(mToggleButton.isChecked()) {
-            toggle0n();
-        } else {
-            toggle0ff();
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void toggle0n() {
-        LocationIntentService.setServiceAlarm(rootView.getContext(), true);
-
-        ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
-        PackageManager pm = rootView.getContext().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-        //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mToggleButton.setChecked(true);
-        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), true).apply();
-        mToggleButton.setTextColor(getResources().getColor(R.color.pip_light_neon));
-        mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
-    }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void toggle0ff() {
-        LocationIntentService.setServiceAlarm(rootView.getContext(), false);
-
-        ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
-        PackageManager pm = rootView.getContext().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
-        //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mToggleButton.setChecked(false);
-        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), false).apply();
-        mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));
-        mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
     }
 }
