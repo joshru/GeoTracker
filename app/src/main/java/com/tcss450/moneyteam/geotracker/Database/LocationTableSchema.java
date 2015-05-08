@@ -9,7 +9,7 @@ import android.util.Log;
 public class LocationTableSchema {
 
     /*Defining table and column names.*/
-    private static final String TABLE_NAME = "tablelocation";
+    public static final String TABLE_NAME = "tablelocation";
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_LATITUDE = "Latitude";
@@ -27,10 +27,10 @@ public class LocationTableSchema {
     /*Create table statement*/
 
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
-            + COLUMN_ID + "INTEGER PRIMARY KEY, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
+            + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
             + COLUMN_LONGITUDE + "DOUBLE NOT NULL, " + COLUMN_SPEED + "INTEGER NOT NULL, "
-            + COLUMN_HEADING + "TEXT NOT NULL, " + COLUMN_SOURCE + "INTEGER UNIQUE, "
-            + COLUMN_TIMESTAMP + "TEXT NOT NULL);";
+            + COLUMN_HEADING + "DOUBLE NOT NULL, " + COLUMN_SOURCE + "TEXT UNIQUE NOT NULL, "
+            + COLUMN_TIMESTAMP + "INTEGER NOT NULL);";
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE);

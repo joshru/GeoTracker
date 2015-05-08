@@ -91,6 +91,11 @@ public class WebServiceHelper {
         String query = BASE_URL + "agreement.php";
         mDownloadTask.execute(new String[] {query});
     }
+
+    public void logAllPoints() {
+        //TODO open up the database, select all rows, iterate through and log every point
+    }
+
 //comment test
 
 
