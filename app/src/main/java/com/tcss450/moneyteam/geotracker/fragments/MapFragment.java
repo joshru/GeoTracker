@@ -28,7 +28,7 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.fragment_map, container, false);
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        mMapView = (MapView) view.findViewById(R.id.mapView);
+//        mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         mGoogleMap = mMapView.getMap();

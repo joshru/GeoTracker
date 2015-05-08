@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.activities.MapsActivity;
 import com.tcss450.moneyteam.geotracker.activities.RegisterActivity;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
@@ -69,7 +70,7 @@ public class TrackingFragment extends Fragment {
         mMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mapScreen = new Intent(rootView.getContext(), RegisterActivity.class);
+                Intent mapScreen = new Intent(rootView.getContext(), MapsActivity.class);
                 startActivity(mapScreen);
             }
         });
