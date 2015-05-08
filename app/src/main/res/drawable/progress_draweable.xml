@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-android:shape="line">
-<stroke android:width="2dp" android:color="@color/pip_hint_shade"/>
+    android:shape="rectangle">
+    <gradient
+        android:startColor="@color/pip_hint_shade"
+        android:centerColor="@color/pip_light_neon"
+        android:endColor="@color/pip_hint_shade"
+        android:angle="180"/>
 </shape>
