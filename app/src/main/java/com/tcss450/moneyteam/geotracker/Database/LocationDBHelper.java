@@ -60,7 +60,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         values.put(LocationTableSchema.COLUMN_TIMESTAMP, location.getTime());
 
         //insert them
-        final long id = db.insert(LocationTableSchema.TABLE_NAME, null, values);
+        final long id = db.insert(LocationTableSchema.TABLE_NAME, null, values);//test
 
         if (id > -1) {
             success = true;
