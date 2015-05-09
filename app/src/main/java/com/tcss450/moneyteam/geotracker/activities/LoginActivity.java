@@ -121,12 +121,12 @@ public class LoginActivity extends FragmentActivity {
             public void onClick(View v) {
                 Log.d("TESTDB", "Button clicked");
 
-                getSharedPreferences(getString(R.string.shared_pref_key),
+                /*getSharedPreferences(getString(R.string.shared_pref_key),
                         Context.MODE_PRIVATE)
                         .edit()
                         .putString(getString(R.string.saved_user_id_key),
                                 "uniqueID")
-                        .apply();
+                        .apply();*/
 
                 Location testLoc = new Location("Thisisatest");
                 testLoc.setLatitude(37.806);
@@ -136,16 +136,22 @@ public class LoginActivity extends FragmentActivity {
                 testLoc.setTime(1431197660);
 
                 LocationDBHelper db = new LocationDBHelper(getApplicationContext());
-                db.addLocation(testLoc);
-                WebServiceHelper helper = new WebServiceHelper(getApplicationContext());
-                Cursor c = db.selectAllLocations();
+                //db.addLocation(testLoc);
+               //WebServiceHelper helper = new WebServiceHelper(getApplicationContext());
+               // Cursor c = db.selectAllLocations();
 
-                if (c.moveToFirst()) {
-                    helper.logPoint(c);
+               // if (c.moveToFirst()) {
+               //     helper.logPoint(c);
+              //  }
+
+                for (int i = 0; i < 3; i++) {
+                    db.addLocation(testLoc);
                 }
 
+                boolean success = db.pushPointsToServer();
+                Log.d("Pushed all points?", "" + success);
                 db.close();
-                c.close();
+               // c.close();
             }
         });
 

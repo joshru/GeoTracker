@@ -116,7 +116,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
      */
     public Cursor selectAllLocations() {
         //TODO return a cursor pointing to the whole table, minus the id (which may or may not even be needed)
-        //Use this
+
         Cursor result = null;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -131,13 +131,18 @@ public class LocationDBHelper extends SQLiteOpenHelper {
 
     public boolean pushPointsToServer() {
         boolean success = false;
+/*
         WebServiceHelper webServiceHelper = new WebServiceHelper(mContext);
+*/
 
         Cursor cursor = selectAllLocations();
-
+        int i = 1;
         if (cursor.moveToFirst()) {
 
             do {
+                WebServiceHelper webServiceHelper = new WebServiceHelper(mContext);
+                Log.d("Logging Loop", "Pushed location #" + i++
+                        + " with UID: " + cursor.getString(4));
                 webServiceHelper.logPoint(cursor);
 
             } while (cursor.moveToNext());

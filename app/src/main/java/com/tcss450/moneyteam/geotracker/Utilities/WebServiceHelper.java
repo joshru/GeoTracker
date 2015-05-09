@@ -348,7 +348,7 @@ public class WebServiceHelper {
                     e.printStackTrace();
                 }
             }
-            //super.onPostExecute(s);
+
         }
 
         private void postExecuteHandler() {
