@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.location.Location;
 import android.util.Log;
 
@@ -18,8 +19,11 @@ import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 public class LocationDBHelper extends SQLiteOpenHelper {
 
     private static final String LOCATION_DB_NAME = "locationdb.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String LOG_TAG = "locationdbhelper";
+
+    private static final String INSERT = LocationTableSchema.INSERT
+            + "values (?, ?, ?, ?, ?, ?);";
 
     private Context mContext;
 
@@ -54,31 +58,52 @@ public class LocationDBHelper extends SQLiteOpenHelper {
     /*Double latitude, Double longitude, double speed, String direction,
                             String source, String TimeStamp) {*/
         //TODO consider using an SQLite insert statement instead of content values
-        boolean success = false;
-
+        boolean success = true;
         SQLiteDatabase db = this.getWritableDatabase();
+
+        //trying insert statement instead
+        SQLiteStatement insertStatement = db.compileStatement(INSERT);
+
 
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
                 Context.MODE_PRIVATE);
         String uid = sharedPreferences.getString(mContext.getString(R.string.saved_user_id_key),
                 mContext.getString(R.string.default_restore_key));
-        ContentValues values = new ContentValues();
+       // ContentValues values = new ContentValues();
 
         //---------Bundle up all the values----------
-        values.put(LocationTableSchema.COLUMN_LATITUDE, location.getLatitude());
+        /*values.put(LocationTableSchema.COLUMN_LATITUDE, location.getLatitude());
         values.put(LocationTableSchema.COLUMN_LONGITUDE, location.getLongitude());
         values.put(LocationTableSchema.COLUMN_SPEED, location.getSpeed());
         values.put(LocationTableSchema.COLUMN_HEADING, location.getBearing());
         values.put(LocationTableSchema.COLUMN_SOURCE, uid);
-        values.put(LocationTableSchema.COLUMN_TIMESTAMP, location.getTime());
+        values.put(LocationTableSchema.COLUMN_TIMESTAMP, location.getTime());*/
 
-        //insert them
+        insertStatement.bindDouble(1, location.getLatitude());
+        insertStatement.bindDouble(2, location.getLongitude());
+        insertStatement.bindDouble(3, location.getSpeed());
+        insertStatement.bindDouble(4, location.getBearing());
+        insertStatement.bindString(5, uid);
+        insertStatement.bindLong(6, location.getTime());
+
+
+
+
+
+        /*//insert them
         final long id = db.insert(LocationTableSchema.TABLE_NAME, null, values);//test
 
         if (id > -1) {
             success = true;
             Log.d(LOG_TAG, "Insert successful");
+        }*/
+
+        final long newRowID = insertStatement.executeInsert();
+        if (newRowID == -1) {
+            success = false;
+            Log.d("INSERTTODB", "Insert failed");
         }
+
         db.close();
         return success;
 

@@ -95,16 +95,20 @@ public class WebServiceHelper {
 
     public void logPoint(Cursor cursor) {
 
+        Log.d("CURSOR RECEIVED", "" + cursor.getDouble(0)
+        + "Timestamp: " + cursor.getInt(5) + " UserID: " + cursor.getString(4));
+
+
         //TODO open up the database, select all rows, iterate through and log every point
         mCallingMethod = "logPoint";
         String query = BASE_URL
-                + "addLog.php?lat=" + cursor.getDouble(0)
+                + "logAdd.php?lat=" + cursor.getDouble(0)
                 + "&lon=" + cursor.getDouble(1)
                 + "&speed=" + cursor.getDouble(2)
                 + "&heading=" + cursor.getDouble(3)
-                + "&source=" + cursor.getString(4)
+                + "&source=" + "0cd11d57f8f6bb8368a36f5a7d12e19b2228dc62" //her example uid
                 + "&timestamp=" + cursor.getInt(5);
-
+        Log.d("LOGPOINTURL", query);
         mDownloadTask.execute(new String[] {query});
         Log.d("EXECUTELOG", "Point log executed, doesn't mean it worked");
 
@@ -288,7 +292,9 @@ public class WebServiceHelper {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = ProgressDialog.show(mContext, "Wait", "Parsing Server...");
+            if (!mCallingMethod.equals("logPoint")) {
+                mProgressDialog = ProgressDialog.show(mContext, "Wait", "Parsing Server...");
+            }
 
         }
 
@@ -323,7 +329,9 @@ public class WebServiceHelper {
 
         @Override
         protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
+            if (!mCallingMethod.equals("logPoint")) {
+                mProgressDialog.dismiss();
+            }
             String queryResult = result; //redundant, can probably remove
 
             if (queryResult != null) {

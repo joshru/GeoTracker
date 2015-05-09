@@ -121,12 +121,19 @@ public class LoginActivity extends FragmentActivity {
             public void onClick(View v) {
                 Log.d("TESTDB", "Button clicked");
 
+                getSharedPreferences(getString(R.string.shared_pref_key),
+                        Context.MODE_PRIVATE)
+                        .edit()
+                        .putString(getString(R.string.saved_user_id_key),
+                                "uniqueID")
+                        .apply();
+
                 Location testLoc = new Location("Thisisatest");
                 testLoc.setLatitude(37.806);
                 testLoc.setLongitude(17.66);
                 testLoc.setSpeed(37);
                 testLoc.setBearing((float) 10.0);
-                testLoc.setTime(1002400093);
+                testLoc.setTime(1431197660);
 
                 LocationDBHelper db = new LocationDBHelper(getApplicationContext());
                 db.addLocation(testLoc);

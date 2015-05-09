@@ -9,7 +9,7 @@ import android.util.Log;
 public class LocationTableSchema {
 
     /*Defining table and column names.*/
-    public static final String TABLE_NAME = "tablelocation";
+    public static final String TABLE_NAME = "tablelocationtest";
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_LATITUDE = "Latitude";
@@ -27,10 +27,18 @@ public class LocationTableSchema {
     /*Create table statement*/
 
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
-            + COLUMN_ID + "INTEGER PRIMARY KEY, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
-            + COLUMN_LONGITUDE + "DOUBLE NOT NULL, " + COLUMN_SPEED + "FLOAT NOT NULL, "
-            + COLUMN_HEADING + "DOUBLE NOT NULL, " + COLUMN_SOURCE + "TEXT UNIQUE NOT NULL, "
-            + COLUMN_TIMESTAMP + "INTEGER NOT NULL);";
+            + COLUMN_ID + " INTEGER PRIMARY KEY, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
+            + COLUMN_LONGITUDE + " DOUBLE NOT NULL, " + COLUMN_SPEED + " FLOAT NOT NULL, "
+            + COLUMN_HEADING + " DOUBLE NOT NULL, " + COLUMN_SOURCE + " TEXT NOT NULL, "
+            + COLUMN_TIMESTAMP + " INTEGER NOT NULL);";
+
+    public static final String INSERT = "INSERT INTO " + TABLE_NAME + " ("
+            + COLUMN_LATITUDE + ", "
+            + COLUMN_LONGITUDE + ", "
+            + COLUMN_SPEED + ", "
+            + COLUMN_HEADING + ", "
+            + COLUMN_SOURCE + ", "
+            + COLUMN_TIMESTAMP + ") ";
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE);
