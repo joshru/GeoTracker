@@ -4,6 +4,8 @@ import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -23,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
@@ -53,6 +56,9 @@ public class LoginActivity extends FragmentActivity {
     private int mLoginTries;
     /** Relative layout of the login button.*/
     private RelativeLayout mLoginButtonLayout;
+
+    /**Testing the db*/
+    private Button mDBButton;
 
     /**
      * onCreate is called when the LoginActivity is instantiated.
@@ -107,6 +113,35 @@ public class LoginActivity extends FragmentActivity {
             }
         });
 
+        //Testing some serious shit
+        mDBButton = (Button) findViewById(R.id.test_db_button);
+
+        mDBButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TESTDB", "Button clicked");
+
+                Location testLoc = new Location("Thisisatest");
+                testLoc.setLatitude(37.806);
+                testLoc.setLongitude(17.66);
+                testLoc.setSpeed(37);
+                testLoc.setBearing((float) 10.0);
+                testLoc.setTime(1002400093);
+
+                LocationDBHelper db = new LocationDBHelper(getApplicationContext());
+                db.addLocation(testLoc);
+                WebServiceHelper helper = new WebServiceHelper(getApplicationContext());
+                Cursor c = db.selectAllLocations();
+
+                if (c.moveToFirst()) {
+                    helper.logPoint(c);
+                }
+
+                db.close();
+                c.close();
+            }
+        });
+
 
         //JOSH TESTING CUSTOM TOASTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ImageView toastTest = (ImageView) findViewById(R.id.imageView3);
@@ -119,6 +154,36 @@ public class LoginActivity extends FragmentActivity {
         });
 
     }
+
+
+    /**
+     * Acting onClickListener for the db test button
+     *
+     */
+    public void testDBListener() {
+        /*Log.d("TESTDB", "Button clicked");
+
+        Location testLoc = new Location("Thisisatest");
+        testLoc.setLatitude(37.806);
+        testLoc.setLongitude(17.66);
+        testLoc.setSpeed(37);
+        testLoc.setBearing((float) 10.0);
+        testLoc.setTime(1002400093);
+
+        LocationDBHelper db = new LocationDBHelper(this);
+        db.addLocation(testLoc);
+        WebServiceHelper helper = new WebServiceHelper(this);
+        Cursor c = db.selectAllLocations();
+
+        if (c.moveToFirst()) {
+            helper.logPoint(c);
+        }
+
+        db.close();
+        c.close();*/
+
+    }
+
 
     /**
      * Acting OnClickListener for the login button.

@@ -20,15 +20,15 @@ public class LocationTableSchema {
     public static final String COLUMN_TIMESTAMP = "Timestamp";
 
     public static final String[] FIELDS = new String[] {
-       COLUMN_ID, COLUMN_LATITUDE, COLUMN_LONGITUDE, COLUMN_SPEED,
+       COLUMN_LATITUDE, COLUMN_LONGITUDE, COLUMN_SPEED,
             COLUMN_HEADING, COLUMN_SOURCE, COLUMN_TIMESTAMP
     } ;
 
     /*Create table statement*/
 
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
-            + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
-            + COLUMN_LONGITUDE + "DOUBLE NOT NULL, " + COLUMN_SPEED + "INTEGER NOT NULL, "
+            + COLUMN_ID + "INTEGER PRIMARY KEY, " + COLUMN_LATITUDE + " DOUBLE NOT NULL, "
+            + COLUMN_LONGITUDE + "DOUBLE NOT NULL, " + COLUMN_SPEED + "FLOAT NOT NULL, "
             + COLUMN_HEADING + "DOUBLE NOT NULL, " + COLUMN_SOURCE + "TEXT UNIQUE NOT NULL, "
             + COLUMN_TIMESTAMP + "INTEGER NOT NULL);";
 

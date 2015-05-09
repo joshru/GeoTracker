@@ -2,6 +2,7 @@ package com.tcss450.moneyteam.geotracker.Utilities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -92,8 +93,21 @@ public class WebServiceHelper {
         mDownloadTask.execute(new String[] {query});
     }
 
-    public void logAllPoints() {
+    public void logPoint(Cursor cursor) {
+
         //TODO open up the database, select all rows, iterate through and log every point
+        mCallingMethod = "logPoint";
+        String query = BASE_URL
+                + "addLog.php?lat=" + cursor.getDouble(0)
+                + "&lon=" + cursor.getDouble(1)
+                + "&speed=" + cursor.getDouble(2)
+                + "&heading=" + cursor.getDouble(3)
+                + "&source=" + cursor.getString(4)
+                + "&timestamp=" + cursor.getInt(5);
+
+        mDownloadTask.execute(new String[] {query});
+        Log.d("EXECUTELOG", "Point log executed, doesn't mean it worked");
+
     }
 
 //comment test
@@ -224,6 +238,25 @@ public class WebServiceHelper {
         }
     }
 
+    private void logPointPostExecute() {
+        //nothing to display to the user directly. All return data is for debugging.
+        if (mJSONObject != null) {
+            try {
+                String jsonResult = mJSONObject.getString(RESULT_TAG);
+
+                if (jsonResult.equals("success")) {
+                    Log.d("PLOGSUCCESS", "Logged point successfully");
+                } else {
+                    Log.e("PLOGFAIL", mJSONObject.getString("error"));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
     public class AgreementEvent {
        public final String theAgreement;
@@ -325,6 +358,9 @@ public class WebServiceHelper {
                     break;
                 case "getAgreement":
                     getAgreementPostExecute();
+                    break;
+                case "logPoint":
+                    logPointPostExecute();
                     break;
                 default:
 

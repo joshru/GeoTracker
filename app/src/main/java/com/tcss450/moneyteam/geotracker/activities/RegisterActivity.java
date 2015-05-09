@@ -226,9 +226,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
 
             /* Testing webservice */
-            webServiceHelper.addUser(email, passphraseHash, question, answer);
+        webServiceHelper.addUser(email, passphraseHash, question, answer);
 
-            mRegisterButton.startAnimation(animAlpha);
+        mRegisterButton.startAnimation(animAlpha);
 
     }
 
