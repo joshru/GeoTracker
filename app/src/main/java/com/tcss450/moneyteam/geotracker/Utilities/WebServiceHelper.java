@@ -2,7 +2,9 @@ package com.tcss450.moneyteam.geotracker.Utilities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 
@@ -111,6 +114,29 @@ public class WebServiceHelper {
         Log.d("LOGPOINTURL", query);
         mDownloadTask.execute(new String[] {query});
         Log.d("EXECUTELOG", "Point log executed, doesn't mean it worked");
+
+    }
+
+    public void getRange(long startDate, long endDate) {
+
+        SharedPreferences prefs = mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
+                Context.MODE_PRIVATE);
+
+
+
+
+        String uid = prefs.getString(mContext.getString(R.string.saved_user_id_key),
+                mContext.getString(R.string.default_restore_key));
+        mCallingMethod = "getRange";
+        Log.d("GETTINGRANGE", "Initiated range query");
+
+        String query = BASE_URL + "view.php?uid=" + uid
+                + "&start=" + startDate
+                + "&end=" + endDate;
+
+        mDownloadTask.execute(query);
+
+
 
     }
 
@@ -261,6 +287,66 @@ public class WebServiceHelper {
 
     }
 
+    private void getRangePostExecute() {
+        boolean success = false;
+        String eventMessage = "move along, nothing to see here.";
+        if (mJSONObject != null) {
+            try {
+                String result = mJSONObject.getString(RESULT_TAG);
+                ArrayList<Location> locArr = new ArrayList<>();
+
+                if (result.equals("success")) {
+
+                    JSONArray jsonArray = mJSONObject.getJSONArray("error"); // actually gets locations
+                    Log.d("RETRIEVED", "Points retrieved from webservice");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject currObject = jsonArray.getJSONObject(i);
+                        Location loc = new Location("temploc");
+                        //add current location to array
+                        loc.setLatitude(currObject.getDouble("lat"));
+                        loc.setLongitude(currObject.getDouble("lon"));
+                        loc.setSpeed(currObject.getLong("speed"));
+                        loc.setBearing(currObject.getLong("heading"));
+                        loc.setTime(currObject.getLong("time"));
+
+                        locArr.add(loc);
+
+
+                    }//endfor
+                    eventMessage = "Retrieved Locations successfully.";
+                    success = true;
+
+
+                } else {
+                    Log.d("NOPOINTS", "No points to retrieve");
+                    eventMessage = mJSONObject.getString("error");
+                }
+
+                EventBus.getDefault().postSticky(new LocationEvent(eventMessage, locArr, success));
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                eventMessage = "Yo code broke son.";
+            }
+
+        }
+
+
+    }
+
+    public class LocationEvent {
+        public final String mEventMessage;
+        public final ArrayList<Location> mLocations;
+        public final boolean mSuccess;
+
+        public LocationEvent(String mEventMessage, ArrayList<Location> theArr, boolean theSucc) {
+            this.mEventMessage = mEventMessage;
+            this.mLocations = theArr;
+            this.mSuccess = theSucc;
+        }
+    }
 
     public class AgreementEvent {
        public final String theAgreement;
@@ -369,6 +455,9 @@ public class WebServiceHelper {
                     break;
                 case "logPoint":
                     logPointPostExecute();
+                    break;
+                case "getRange":
+                    getRangePostExecute();
                     break;
                 default:
 

@@ -13,6 +13,8 @@ import android.util.Log;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 
+import java.util.Date;
+
 /**
  * Created by Brandon on 5/3/2015.
  */
@@ -153,6 +155,22 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         }
 
         return success;
+    }
+
+    public Cursor getLocationsInRange(long startTime, long endTime) {
+        Cursor cursor;
+        SQLiteDatabase db = getReadableDatabase();
+
+        cursor = db.query(LocationTableSchema.TABLE_NAME, LocationTableSchema.FIELDS,
+                LocationTableSchema.COLUMN_TIMESTAMP + " BETWEEN ? AND ?",
+                new String[] {""+startTime,"" + endTime}, null,
+                null, null, null);
+
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return cursor;
     }
 
     /**

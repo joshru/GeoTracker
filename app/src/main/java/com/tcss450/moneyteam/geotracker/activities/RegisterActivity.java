@@ -231,7 +231,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mRegisterButton.startAnimation(animAlpha);
 
     }
-
+    //TODO do we need this?
     /**
      * Currently unimplemented.
      * @param v the view
