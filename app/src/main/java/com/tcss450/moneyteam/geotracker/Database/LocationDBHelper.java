@@ -61,6 +61,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
                             String source, String TimeStamp) {*/
         //TODO consider using an SQLite insert statement instead of content values
         boolean success = true;
+        Log.i("add location", location.toString());
         SQLiteDatabase db = this.getWritableDatabase();
 
         //trying insert statement instead

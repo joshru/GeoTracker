@@ -31,7 +31,8 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:background="@drawable/pip_textview_hook">
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +41,9 @@
             android:text="Date"
             android:id="@+id/textView13"
             android:layout_alignLeft="@+id/f_location_date_text_start"
-            android:textColor="@color/pip_light_neon" />
+            android:textColor="@color/pip_light_neon"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/textView22" />
 
         <EditText
             android:layout_width="150dp"
@@ -64,7 +67,9 @@
             android:text="Time"
             android:id="@+id/textView19"
             android:layout_alignLeft="@+id/f_location_time_text_start"
-            android:textColor="@color/pip_light_neon" />"
+            android:textColor="@color/pip_light_neon"
+            android:paddingTop="5dp"
+            android:layout_above="@+id/f_location_time_text_start" />"
             android:textColor="@color/pip_light_neon" />
 
         <EditText
@@ -82,13 +87,27 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_toRightOf="@+id/f_location_date_text_start" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Start"
+            android:id="@+id/textView22"
+            android:layout_alignEnd="@+id/f_location_date_text_start"
+            android:layout_marginRight="80dp"
+            android:layout_marginEnd="80dp"
+            android:textColor="@color/pip_light_neon"
+            android:layout_alignParentLeft="true" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" >
+        android:layout_marginRight="10dp"
+        android:background="@drawable/pip_textview_hook"
+        android:layout_marginTop="5dp">
 
         <EditText
             android:layout_width="150dp"
@@ -112,7 +131,9 @@
             android:text="Date"
             android:id="@+id/textView20"
             android:layout_alignLeft="@+id/f_location_date_text_end"
-            android:textColor="@color/pip_light_neon" />
+            android:textColor="@color/pip_light_neon"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/textView23" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,7 +142,9 @@
             android:text="Time"
             android:id="@+id/textView21"
             android:layout_alignLeft="@+id/f_location_time_text_end"
-            android:textColor="@color/pip_light_neon" />
+            android:textColor="@color/pip_light_neon"
+            android:paddingTop="5dp"
+            android:layout_above="@+id/f_location_time_text_end" />
 
         <EditText
             android:layout_width="150dp"
@@ -138,14 +161,30 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_toRightOf="@+id/f_location_date_text_end" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="End"
+            android:id="@+id/textView23"
+            android:textColor="@color/pip_light_neon" />
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:background="@drawable/pip_hud_flat_bar"
+        android:layout_marginTop="10dp" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:id="@+id/scrollView"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="0dp" />
 
     <ImageView
         android:layout_width="fill_parent"
