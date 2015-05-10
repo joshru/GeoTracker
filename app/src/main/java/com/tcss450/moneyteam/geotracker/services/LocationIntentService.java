@@ -19,6 +19,8 @@ import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
+
 import java.util.Calendar;
 
 /**
@@ -30,6 +32,7 @@ public class LocationIntentService extends Service {
     private static final int LOCATION_POLLING_INTERVAL = 10000;
     /** Tag for the location service intent. */
     private static final String LOCATION_SERVICE_TAG = "LocationIntentService" ;
+    private static Context mContext;
 
     /** Notification mId for reference */
     private int mId = 1;
@@ -47,7 +50,7 @@ public class LocationIntentService extends Service {
         LocationManager locationManager = (LocationManager) this.getSystemService(
                 Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
-        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
                 locationListener, Looper.myLooper());
         return START_REDELIVER_INTENT;
     }
@@ -60,6 +63,7 @@ public class LocationIntentService extends Service {
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public static void setServiceAlarm(Context context, boolean isEnabled) {
+        mContext = context;
         final Calendar calendar =  Calendar.getInstance();
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Intent intent = new Intent(context, LocationIntentService.class);
@@ -83,7 +87,8 @@ public class LocationIntentService extends Service {
         @Override
         public void onLocationChanged(final Location location) {
             Log.i(LOCATION_SERVICE_TAG, location.toString());
-            //Push location to DB
+            LocationDBHelper myHelper = new LocationDBHelper(mContext);
+            myHelper.addLocation(location);
         }
 
         @Override
