@@ -124,7 +124,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         result = db.query(LocationTableSchema.TABLE_NAME, LocationTableSchema.FIELDS,
-                null, null, null, null, null);
+                null, null, null, null, LocationTableSchema.COLUMN_TIMESTAMP + " ASC");
         Log.d(LOG_TAG, "Cursor created");
         if (result != null && result.moveToFirst()) {
             return  result;
@@ -140,7 +140,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
 
             do {
                 WebServiceHelper webServiceHelper = new WebServiceHelper(mContext);
-                Log.d("Logging Loop", "Pushed location #" + i++
+                Log.d("Logging Loop", " Pushed location #" + i++
                         + " with UID: " + cursor.getString(4));
                 webServiceHelper.logPoint(cursor);
 
@@ -150,7 +150,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
             cursor.close();
         }
 
-        Log.d("DELETING ENTRIES", "Deleting entries now...");
+        //Log.d("DELETING ENTRIES", "Deleting entries now...");
       /*  SQLiteDatabase db = getWritableDatabase();
         db.delete(LocationTableSchema.TABLE_NAME, null, null); //remove entries from local database
         db.close();*/

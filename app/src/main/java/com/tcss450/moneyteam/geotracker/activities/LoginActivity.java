@@ -130,12 +130,12 @@ public class LoginActivity extends FragmentActivity {
                                 "uniqueID")
                         .apply();*/
 
-                Location testLoc = new Location("Thisisatest");
+                /*Location testLoc = new Location("Thisisatest");
                 testLoc.setLatitude(37.806);
                 testLoc.setLongitude(17.66);
                 testLoc.setSpeed(37);
                 testLoc.setBearing((float) 10.0);
-                testLoc.setTime(1431197660);
+                testLoc.setTime(1431197660);*/
 
                 LocationDBHelper db = new LocationDBHelper(getApplicationContext());
                 //db.addLocation(testLoc);
@@ -145,14 +145,20 @@ public class LoginActivity extends FragmentActivity {
                // if (c.moveToFirst()) {
                //     helper.logPoint(c);
               //  }
-
-                for (int i = 0; i < 3; i++) {
+                 long timestamp = System.currentTimeMillis() / 1000L;
+                /*for (int i = 0; i < 3; i++) {
+                    Location testLoc = new Location("Thisisatest");
+                    testLoc.setLatitude(37.806);
+                    testLoc.setLongitude(17.66);
+                    testLoc.setSpeed(37);
+                    testLoc.setBearing((float) 10.0);
+                    testLoc.setTime(timestamp++);
                     db.addLocation(testLoc);
-                }
+                }*/
 
-                boolean success = db.pushPointsToServer();
+              //  boolean success = db.pushPointsToServer();
            //     Log.d("Pushed all points?", "" + success);
-               // helper.getRange(1431197660, 1431197660);
+                helper.getRange(1431300190, 1431300192);
                 db.close();
                // c.close();
             }

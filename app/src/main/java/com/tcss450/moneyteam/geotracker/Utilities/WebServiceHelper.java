@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 
@@ -371,7 +372,7 @@ public class WebServiceHelper {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if (!mCallingMethod.equals("logPoint")) {
+            if (!mCallingMethod.equals("logPoint") && !mCallingMethod.equals("getRange")) {
                 mProgressDialog = ProgressDialog.show(mContext, "Wait", "Parsing Server...");
             }
 
@@ -408,7 +409,7 @@ public class WebServiceHelper {
 
         @Override
         protected void onPostExecute(String result) {
-            if (!mCallingMethod.equals("logPoint")) {
+            if (!mCallingMethod.equals("logPoint") && !mCallingMethod.equals("getRange")) {
                 mProgressDialog.dismiss();
             }
             String queryResult = result; //redundant, can probably remove
