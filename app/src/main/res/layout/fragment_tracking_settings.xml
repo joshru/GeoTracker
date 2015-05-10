@@ -45,7 +45,7 @@
             android:paddingTop="5dp"
             android:layout_below="@+id/textView22" />
 
-        <EditText
+        <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/f_location_date_text_start"
@@ -58,7 +58,8 @@
             android:background="@drawable/edit_text_gradient"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"/>
+            android:paddingBottom="5dp"
+            android:editable="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
             android:layout_above="@+id/f_location_time_text_start" />"
             android:textColor="@color/pip_light_neon" />
 
-        <EditText
+        <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/f_location_time_text_start"
@@ -109,7 +110,7 @@
         android:background="@drawable/pip_textview_hook"
         android:layout_marginTop="5dp">
 
-        <EditText
+        <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/f_location_date_text_end"
@@ -146,7 +147,7 @@
             android:paddingTop="5dp"
             android:layout_above="@+id/f_location_time_text_end" />
 
-        <EditText
+        <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/f_location_time_text_end"
