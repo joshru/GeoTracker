@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.PipTabListener;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
@@ -130,6 +132,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 SharedPreferences.Editor myPrefEditor = myPreferences.edit();
                 myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
                 myPrefEditor.apply();
+
+                //PUSH ENTRIES TO SERVER.
+                LocationDBHelper helper = new LocationDBHelper(this);
+                helper.pushPointsToServer();
+
                 //LAUNCH MAIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(loginScreen);

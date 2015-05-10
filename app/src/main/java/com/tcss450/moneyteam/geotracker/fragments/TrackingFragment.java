@@ -24,6 +24,8 @@ import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Activity for handling logic inside the tracking settings fragment.
  * @author Brandon Bell
@@ -107,6 +109,18 @@ public class TrackingFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     public void locationToggle() {
         if(mToggleButton.isChecked()) {
             toggle0n();
@@ -133,14 +147,14 @@ public class TrackingFragment extends Fragment {
     }
 
 
-    private void onEvent(WebServiceHelper.LocationEvent event) {
+    public void onEvent(WebServiceHelper.LocationEvent event) {
         Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
 
         if (event.mSuccess) {
             mQueryLocations = event.mLocations;
             //place code or method calls here to handle displaying the points.
         }
-//really pushin
+
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

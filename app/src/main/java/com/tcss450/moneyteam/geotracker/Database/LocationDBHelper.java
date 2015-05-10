@@ -107,6 +107,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         }
 
         db.close();
+        Log.d("Insert success", "insert into db successful");
         return success;
 
 
@@ -133,10 +134,6 @@ public class LocationDBHelper extends SQLiteOpenHelper {
 
     public boolean pushPointsToServer() {
         boolean success = false;
-/*
-        WebServiceHelper webServiceHelper = new WebServiceHelper(mContext);
-*/
-
         Cursor cursor = selectAllLocations();
         int i = 1;
         if (cursor.moveToFirst()) {
@@ -148,11 +145,15 @@ public class LocationDBHelper extends SQLiteOpenHelper {
                 webServiceHelper.logPoint(cursor);
 
             } while (cursor.moveToNext());
-
         }
         if (cursor != null && !cursor.isClosed()) {
             cursor.close();
         }
+
+        Log.d("DELETING ENTRIES", "Deleting entries now...");
+      /*  SQLiteDatabase db = getWritableDatabase();
+        db.delete(LocationTableSchema.TABLE_NAME, null, null); //remove entries from local database
+        db.close();*/
 
         return success;
     }

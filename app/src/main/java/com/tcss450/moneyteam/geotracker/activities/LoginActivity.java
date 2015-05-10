@@ -32,6 +32,8 @@ import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
 import com.tcss450.moneyteam.geotracker.Authenticator;
 
+import java.util.ArrayList;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -137,7 +139,7 @@ public class LoginActivity extends FragmentActivity {
 
                 LocationDBHelper db = new LocationDBHelper(getApplicationContext());
                 //db.addLocation(testLoc);
-               //WebServiceHelper helper = new WebServiceHelper(getApplicationContext());
+               WebServiceHelper helper = new WebServiceHelper(getApplicationContext());
                // Cursor c = db.selectAllLocations();
 
                // if (c.moveToFirst()) {
@@ -149,7 +151,8 @@ public class LoginActivity extends FragmentActivity {
                 }
 
                 boolean success = db.pushPointsToServer();
-                Log.d("Pushed all points?", "" + success);
+           //     Log.d("Pushed all points?", "" + success);
+               // helper.getRange(1431197660, 1431197660);
                 db.close();
                // c.close();
             }
@@ -168,6 +171,18 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
+    public void onEvent(WebServiceHelper.LocationEvent event) {
+        if (event.mSuccess) {
+            ArrayList<Location> list = event.mLocations;
+            for (int i = 0; i < list.size(); i++) {
+                Log.d("TESTING PULL", list.get(i).toString());
+
+            }
+        } else {
+            Log.d("TESTING PULL", event.mEventMessage);
+        }
+
+    }
 
     /**
      * Acting onClickListener for the db test button

@@ -97,10 +97,12 @@ public class WebServiceHelper {
     }
 
     public void logPoint(Cursor cursor) {
-
+        SharedPreferences prefs = mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
+                Context.MODE_PRIVATE);
         Log.d("CURSOR RECEIVED", "" + cursor.getDouble(0)
         + "Timestamp: " + cursor.getInt(5) + " UserID: " + cursor.getString(4));
-
+        String uid = prefs.getString(mContext.getString(R.string.saved_user_id_key),
+                mContext.getString(R.string.default_restore_key));
 
         //TODO open up the database, select all rows, iterate through and log every point
         mCallingMethod = "logPoint";
@@ -109,7 +111,7 @@ public class WebServiceHelper {
                 + "&lon=" + cursor.getDouble(1)
                 + "&speed=" + cursor.getDouble(2)
                 + "&heading=" + cursor.getDouble(3)
-                + "&source=" + "0cd11d57f8f6bb8368a36f5a7d12e19b2228dc62" //her example uid
+                + "&source=" + uid //her example uid
                 + "&timestamp=" + cursor.getInt(5);
         Log.d("LOGPOINTURL", query);
         mDownloadTask.execute(new String[] {query});
@@ -288,7 +290,7 @@ public class WebServiceHelper {
 
                 if (result.equals("success")) {
 
-                    JSONArray jsonArray = mJSONObject.getJSONArray("error"); // actually gets locations
+                    JSONArray jsonArray = mJSONObject.getJSONArray("points"); // actually gets locations
                     Log.d("RETRIEVED", "Points retrieved from webservice");
                     for (int i = 0; i < jsonArray.length(); i++) {
 
