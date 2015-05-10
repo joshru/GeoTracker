@@ -1,7 +1,9 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.app.TimePickerDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,11 +11,15 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
@@ -23,6 +29,7 @@ import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 
@@ -41,6 +48,11 @@ public class TrackingFragment extends Fragment {
     private TextView mSeekTimeText;
     private int mPollingTime;
     private ArrayList<Location> mQueryLocations;
+    private TextView mStartDate;
+    private TextView mEndDate;
+    private TextView mEndTime;
+    private TextView mStartTime;
+    private TextView activeText;
 
     /**
      * Creates the new fragment for handling tracking settings
@@ -62,7 +74,11 @@ public class TrackingFragment extends Fragment {
         mToggleButton = (ToggleButton) rootView.findViewById(R.id.f_tracking_toggle_button);
         mSeekBar = (SeekBar) rootView.findViewById(R.id.f_tracking_seeker);
         mSeekTimeText = (TextView) rootView.findViewById(R.id.f_tracking_seeker_time);
-        
+        mStartDate = (TextView) rootView.findViewById(R.id.f_location_date_text_start);
+        mEndDate = (TextView) rootView.findViewById(R.id.f_location_date_text_end);
+        mStartTime = (TextView) rootView.findViewById(R.id.f_location_time_text_start);
+        mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
+
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         Boolean locationToggleBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
@@ -73,6 +89,41 @@ public class TrackingFragment extends Fragment {
             toggle0ff();
         }
 
+
+        //SET DATE AND TIME DIALOGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activeText = mStartDate;
+                dateDialog();
+            }
+        });
+
+        mEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activeText = mEndDate;
+                dateDialog();
+            }
+        });
+
+        mStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activeText = mStartTime;
+                timeDialog();
+                Log.i("START DATE", "Start Date has been clicked");
+            }
+        });
+
+        mEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activeText = mEndTime;
+                timeDialog();
+            }
+        });
+
         //TOOGLE BUTTON ONCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +132,7 @@ public class TrackingFragment extends Fragment {
             }
         });
 
-        //SEEKER ONPROGRESSCHANGE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //SEEKER LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 
@@ -107,6 +158,31 @@ public class TrackingFragment extends Fragment {
 
         
         return rootView;
+    }
+
+    private void dateDialog() {
+
+        // Process to get Current Date
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        // Launch Date Picker Dialog
+        DatePickerDialog dpd = new DatePickerDialog(rootView.getContext(), new customDateListener(), mYear, mMonth, mDay);
+        dpd.show();
+
+    }
+
+    private void timeDialog() {
+        // Process to get Current Time
+        final Calendar c = Calendar.getInstance();
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+
+        TimePickerDialog tpd = new TimePickerDialog(rootView.getContext(), new customTimeListener(), mHour, mMinute, true);
+        tpd.show();
+
     }
 
     @Override
@@ -172,5 +248,19 @@ public class TrackingFragment extends Fragment {
         myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), false).apply();
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
+    }
+
+    private class customDateListener implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            activeText.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+        }
+    }
+
+    private class customTimeListener implements  TimePickerDialog.OnTimeSetListener {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            activeText.setText(hourOfDay + ":" + minute);
+        }
     }
 }
