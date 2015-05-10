@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +18,11 @@ import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
+import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
+
+import java.util.ArrayList;
 
 /**
  * Activity for handling logic inside the tracking settings fragment.
@@ -33,6 +38,7 @@ public class TrackingFragment extends Fragment {
     private SeekBar mSeekBar;
     private TextView mSeekTimeText;
     private int mPollingTime;
+    private ArrayList<Location> mQueryLocations;
 
     /**
      * Creates the new fragment for handling tracking settings
@@ -124,6 +130,17 @@ public class TrackingFragment extends Fragment {
         myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), true).apply();
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_light_neon));
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
+    }
+
+
+    private void onEvent(WebServiceHelper.LocationEvent event) {
+        Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
+
+        if (event.mSuccess) {
+            mQueryLocations = event.mLocations;
+            //place code or method calls here to handle displaying the points.
+        }
+
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

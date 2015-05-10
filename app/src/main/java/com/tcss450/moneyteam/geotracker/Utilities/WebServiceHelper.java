@@ -135,14 +135,7 @@ public class WebServiceHelper {
                 + "&end=" + endDate;
 
         mDownloadTask.execute(query);
-
-
-
     }
-
-//comment test
-
-
 
     //**********************************************************
     //Post execute methods below here
@@ -251,8 +244,6 @@ public class WebServiceHelper {
 
             Log.d("RESETPOSTED", "Posted reset result.");
         }
-
-
     }
     private void getAgreementPostExecute() {
       //  boolean success = true;
@@ -434,7 +425,6 @@ public class WebServiceHelper {
                     e.printStackTrace();
                 }
             }
-
         }
 
         private void postExecuteHandler() {
