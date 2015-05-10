@@ -410,7 +410,7 @@ public class WebServiceHelper {
         @Override
         protected void onPostExecute(String result) {
             if (!mCallingMethod.equals("logPoint") && !mCallingMethod.equals("getRange")) {
-                mProgressDialog.dismiss();
+                mProgressDialog.dismiss();//push
             }
             String queryResult = result; //redundant, can probably remove
 
