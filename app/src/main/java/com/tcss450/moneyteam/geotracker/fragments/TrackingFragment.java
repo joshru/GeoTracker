@@ -93,6 +93,7 @@ public class TrackingFragment extends Fragment {
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
 
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //
         myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         Boolean locationToggleBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
 
