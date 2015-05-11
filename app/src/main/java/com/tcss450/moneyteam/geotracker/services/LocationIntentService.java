@@ -88,7 +88,7 @@ public class LocationIntentService extends Service {
         public void onLocationChanged(final Location location) {
             Log.i(LOCATION_SERVICE_TAG, location.toString());
             LocationDBHelper myHelper = new LocationDBHelper(mContext);
-            myHelper.addLocation(location);
+            myHelper.addLocation(location, (System.currentTimeMillis() / 1000L));
         }
 
         @Override
