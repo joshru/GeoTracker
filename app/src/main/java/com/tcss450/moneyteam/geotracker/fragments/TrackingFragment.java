@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,6 +30,7 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
+import com.tcss450.moneyteam.geotracker.activities.MainActivity;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ public class TrackingFragment extends Fragment {
     private TextView mStartTime;
     private TextView activeText;
     private Button mGetDataButton;
+    private ListView mLocationList;
 
     //Month/day/year/hour/minute
     private int[] mGlobalStartDate;
@@ -91,6 +95,10 @@ public class TrackingFragment extends Fragment {
         mStartTime = (TextView) rootView.findViewById(R.id.f_location_time_text_start);
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
+        mLocationList = (ListView) rootView.findViewById(R.id.list_location);
+//        ListView list = (ListView) rootView.findViewById(R.id.list_location);
+
+
 
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //
@@ -275,13 +283,19 @@ public class TrackingFragment extends Fragment {
         Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
 
         if (event.mSuccess) {
+            // TODO add the list items here
             mQueryLocations = event.mLocations;
             Log.i("RANGE DATA", mQueryLocations.toString());
+
+            ArrayList<String> locations = new ArrayList<String>();
             for(Location l : mQueryLocations) {
-                String time = l.getTime() + "";
-                String longit = l.getLongitude() + "";
+                String time = l.getTime() + ", ";
+                String longit = l.getLongitude() + ", ";
                 String latit = l.getLatitude() + "";
+                locations.add(time + longit + latit);
             }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext(), R.layout.list_row, locations);
+            mLocationList.setAdapter(adapter);
 
         }
 
