@@ -120,7 +120,7 @@ public class WebServiceHelper {
 
     }
 
-    public void getRange(Date startDate, Date endDate) {
+    public void getRange(long startDate, long endDate) {
 
         SharedPreferences prefs = mContext.getSharedPreferences(mContext.getString(R.string.shared_pref_key),
                 Context.MODE_PRIVATE);
@@ -134,8 +134,8 @@ public class WebServiceHelper {
         Log.d("GETTINGRANGE", "Initiated range query");
 
         String query = BASE_URL + "view.php?uid=" + uid
-                + "&start=" + startDate.getTime()
-                + "&end=" + endDate.getTime();
+                + "&start=" + startDate
+                + "&end=" + endDate;
 
         mDownloadTask.execute(query);
     }

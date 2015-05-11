@@ -115,7 +115,7 @@ public class LoginActivity extends FragmentActivity {
             }
         });
 
-        //Testing some serious shit
+       /* //Testing some serious shit
         mDBButton = (Button) findViewById(R.id.test_db_button);
 
         mDBButton.setOnClickListener(new OnClickListener() {
@@ -123,19 +123,19 @@ public class LoginActivity extends FragmentActivity {
             public void onClick(View v) {
                 Log.d("TESTDB", "Button clicked");
 
-                /*getSharedPreferences(getString(R.string.shared_pref_key),
+                *//*getSharedPreferences(getString(R.string.shared_pref_key),
                         Context.MODE_PRIVATE)
                         .edit()
                         .putString(getString(R.string.saved_user_id_key),
                                 "uniqueID")
-                        .apply();*/
+                        .apply();*//*
 
-                /*Location testLoc = new Location("Thisisatest");
+                *//*Location testLoc = new Location("Thisisatest");
                 testLoc.setLatitude(37.806);
                 testLoc.setLongitude(17.66);
                 testLoc.setSpeed(37);
                 testLoc.setBearing((float) 10.0);
-                testLoc.setTime(1431197660);*/
+                testLoc.setTime(1431197660);*//*
 
                 LocationDBHelper db = new LocationDBHelper(getApplicationContext());
                 //db.addLocation(testLoc);
@@ -146,7 +146,7 @@ public class LoginActivity extends FragmentActivity {
                //     helper.logPoint(c);
               //  }
                  long timestamp = System.currentTimeMillis() / 1000L;
-                /*for (int i = 0; i < 3; i++) {
+                *//*for (int i = 0; i < 3; i++) {
                     Location testLoc = new Location("Thisisatest");
                     testLoc.setLatitude(37.806);
                     testLoc.setLongitude(17.66);
@@ -154,7 +154,7 @@ public class LoginActivity extends FragmentActivity {
                     testLoc.setBearing((float) 10.0);
                     testLoc.setTime(timestamp++);
                     db.addLocation(testLoc);
-                }*/
+                }*//*
 
               //  boolean success = db.pushPointsToServer();
            //     Log.d("Pushed all points?", "" + success);
@@ -162,7 +162,7 @@ public class LoginActivity extends FragmentActivity {
                 db.close();
                // c.close();
             }
-        });
+        });*/
 
 
         //JOSH TESTING CUSTOM TOASTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

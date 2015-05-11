@@ -152,9 +152,10 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         }
 
         //Log.d("DELETING ENTRIES", "Deleting entries now...");
-      /*  SQLiteDatabase db = getWritableDatabase();
-        db.delete(LocationTableSchema.TABLE_NAME, null, null); //remove entries from local database
-        db.close();*/
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(LocationTableSchema.TABLE_NAME, null, null);
+         Log.d("DBDELETE", "Database deleted.");//remove entries from local database
+        db.close();
 
         return success;
     }
@@ -165,7 +166,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
 
         cursor = db.query(LocationTableSchema.TABLE_NAME, LocationTableSchema.FIELDS,
                 LocationTableSchema.COLUMN_TIMESTAMP + " BETWEEN ? AND ?",
-                new String[] {""+startTime,"" + endTime}, null,
+                new String[] {""+startTime,""+ endTime}, null,
                 null, null, null);
 
         if (cursor != null && !cursor.isClosed()) {
