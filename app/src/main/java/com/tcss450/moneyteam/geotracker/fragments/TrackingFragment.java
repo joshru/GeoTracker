@@ -34,6 +34,8 @@ import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.activities.MainActivity;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -310,13 +312,14 @@ public class TrackingFragment extends Fragment {
 
             ArrayList<String> locations = new ArrayList<String>();
             for(Location l : mQueryLocations) {
-                String time = l.getTime() + ", ";
-                String longit = l.getLongitude() + ", ";
+                String time = l.getTime() * 1000 + ", Long: ";
+                String longit = l.getLongitude() + ", Lat: ";
                 String latit = l.getLatitude() + "";
 
-                Date date = new Date(l.getTime());
+                Date date = new Date(l.getTime() * 1000);
+                DateFormat df = new SimpleDateFormat("EE, MM/dd, yyyy HH:mm a");
 
-                locations.add(date.toString() + longit + latit);
+                locations.add(df.format(date) + ", Long: " + longit + latit);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext(), R.layout.list_row, locations);
             mLocationList.setAdapter(adapter);

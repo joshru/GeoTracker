@@ -90,7 +90,6 @@ public class LocationIntentService extends Service {
             LocationDBHelper myHelper = new LocationDBHelper(mContext);
             myHelper.addLocation(location, (System.currentTimeMillis() / 1000L));
         }
-
         @Override
         public void onProviderDisabled(String provider) {
             // TODO Auto-generated method stub

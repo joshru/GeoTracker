@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="16dp"
+        android:padding="2dp"
         android:textColor="#ff11f97c"
         />
-</LinearLayout>
+    </LinearLayout>

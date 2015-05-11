@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
@@ -18,7 +17,7 @@ public final class Poptart {
                                final int theDuration){
 
         LayoutInflater myInflater = (LayoutInflater)
-                                     theContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                theContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View myLayout = myInflater.inflate(R.layout.toast_custom, null);
 
         TextView tText = (TextView) myLayout.findViewById(R.id.custom_toast_text);
