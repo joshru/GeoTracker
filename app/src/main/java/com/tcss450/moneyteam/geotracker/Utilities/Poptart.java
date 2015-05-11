@@ -10,9 +10,15 @@ import com.tcss450.moneyteam.geotracker.R;
 
 /**
  * Created by Josh on 4/23/2015.
+ * Custome implementation of a Toast that allows for custom views and durations.
  */
 public final class Poptart {
-
+    /**
+     * Displays the Poptart to the screen.
+     * @param theContext to display the message on top of
+     * @param theMessage to display on the context
+     * @param theDuration Will be a toast constant
+     */
     public static void display(final Context theContext, final String theMessage,
                                final int theDuration){
 
@@ -34,7 +40,7 @@ public final class Poptart {
      * Displays a poptart for a given duration --B
      * @param theContext to display the poptart in
      * @param theMessage the text to be output
-     * @param theSeconds time to display the message.
+     * @param theSeconds time in seconds to display the message.
      */
     public static void displayCustomDuration(final Context theContext, final String theMessage,
                                              final int theSeconds) {
