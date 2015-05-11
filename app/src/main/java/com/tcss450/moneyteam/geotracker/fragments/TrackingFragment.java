@@ -270,7 +270,7 @@ public class TrackingFragment extends Fragment {
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
     }
 
-
+    //
     public void onEvent(WebServiceHelper.LocationEvent event) {
         Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
 
