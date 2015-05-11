@@ -38,8 +38,8 @@ public class ForgotPasswordDialog extends DialogFragment {
      * @return the forgot password fragment
      */
     public static ForgotPasswordDialog newInstance() {
-        ForgotPasswordDialog fragment = new ForgotPasswordDialog();
-        return fragment;
+        //ForgotPasswordDialog fragment = new ForgotPasswordDialog();
+        return new ForgotPasswordDialog();
     }
 
     /**

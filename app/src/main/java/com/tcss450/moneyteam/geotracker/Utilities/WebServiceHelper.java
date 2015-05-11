@@ -87,7 +87,7 @@ public class WebServiceHelper {
         Log.d("WEBQUERY", query);
 
         mCallingMethod = "addUser";
-        mDownloadTask.execute(new String[] {query});
+        mDownloadTask.execute(query);
 
     }
 
@@ -101,7 +101,7 @@ public class WebServiceHelper {
         mCallingMethod = "loginUser";
 
         String query = BASE_URL + "login.php?" + "email=" + email + "&password=" + password;
-        mDownloadTask.execute(new String[] {query});
+        mDownloadTask.execute(query);
 
     }
 
@@ -112,7 +112,7 @@ public class WebServiceHelper {
     public void resetPassword(final String email) {
         mCallingMethod = "resetPassword";
         String query = BASE_URL + "reset.php?email=" + email;
-        mDownloadTask.execute(new String[] {query});
+        mDownloadTask.execute(query);
 
     }
 
@@ -122,7 +122,7 @@ public class WebServiceHelper {
     public void getAgreement() {
         mCallingMethod = "getAgreement";
         String query = BASE_URL + "agreement.php";
-        mDownloadTask.execute(new String[] {query});
+        mDownloadTask.execute(query);
     }
 
     /**
@@ -148,15 +148,15 @@ public class WebServiceHelper {
                 + "&source=" + uid //her example uid
                 + "&timestamp=" + cursor.getInt(5);
         Log.d("LOGPOINTURL", query);
-        mDownloadTask.execute(new String[] {query});
+        mDownloadTask.execute(query);
         Log.d("EXECUTELOG", "Point log executed, doesn't mean it worked");
 
     }
 
     /**
      * Gets a range of points between from two specified dates.
-     * @param startDate
-     * @param endDate
+     * @param startDate first date to query between
+     * @param endDate second date to query between
      */
     public void getRange(Date startDate, Date endDate) {
 
@@ -193,7 +193,7 @@ public class WebServiceHelper {
      *
      */
     private void addUserPostExecute() {
-        String result = "debug string";
+        String result;
         boolean success;
 
         if (mJSONObject != null) {
@@ -266,7 +266,7 @@ public class WebServiceHelper {
     }
     /**Handles the post execute behavior of resetting the password.*/
     private void resetPasswordPostExecute() {
-        String result = "debug string";
+        String result;
         boolean success = false;
 
 
@@ -341,7 +341,7 @@ public class WebServiceHelper {
      */
     private void getRangePostExecute() {
         boolean success = false;
-        String eventMessage = "move along, nothing to see here.";
+        String eventMessage;
         if (mJSONObject != null) {
             try {
                 String result = mJSONObject.getString(RESULT_TAG);
@@ -377,7 +377,7 @@ public class WebServiceHelper {
                 EventBus.getDefault().postSticky(new LocationEvent(eventMessage, locArr, success));
             } catch (JSONException e) {
                 e.printStackTrace();
-                eventMessage = "Yo code broke son.";
+
             }
         }
     }
@@ -395,7 +395,7 @@ public class WebServiceHelper {
 
         /**
          * Public constructor
-         * @param mEventMessage
+         * @param mEventMessage message to send to subscribers
          * @param theArr of Locations
          * @param theSucc whether or not the query was successful
          */
@@ -434,8 +434,8 @@ public class WebServiceHelper {
 
         /**
          * Public constructor
-         * @param message
-         * @param success
+         * @param message to send to subscribers
+         * @param success whether or not the query was successful
          */
         public WebServiceEvent(String message, boolean success) {
             this.message = message;
@@ -474,7 +474,7 @@ public class WebServiceHelper {
                     HttpResponse execute = defClient.execute(httpGet);
                     InputStream content = execute.getEntity().getContent();
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
+                    String s;
 
                     while ((s = buffer.readLine()) != null) {
                         response += s;

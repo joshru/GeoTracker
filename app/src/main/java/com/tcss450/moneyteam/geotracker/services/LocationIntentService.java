@@ -19,6 +19,7 @@ import java.util.Calendar;
 
 /**
  * Created by Alex on 4/30/2015.
+ * Polls for user location in the background.
  */
 public class LocationIntentService extends Service {
 
@@ -30,7 +31,7 @@ public class LocationIntentService extends Service {
     private static Context mContext;
 
     /** Notification mId for reference */
-    private int mId = 1;
+    //private int mId = 1;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -60,8 +61,8 @@ public class LocationIntentService extends Service {
 
     /**
      * Starts the service to start tracking points.
-     * @param context
-     * @param isEnabled
+     * @param context to start this service on
+     * @param isEnabled status flag
      */
     public static void setServiceAlarm(Context context, boolean isEnabled) {
         mContext = context;
