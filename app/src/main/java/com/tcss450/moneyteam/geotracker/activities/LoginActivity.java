@@ -178,6 +178,11 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
+    /**
+     * On event method for Event Bus. Notifies listeners in the same fashion as a property change
+     * listener
+     * @param event
+     */
     public void onEvent(WebServiceHelper.LocationEvent event) {
         if (event.mSuccess) {
             ArrayList<Location> list = event.mLocations;
@@ -192,8 +197,8 @@ public class LoginActivity extends FragmentActivity {
     }
 
     /**
+     * Deprecated!
      * Acting onClickListener for the db test button
-     *
      */
     public void testDBListener() {
         /*Log.d("TESTDB", "Button clicked");
@@ -300,6 +305,9 @@ public class LoginActivity extends FragmentActivity {
         //wut
     }
 
+    /**
+     * Used for disconnecting the Event Bus when the activity is stopped
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -307,12 +315,18 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
+    /**
+     * On Destroy
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
        // EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * Registers the Event Bus when the activity is started
+     */
     @Override
     protected void onStart() {
         //super.onStart();
@@ -320,6 +334,10 @@ public class LoginActivity extends FragmentActivity {
         super.onStart();
     }
 
+    /**
+     * Receives events from Event Bus for logging in and welcomes the user
+     * @param event
+     */
     public void onEvent(WebServiceHelper.WebServiceEvent event) {
         if (event.success) {
             Poptart.displayCustomDuration(this, "Welcome, " + mEmailText.getText().toString(), 4);

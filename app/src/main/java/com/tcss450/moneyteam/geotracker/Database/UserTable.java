@@ -7,7 +7,9 @@ import android.util.Log;
  * Class used to represent the user table, holding all constants needed
  * for its creation and access.
  *
- * Created by Brandon on 4/21/2015.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class UserTable {
 
@@ -30,10 +32,20 @@ public class UserTable {
             + COLUMN_SECURITY_ANSWER + " text not null "
             + ");";
 
+    /**
+     * Creates the SQLite database
+     * @param database
+     */
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
     }
 
+    /**
+     * Used for upgrading the database
+     * @param database the database to upgrade
+     * @param oldVerion the old version number
+     * @param newVersion the new version number
+     */
     public static void onUpgrade(SQLiteDatabase database, int oldVerion,
                                  int newVersion) {
         Log.w(UserTable.class.getName(), "Upgrading database from version " +

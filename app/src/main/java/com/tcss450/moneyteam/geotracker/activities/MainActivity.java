@@ -119,11 +119,19 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
+    /**
+     * Calls super onSaveInstanceState
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * Calls super onRestoreInstanceState
+     * @param savedInstanceState
+     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

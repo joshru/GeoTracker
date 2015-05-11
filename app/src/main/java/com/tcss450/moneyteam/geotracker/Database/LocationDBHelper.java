@@ -16,22 +16,34 @@ import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import java.util.Date;
 
 /**
- * Created by Brandon on 5/3/2015.
+ * Class for adding location data to the database
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class LocationDBHelper extends SQLiteOpenHelper {
 
+    /** Name of the database*/
     private static final String LOCATION_DB_NAME = "locationdb.db";
+
+    /** Database version*/
     private static final int DATABASE_VERSION = 2;
+
+    /** Log tag*/
     private static final String LOG_TAG = "locationdbhelper";
 
+    /** Insert string*/
     private static final String INSERT = LocationTableSchema.INSERT
             + "values (?, ?, ?, ?, ?, ?);";
 
+    /** Current context*/
     private Context mContext;
 
 
-
-
+    /**
+     * Conscturtor for getting context and instantiating the helper
+     * @param context
+     */
     public LocationDBHelper(Context context) {
         super(context, LOCATION_DB_NAME, null, DATABASE_VERSION);
         mContext = context;
@@ -46,6 +58,12 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         LocationTableSchema.onCreate(db);
     }
 
+    /**
+     * Used for upgrading the Database
+     * @param db the database to upgrade
+     * @param oldVersion old version number
+     * @param newVersion new version number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         LocationTableSchema.onUpgrade(db, oldVersion, newVersion);
@@ -139,6 +157,10 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    /**
+     * Pushes all the points to the webservice
+     * @return boolean based on the success of the push
+     */
     public boolean pushPointsToServer() {
         boolean success = false;
         Cursor cursor = selectAllLocations();
@@ -166,6 +188,13 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         return success;
     }
 
+    /**
+     * Deprecated!
+     * Gets the locations in the user specified range using a cursor
+     * @param startTime the start date in the range
+     * @param endTime the end date in the range
+     * @return the Cursor
+     */
     public Cursor getLocationsInRange(long startTime, long endTime) {
         Cursor cursor;
         SQLiteDatabase db = getReadableDatabase();

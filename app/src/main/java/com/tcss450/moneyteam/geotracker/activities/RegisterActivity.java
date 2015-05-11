@@ -107,8 +107,6 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mRegisterButton = (Button) findViewById(R.id.register_register_button);
         mTermsCheckBox = (CheckBox) findViewById(R.id.register_checkbox);
         mProgressBar = (ImageView) findViewById(R.id.register_progress);
-        //TextView htmlTOS = (TextView) findViewById(R.id.tos_text_view);
-        //htmlTOS.setText(Html.fromHtml(getString(R.string.tos_agreement)));
         mEnterListener = new PipTextEnterListener();
         mProgressBarIcon = (ImageView) findViewById(R.id.register_progress_icon);
         animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
@@ -164,6 +162,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     /**
      * Called after finalize(). Destroys the activity, usually done by OS to free resources.
+     * Disconnects the Event Bus
      */
     @Override
     protected void onDestroy() {
@@ -172,6 +171,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     }
 
+    /**
+     * Registers the Event Bus
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -185,7 +187,6 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     /**
      * Handles events from the webservices. Totally works
      */
-
     public void onEventMainThread(WebServiceHelper.WebServiceEvent event) {
         Poptart.displayCustomDuration(this, event.message, 4);
         if (event.success) {
@@ -193,6 +194,11 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             startActivity(loginScreen);
         }
     }
+
+    /**
+     * Gets the agreement from the webservice and displays it
+     * @param event
+     */
     public void onEventMainThread(WebServiceHelper.AgreementEvent event) {
         Log.d("AGREEMENTEVENTRECEIVED", "agreement arrived.");
         TextView htmlTOS = (TextView) findViewById(R.id.tos_text_view);

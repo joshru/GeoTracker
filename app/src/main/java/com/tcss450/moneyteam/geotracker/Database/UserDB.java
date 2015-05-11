@@ -7,17 +7,21 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Used by us to store and retrieve information about the user.
- * Created by Brandon on 4/21/2015.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class UserDB {
 
+    /** Local databse helper*/
     private UserDBHelper mDBHelper;
+
+    /** Current context*/
     private Context mContext;
-    //private SQLiteDatabase db;
 
     /**
-     *
-     * @param context
+     * Constructor for instantiating the user database
+     * @param context current context
      */
     public UserDB(Context context) {
         mDBHelper = new UserDBHelper(context);
@@ -26,12 +30,12 @@ public class UserDB {
 
     /**
      *
-     * @param ID
-     * @param userName
-     * @param password
-     * @param securityQuestion
-     * @param securityAnswer
-     * @return
+     * @param ID user ID
+     * @param userName username
+     * @param password password
+     * @param securityQuestion security question
+     * @param securityAnswer security answer
+     * @return returns the database insert long value
      */
     public long insertUser(int ID, String userName, String password,
                String securityQuestion, String securityAnswer) {
@@ -57,7 +61,7 @@ public class UserDB {
      * @param userID user id
      * @param tag column to search for.
      * @param newValue new value to update the user information to.
-     * @return
+     * @return boolean based on the success of the update
      */
     public boolean updateUserInfo(int userID, String tag, String newValue) {
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
@@ -110,9 +114,5 @@ public class UserDB {
                     null);
             return c;
         }
-
-
-
-
 
 }
