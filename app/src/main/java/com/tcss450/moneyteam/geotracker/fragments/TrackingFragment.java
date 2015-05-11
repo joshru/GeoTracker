@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
@@ -99,24 +100,30 @@ public class TrackingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 WebServiceHelper myHelper = new WebServiceHelper(rootView.getContext());
+                LocationDBHelper dbHelper = new LocationDBHelper(rootView.getContext());
                 String startDate = mStartDate.getText().toString();
                 String endDate = mEndDate.getText().toString();
                 String startTime = mStartTime.getText().toString();
                 String endTime = mStartTime.getText().toString();
 
+                Log.i("CHECK RANGE", "range check 1");
+
                 if(!startDate.isEmpty() && !endDate.isEmpty()
                         && !startTime.isEmpty() && !endTime.isEmpty()) {
+                    dbHelper.pushPointsToServer();
+
                     String[] startDateArray = startDate.split("/");
-                    String[] endDateArray = startDate.split("/");
-                    String[] startTimeArray = startDate.split(":");
-                    String[] endTimeArray = startDate.split(":");
+                    String[] endDateArray = endDate.split("/");
+                    String[] startTimeArray = startTime.split(":");
+                    String[] endTimeArray = endTime.split(":");
 
                     Date startDateObject = new Date(Integer.parseInt(startDateArray[2]),
                             Integer.parseInt(startDateArray[0]),
                             Integer.parseInt(startDateArray[1]),
                             Integer.parseInt(startTimeArray[0]),
-                            Integer.parseInt(startDateArray[1]),
+                            Integer.parseInt(startTimeArray[1]),
                             0);
+
 
                     Date endDateObject = new Date(Integer.parseInt(endDateArray[2]),
                             Integer.parseInt(endDateArray[0]),
@@ -124,7 +131,6 @@ public class TrackingFragment extends Fragment {
                             Integer.parseInt(endTimeArray[0]),
                             Integer.parseInt(endDateArray[1]),
                             0);
-
                     myHelper.getRange(startDateObject, endDateObject);
                 }
             }
