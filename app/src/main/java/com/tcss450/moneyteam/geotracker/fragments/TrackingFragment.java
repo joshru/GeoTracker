@@ -232,10 +232,17 @@ public class TrackingFragment extends Fragment {
         EventBus.getDefault().register(this);
     }
 
+
+
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     public void locationToggle() {
