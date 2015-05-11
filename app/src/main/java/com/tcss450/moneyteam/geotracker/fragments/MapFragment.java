@@ -63,8 +63,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 LatLng sydney = new LatLng(-33.867, 151.206);
 
         //SETUP MAP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mMap.setMyLocationEnabled(true);
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        if (mMap != null) {
+             mMap.setMyLocationEnabled(true);
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }
 
         //PERFORM CAMERA UPDATES HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         return rootView;

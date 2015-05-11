@@ -380,6 +380,7 @@ public class WebServiceHelper {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             if (!mCallingMethod.equals("logPoint") && !mCallingMethod.equals("getRange")) {
                 mProgressDialog = ProgressDialog.show(mContext, "Wait", "Parsing Server...");
             }

@@ -187,7 +187,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
      */
 
     public void onEventMainThread(WebServiceHelper.WebServiceEvent event) {
-        Poptart.displayCustomDuration(this, event.message, 6);
+        Poptart.displayCustomDuration(this, event.message, 4);
         if (event.success) {
             Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginScreen);
@@ -205,8 +205,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
      */
     public void registerUser(View view) {
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-       // SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
-      //  SharedPreferences.Editor myPrefEditor = myPreferences.edit();
+        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor myPrefEditor = myPreferences.edit();
         //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         String toastString = getString(R.string.register_error_toast);
         final String email = mEmail.getText().toString();
@@ -226,6 +226,14 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
 
             /* Testing webservice */
+
+        if (validEmail && validPass && validRepeat && validQuestionResponse) {
+            myPrefEditor.putString(getString(R.string.saved_email_key), email);
+            myPrefEditor.putString(getString(R.string.saved_question_key), question);
+            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
+            myPrefEditor.apply();
+        }
+        //myPrefEditor.pu
         webServiceHelper.addUser(email, passphraseHash, question, answer);
 
         mRegisterButton.startAnimation(animAlpha);

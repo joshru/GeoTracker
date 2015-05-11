@@ -1,6 +1,7 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
@@ -64,6 +65,9 @@ public class TrackingFragment extends Fragment {
     private Button mGetDataButton;
     private ListView mLocationList;
 
+
+    private Context mContext;
+
     //Month/day/year/hour/minute
     private int[] mGlobalStartDate;
     private int[] mGlobalEndDate;
@@ -78,6 +82,8 @@ public class TrackingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        setRetainInstance(true);
         //GET REFERENCE TO ROOTVIEW AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         rootView = inflater.inflate(R.layout.fragment_tracking_settings, container, false);
 
@@ -95,7 +101,7 @@ public class TrackingFragment extends Fragment {
         mStartTime = (TextView) rootView.findViewById(R.id.f_location_time_text_start);
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
-        mLocationList = (ListView) rootView.findViewById(R.id.list_location);
+        mLocationList = (ListView) rootView.findViewById(R.id.list_location_listview);
 //        ListView list = (ListView) rootView.findViewById(R.id.list_location);
 
 
@@ -249,8 +255,23 @@ public class TrackingFragment extends Fragment {
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mContext = activity.getApplicationContext();
     }
 
     public void locationToggle() {

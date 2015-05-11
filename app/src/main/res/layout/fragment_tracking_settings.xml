@@ -25,7 +25,7 @@
             android:id="@+id/textView17"
             android:layout_centerHorizontal="true"
             android:textColor="#ff11f97c"
-            android:layout_alignTop="@+id/imageView10" />
+            android:layout_alignTop="@id/imageView10" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -131,7 +131,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Date"
             android:id="@+id/textView20"
-            android:layout_alignLeft="@+id/f_location_date_text_end"
+            android:layout_alignLeft="@id/f_location_date_text_end"
             android:textColor="@color/pip_light_neon"
             android:paddingTop="5dp"
             android:layout_below="@+id/textView23" />
@@ -197,7 +197,7 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:id="@+id/list_location"
+        android:id="@+id/list_location_listview"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="0dp"
@@ -206,7 +206,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_location"
+        android:id="@+id/list_location_imageview"
         android:background="@drawable/pip_hud_flat_bar"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
@@ -276,7 +276,7 @@
             android:layout_alignParentEnd="true"
             android:progress="0"
             android:indeterminate="false"
-            android:layout_below="@+id/textView10"
+            android:layout_below="@id/textView10"
             android:progressDrawable="@drawable/progress_draweable"
 
 

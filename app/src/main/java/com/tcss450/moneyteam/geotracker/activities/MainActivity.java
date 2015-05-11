@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.TabHost;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
@@ -90,7 +91,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Logout");
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+       // TabHost
         //ACCOUNT SETTINGS TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mAccountSettingsTab = actionBar.newTab();
         mAccountSettingsTab.setIcon(getResources().getDrawable(R.drawable.pip_gains));
@@ -160,7 +161,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
 
     //FOLLOWING TOUCH LISTENERS HAVE NOT BEEN IMPLEMENTED (IGNORE)~~~~~~~~~~~~~~~~~~
-    //TODO (PHASE II) IMPLEMENTED WANTED EVENTS, CODE REVIEWRS CAN IGNORE~~~~~~~~~~~
+    //TODO (PHASE II) IMPLEMENTED WANTED EVENTS, CODE REVIEWeRS CAN IGNORE~~~~~~~~~~~
 
     /**
      * Method used for printing debug messages to the android log for debugging purposes.
