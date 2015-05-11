@@ -277,6 +277,11 @@ public class TrackingFragment extends Fragment {
         if (event.mSuccess) {
             mQueryLocations = event.mLocations;
             Log.i("RANGE DATA", mQueryLocations.toString());
+            for(Location l : mQueryLocations) {
+                String time = l.getTime() + "";
+                String longit = l.getLongitude() + "";
+                String latit = l.getLatitude() + "";
+            }
 
         }
 
