@@ -134,8 +134,8 @@ public class WebServiceHelper {
         Log.d("GETTINGRANGE", "Initiated range query");
 
         String query = BASE_URL + "view.php?uid=" + uid
-                + "&start=" + startDate.getTime()
-                + "&end=" + endDate.getTime();
+                + "&start=" + startDate.getTime() / 1000L
+                + "&end=" + endDate.getTime() / 1000L;
 
         mDownloadTask.execute(query);
     }
