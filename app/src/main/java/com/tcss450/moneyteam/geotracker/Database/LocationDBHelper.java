@@ -56,7 +56,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
      * @param location to add
      * @return true if succeeded, false otherwise.
      */
-    public boolean addLocation(Location location) {
+    public boolean addLocation(Location location, long timestamp) {
     /*Double latitude, Double longitude, double speed, String direction,
                             String source, String TimeStamp) {*/
         //TODO consider using an SQLite insert statement instead of content values
@@ -93,7 +93,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         insertStatement.bindDouble(3, location.getSpeed());
         insertStatement.bindDouble(4, location.getBearing());
         insertStatement.bindString(5, uid);
-        insertStatement.bindLong(6, location.getTime());
+        insertStatement.bindLong(6, timestamp);
 
 
 
