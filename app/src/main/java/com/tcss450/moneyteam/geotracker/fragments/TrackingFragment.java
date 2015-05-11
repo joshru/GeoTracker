@@ -293,7 +293,9 @@ public class TrackingFragment extends Fragment {
                 String longit = l.getLongitude() + ", ";
                 String latit = l.getLatitude() + "";
 
-                locations.add(time + longit + latit);
+                Date date = new Date(l.getTime());
+
+                locations.add(date.toString() + longit + latit);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext(), R.layout.list_row, locations);
             mLocationList.setAdapter(adapter);
