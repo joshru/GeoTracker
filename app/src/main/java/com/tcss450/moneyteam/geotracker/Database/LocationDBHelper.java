@@ -23,20 +23,13 @@ import java.util.Date;
  */
 public class LocationDBHelper extends SQLiteOpenHelper {
 
-    /** Name of the database*/
     private static final String LOCATION_DB_NAME = "locationdb.db";
-
-    /** Database version*/
     private static final int DATABASE_VERSION = 2;
-
-    /** Log tag*/
     private static final String LOG_TAG = "locationdbhelper";
 
-    /** Insert string*/
     private static final String INSERT = LocationTableSchema.INSERT
             + "values (?, ?, ?, ?, ?, ?);";
 
-    /** Current context*/
     private Context mContext;
 
 

@@ -11,6 +11,7 @@ import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 /**
  * Created by Alex on 4/30/2015.
+ * Starts the tracking service when the system restarts.
  */
 public class BootLoader extends BroadcastReceiver {
 
