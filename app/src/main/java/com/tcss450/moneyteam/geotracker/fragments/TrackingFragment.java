@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 
 import de.greenrobot.event.EventBus;
 
@@ -59,6 +60,10 @@ public class TrackingFragment extends Fragment {
     private TextView activeText;
     private Button mGetDataButton;
 
+    //Month/day/year/hour/minute
+    private int[] mGlobalStartDate;
+    private int[] mGlobalEndDate;
+
     /**
      * Creates the new fragment for handling tracking settings
      * @param inflater the inflater
@@ -73,6 +78,8 @@ public class TrackingFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_tracking_settings, container, false);
 
         //INSTANTIATE FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mGlobalStartDate = new int[5];
+        mGlobalEndDate = new int[5];
 
         
         //GET REFERENCES TO UI ELEMENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,27 +116,15 @@ public class TrackingFragment extends Fragment {
                 if(!startDate.isEmpty() && !endDate.isEmpty()
                         && !startTime.isEmpty() && !endTime.isEmpty()) {
                     dbHelper.pushPointsToServer();
+                    Calendar start = Calendar.getInstance();
+                    Calendar end = Calendar.getInstance();
+                    start.set(mGlobalStartDate[2], mGlobalStartDate[0], mGlobalStartDate[1], mGlobalStartDate[3], mGlobalStartDate[4]);
 
-                    String[] startDateArray = startDate.split("/");
-                    String[] endDateArray = endDate.split("/");
-                    String[] startTimeArray = startTime.split(":");
-                    String[] endTimeArray = endTime.split(":");
+                    end.set(mGlobalEndDate[2], mGlobalEndDate[0], mGlobalEndDate[1], mGlobalEndDate[3],mGlobalEndDate[4]);
 
-                    Date startDateObject = new Date(Integer.parseInt(startDateArray[2]),
-                            Integer.parseInt(startDateArray[0]),
-                            Integer.parseInt(startDateArray[1]),
-                            Integer.parseInt(startTimeArray[0]),
-                            Integer.parseInt(startTimeArray[1]),
-                            0);
-
-
-                    Date endDateObject = new Date(Integer.parseInt(endDateArray[2]),
-                            Integer.parseInt(endDateArray[0]),
-                            Integer.parseInt(endDateArray[1]),
-                            Integer.parseInt(endTimeArray[0]),
-                            Integer.parseInt(endDateArray[1]),
-                            0);
-                    myHelper.getRange(startDateObject, endDateObject);
+                    Log.i("DATE", "START: " + start.toString());
+                    Log.i("DATE", "END: " + end.toString());
+                    myHelper.getRange(start.getTime(), end.getTime());
                 }
             }
         });
@@ -300,6 +295,15 @@ public class TrackingFragment extends Fragment {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             activeText.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+            if(activeText.getId() == R.id.f_location_date_text_start) {
+                mGlobalStartDate[0] = monthOfYear;
+                mGlobalStartDate[1] = dayOfMonth;
+                mGlobalStartDate[2] = year;
+            } else {
+                mGlobalEndDate[0] = monthOfYear;
+                mGlobalEndDate[1] = dayOfMonth;
+                mGlobalEndDate[2] = year;
+            }
         }
     }
 
@@ -307,6 +311,13 @@ public class TrackingFragment extends Fragment {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             activeText.setText(hourOfDay + ":" + minute);
+            if(activeText.getId() == R.id.f_location_time_text_start) {
+                mGlobalStartDate[3] = hourOfDay;
+                mGlobalStartDate[4] = minute;
+            } else {
+                mGlobalEndDate[3] = hourOfDay;
+                mGlobalEndDate[4] = minute;
+            }
         }
     }
 }

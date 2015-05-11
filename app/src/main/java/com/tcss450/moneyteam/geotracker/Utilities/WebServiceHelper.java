@@ -133,6 +133,14 @@ public class WebServiceHelper {
         mCallingMethod = "getRange";
         Log.d("GETTINGRANGE", "Initiated range query");
 
+        Log.d("QTIME", "START DATE: " + startDate.toString());
+
+        Log.d("QTIME", "\nSTART TIME: " + startDate.getTime());
+
+        Log.d("QTIME", "\nEND DATE: " + endDate.toString());
+
+        Log.d("QTIME", "\nEND TIME: " + endDate.getTime());
+
         String query = BASE_URL + "view.php?uid=" + uid
                 + "&start=" + startDate.getTime() / 1000L
                 + "&end=" + endDate.getTime() / 1000L;

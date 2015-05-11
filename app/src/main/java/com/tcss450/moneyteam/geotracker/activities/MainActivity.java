@@ -118,6 +118,16 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     /**
      * Overides the return to home as a call to logout the user.
      * @param item
