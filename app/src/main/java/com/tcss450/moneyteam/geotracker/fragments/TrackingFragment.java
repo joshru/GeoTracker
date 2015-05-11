@@ -52,22 +52,49 @@ import de.greenrobot.event.EventBus;
  */
 public class TrackingFragment extends Fragment {
 
+    /** Local shared preferences*/
     private SharedPreferences myPreferences;
+
+    /** Toggle button for location tracking*/
     private ToggleButton mToggleButton;
+
+    /** Root view*/
     private View rootView;
+
+    /** Seek bar for tracking frequency*/
     private SeekBar mSeekBar;
+
+    /** Text that displays how often to grab location*/
     private TextView mSeekTimeText;
+
+    /** Location polling interval*/
     private int mPollingTime;
+
+    /** Collection of location objects*/
     private ArrayList<Location> mQueryLocations;
+
+    /** Start date for displayed locations*/
     private TextView mStartDate;
+
+    /** End date for displayed locations*/
     private TextView mEndDate;
+
+    /** End time for displayed locations*/
     private TextView mEndTime;
+
+    /** Start time for displayed locations*/
     private TextView mStartTime;
+
+    /** Active text*/
     private TextView activeText;
+
+    /** Get location tracking button*/
     private Button mGetDataButton;
+
+    /** List view for showing location data*/
     private ListView mLocationList;
 
-
+    /** Current context*/
     private Context mContext;
 
     //Month/day/year/hour/minute
@@ -217,6 +244,9 @@ public class TrackingFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Updates the selected date dialog
+     */
     private void dateDialog() {
 
         // Process to get Current Date
@@ -231,6 +261,9 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    /**
+     * Updates the selected time dialog
+     */
     private void timeDialog() {
         // Process to get Current Time
         final Calendar c = Calendar.getInstance();
@@ -242,6 +275,9 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    /**
+     * Starts, registers the Event Bus
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -249,13 +285,18 @@ public class TrackingFragment extends Fragment {
     }
 
 
-
+    /**
+     * Destroys, unregisters the Event Bus
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * Detaches, unregisters the Event Bus
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -263,6 +304,9 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    /**
+     * Destroys the view, unregisters Event Bus
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -270,12 +314,19 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    /**
+     * Attaches, gets current context
+     * @param activity current activity
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mContext = activity.getApplicationContext();
     }
 
+    /**
+     * Visually toggles the location tracking button
+     */
     public void locationToggle() {
         if(mToggleButton.isChecked()) {
             toggle0n();
@@ -284,6 +335,9 @@ public class TrackingFragment extends Fragment {
         }
     }
 
+    /**
+     * Toggles location tracking on
+     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0n() {
         LocationIntentService.setServiceAlarm(rootView.getContext(), true);
@@ -301,7 +355,10 @@ public class TrackingFragment extends Fragment {
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
     }
 
-    //
+    /**
+     * Event handler for Event bus. Gets fired locations and adds them to the list view
+     * @param event
+     */
     public void onEvent(WebServiceHelper.LocationEvent event) {
         Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
 
@@ -328,6 +385,9 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    /**
+     * Toggles location tracking off
+     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0ff() {
         LocationIntentService.setServiceAlarm(rootView.getContext(), false);
@@ -345,6 +405,9 @@ public class TrackingFragment extends Fragment {
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
     }
 
+    /**
+     * Custom date listener inner class for listening for selected start and end dates
+     */
     private class customDateListener implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -361,6 +424,9 @@ public class TrackingFragment extends Fragment {
         }
     }
 
+    /**
+     * Custom time listener for listening for selected start and end times
+     */
     private class customTimeListener implements  TimePickerDialog.OnTimeSetListener {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

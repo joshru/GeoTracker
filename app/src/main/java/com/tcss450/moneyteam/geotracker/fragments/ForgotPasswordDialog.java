@@ -30,6 +30,7 @@ import de.greenrobot.event.EventBus;
  */
 public class ForgotPasswordDialog extends DialogFragment {
 
+    /** The email label*/
     private TextView mDialogEmailLabel;
 
     /**
@@ -41,12 +42,18 @@ public class ForgotPasswordDialog extends DialogFragment {
         return fragment;
     }
 
+    /**
+     * Destroys the view and disconnects the Event bus
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * Starts the view and registers the Event Bus
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -54,6 +61,10 @@ public class ForgotPasswordDialog extends DialogFragment {
 
     }
 
+    /**
+     * Detects fired events and shows a poptart about it
+     * @param event the fired event
+     */
     public void onEventMainThread(WebServiceHelper.WebServiceEvent event) {
         if (event.success) {
             Poptart.displayCustomDuration(getActivity().getApplicationContext(), event.message, 4);

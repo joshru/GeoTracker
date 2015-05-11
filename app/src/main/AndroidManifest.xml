@@ -75,7 +75,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBs83VG6ZLJR97s9B1Wwtusiz2eUB6V20Q" />
+            android:value="AIzaSyDVp_9kskkbzcBneu4P9EB8hZMP4azCLnY" />
 
         <activity
             android:name=".activities.StartupActivity"

@@ -97,6 +97,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMapView.onLowMemory();
     }
 
+    /**
+     * Shows the map when it becomes ready
+     * @param googleMap the map
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng mapCenter = new LatLng(41.889, -87.622);

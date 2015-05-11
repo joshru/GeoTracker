@@ -38,14 +38,24 @@ public class AccountFragment extends Fragment {
 
     /** The user secret question text view*/
     private TextView mUserQuestionLabel;
+
+    /** Password reset button*/
     private Button mPasswordResetButton;
+
+    /** Security question layout*/
     private RelativeLayout mAnswerLayout;
+
+    /** Root view*/
     private View rootView;
+
+    /** */
     private ToggleButton mToggleButton;
+
+    /** Local shared preferences*/
     private SharedPreferences myPreferences;
 
     /**
-     * Createst the account information fragment and assigns all relevant listeners
+     * Creates the account information fragment and assigns all relevant listeners
      * @param inflater the inflater
      * @param container the container
      * @param savedInstanceState the saved instance state
