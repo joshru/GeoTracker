@@ -72,6 +72,12 @@ public class LocationDBHelper extends SQLiteOpenHelper {
                 Context.MODE_PRIVATE);
         String uid = sharedPreferences.getString(mContext.getString(R.string.saved_user_id_key),
                 mContext.getString(R.string.default_restore_key));
+
+        //CHECKS IF UID IS EMPTY
+        if(uid.isEmpty()) {
+            Log.d("addLocation Error", "addLocation Error: UID Empty");
+            return false;
+        }
        // ContentValues values = new ContentValues();
 
         //---------Bundle up all the values----------

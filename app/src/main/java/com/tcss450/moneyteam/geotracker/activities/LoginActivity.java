@@ -33,6 +33,7 @@ import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
 import com.tcss450.moneyteam.geotracker.Authenticator;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import de.greenrobot.event.EventBus;
 
@@ -234,6 +235,10 @@ public class LoginActivity extends FragmentActivity {
         final boolean emailForm = Authenticator.emailFormatCheck(emailCred);
         final boolean passForm = Authenticator.passFormatCheck(mPassText.getText().toString());
         View badView = mLoginButton;
+
+        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor myEditor = myPreferences.edit();
+        myEditor.putString(getString(R.string.saved_email_key), emailCred);
 
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
        // webServiceHelper.loginUser();

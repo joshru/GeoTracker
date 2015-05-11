@@ -106,8 +106,6 @@ public class TrackingFragment extends Fragment {
                 String startTime = mStartTime.getText().toString();
                 String endTime = mStartTime.getText().toString();
 
-                Log.i("CHECK RANGE", "range check 1");
-
                 if(!startDate.isEmpty() && !endDate.isEmpty()
                         && !startTime.isEmpty() && !endTime.isEmpty()) {
                     dbHelper.pushPointsToServer();
@@ -275,7 +273,8 @@ public class TrackingFragment extends Fragment {
 
         if (event.mSuccess) {
             mQueryLocations = event.mLocations;
-            //place code or method calls here to handle displaying the points.
+            Log.i("RANGE DATA", mQueryLocations.toString());
+
         }
 
     }

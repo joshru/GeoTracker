@@ -182,7 +182,8 @@
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/edit_text_gradient"
-        android:textColor="@color/pip_light_neon" />
+        android:textColor="@color/pip_light_neon"
+        android:clickable="true" />
 
     <ImageView
         android:layout_width="fill_parent"
