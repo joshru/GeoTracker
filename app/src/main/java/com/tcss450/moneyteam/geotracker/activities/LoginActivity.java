@@ -158,7 +158,7 @@ public class LoginActivity extends FragmentActivity {
 
               //  boolean success = db.pushPointsToServer();
            //     Log.d("Pushed all points?", "" + success);
-                helper.getRange(1431300190, 1431300192);
+               //helper.getRange(1431300190, 1431300192);
                 db.close();
                // c.close();
             }

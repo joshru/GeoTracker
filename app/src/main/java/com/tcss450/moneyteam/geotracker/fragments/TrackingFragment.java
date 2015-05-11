@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -30,6 +31,8 @@ import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
 
@@ -53,6 +56,7 @@ public class TrackingFragment extends Fragment {
     private TextView mEndTime;
     private TextView mStartTime;
     private TextView activeText;
+    private Button mGetDataButton;
 
     /**
      * Creates the new fragment for handling tracking settings
@@ -78,6 +82,7 @@ public class TrackingFragment extends Fragment {
         mEndDate = (TextView) rootView.findViewById(R.id.f_location_date_text_end);
         mStartTime = (TextView) rootView.findViewById(R.id.f_location_time_text_start);
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
+        mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
 
         //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
@@ -88,6 +93,42 @@ public class TrackingFragment extends Fragment {
         } else {
             toggle0ff();
         }
+
+        //GET DATA ONCLICK LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mGetDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebServiceHelper myHelper = new WebServiceHelper(rootView.getContext());
+                String startDate = mStartDate.getText().toString();
+                String endDate = mEndDate.getText().toString();
+                String startTime = mStartTime.getText().toString();
+                String endTime = mStartTime.getText().toString();
+
+                if(!startDate.isEmpty() && !endDate.isEmpty()
+                        && !startTime.isEmpty() && !endTime.isEmpty()) {
+                    String[] startDateArray = startDate.split("/");
+                    String[] endDateArray = startDate.split("/");
+                    String[] startTimeArray = startDate.split(":");
+                    String[] endTimeArray = startDate.split(":");
+
+                    Date startDateObject = new Date(Integer.parseInt(startDateArray[2]),
+                            Integer.parseInt(startDateArray[0]),
+                            Integer.parseInt(startDateArray[1]),
+                            Integer.parseInt(startTimeArray[0]),
+                            Integer.parseInt(startDateArray[1]),
+                            0);
+
+                    Date endDateObject = new Date(Integer.parseInt(endDateArray[2]),
+                            Integer.parseInt(endDateArray[0]),
+                            Integer.parseInt(endDateArray[1]),
+                            Integer.parseInt(endTimeArray[0]),
+                            Integer.parseInt(endDateArray[1]),
+                            0);
+
+                    myHelper.getRange(startDateObject, endDateObject);
+                }
+            }
+        });
 
 
         //SET DATE AND TIME DIALOGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
