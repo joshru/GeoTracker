@@ -60,9 +60,6 @@ public class LoginActivity extends FragmentActivity {
     /** Relative layout of the login button.*/
     private RelativeLayout mLoginButtonLayout;
 
-    /**Testing the db*/
-    private Button mDBButton;
-
     /**
      * onCreate is called when the LoginActivity is instantiated.
      * @param savedInstanceState the bundle containing intent info.
@@ -111,60 +108,9 @@ public class LoginActivity extends FragmentActivity {
             public boolean onLongClick(View v) {
                 launchActivity("");
                 Poptart.display(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG);
-//                Toast.makeText(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG).show();
                 return true;
             }
         });
-
-       /* //Testing some serious shit
-        mDBButton = (Button) findViewById(R.id.test_db_button);
-
-        mDBButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TESTDB", "Button clicked");
-
-                *//*getSharedPreferences(getString(R.string.shared_pref_key),
-                        Context.MODE_PRIVATE)
-                        .edit()
-                        .putString(getString(R.string.saved_user_id_key),
-                                "uniqueID")
-                        .apply();*//*
-
-                *//*Location testLoc = new Location("Thisisatest");
-                testLoc.setLatitude(37.806);
-                testLoc.setLongitude(17.66);
-                testLoc.setSpeed(37);
-                testLoc.setBearing((float) 10.0);
-                testLoc.setTime(1431197660);*//*
-
-                LocationDBHelper db = new LocationDBHelper(getApplicationContext());
-                //db.addLocation(testLoc);
-               WebServiceHelper helper = new WebServiceHelper(getApplicationContext());
-               // Cursor c = db.selectAllLocations();
-
-               // if (c.moveToFirst()) {
-               //     helper.logPoint(c);
-              //  }
-                 long timestamp = System.currentTimeMillis() / 1000L;
-                *//*for (int i = 0; i < 3; i++) {
-                    Location testLoc = new Location("Thisisatest");
-                    testLoc.setLatitude(37.806);
-                    testLoc.setLongitude(17.66);
-                    testLoc.setSpeed(37);
-                    testLoc.setBearing((float) 10.0);
-                    testLoc.setTime(timestamp++);
-                    db.addLocation(testLoc);
-                }*//*
-
-              //  boolean success = db.pushPointsToServer();
-           //     Log.d("Pushed all points?", "" + success);
-               //helper.getRange(1431300190, 1431300192);
-                db.close();
-               // c.close();
-            }
-        });*/
-
 
         //JOSH TESTING CUSTOM TOASTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ImageView toastTest = (ImageView) findViewById(R.id.imageView3);
@@ -196,34 +142,6 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
-    /**
-     * Deprecated!
-     * Acting onClickListener for the db test button
-     */
-    public void testDBListener() {
-        /*Log.d("TESTDB", "Button clicked");
-
-        Location testLoc = new Location("Thisisatest");
-        testLoc.setLatitude(37.806);
-        testLoc.setLongitude(17.66);
-        testLoc.setSpeed(37);
-        testLoc.setBearing((float) 10.0);
-        testLoc.setTime(1002400093);
-
-        LocationDBHelper db = new LocationDBHelper(this);
-        db.addLocation(testLoc);
-        WebServiceHelper helper = new WebServiceHelper(this);
-        Cursor c = db.selectAllLocations();
-
-        if (c.moveToFirst()) {
-            helper.logPoint(c);
-        }
-
-        db.close();
-        c.close();*/
-
-    }
-
 
     /**
      * Acting OnClickListener for the login button.
@@ -249,51 +167,10 @@ public class LoginActivity extends FragmentActivity {
        // webServiceHelper.loginUser();
 
 
-
-
         webServiceHelper.loginUser(emailCred, passCredHash);
-        //TODO reimplement multi-fail functionality
-       // }
-        //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        /*SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-        userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
-        userPassHash = myPreferences.getString(getString(R.string.saved_pass_key), "");
 
-        //CHECKS FOR VALID FORMATTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        if (emailForm && passForm && userEmail != null) {
-            //CHECK FOR PROPER CREDENTIALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            if ((emailCred.equals(userEmail)) && (passCredHash.equals(userPassHash))) {
-                //LOGIN THE USER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                toastString = getString(R.string.login_welcome_toast);
-                launchActivity("");
-                mLoginTries = 0;
-
-               //keep track of which activity to start up on --B
-                getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE).edit()
-                        .putBoolean(getString(R.string.logged_in_boolean), true).apply();
-                finish();
-            } else {
-                //BAD USER CREDENTIALS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                toastString = getString(R.string.bad_creds_toast);
-                mLoginTries++;
-                badView = (mLoginTries % 3 == 0)?(mForgotLabel):(mRegisterLabel);
-                if(badView == mForgotLabel) toastString = getString(R.string.login_forgot_pass);
-            }
-        }
-        //EMAIL FORMATTING IS INVALID~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        else if (!emailForm) {
-            badView = mEmailText;
-            toastString = getString(R.string.bad_email_toast);
-        }
-        //PASSWORD FORMATTING IS BAD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        else if (!passForm) {
-            badView = mPassText;
-            toastString = getString(R.string.bad_pass_toast);
-        }*/
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButtonLayout.startAnimation(animAlpha);
-       // badView.startAnimation(animAlpha);
-       // Poptart.display(LoginActivity.this, toastString, Toast.LENGTH_LONG);
     }
 
     /**

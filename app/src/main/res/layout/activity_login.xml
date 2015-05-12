@@ -129,13 +129,6 @@
 
     <!--Testing the database-->
 
-    <Button
-        android:id="@+id/test_db_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test database"
-        android:clickable="false" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
