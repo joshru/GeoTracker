@@ -1,9 +1,11 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.app.ActionBar;
         import android.app.ActionBar.Tab;
         import android.app.Fragment;
         import android.app.FragmentTransaction;
+
+import com.tcss450.moneyteam.geotracker.R;
 
 /**
  * Actionbar listener for all tabs on inside MainActivity.

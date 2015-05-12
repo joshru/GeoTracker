@@ -1,4 +1,4 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.Utilities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
