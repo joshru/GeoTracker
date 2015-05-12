@@ -533,7 +533,7 @@ public class WebServiceHelper {
                 default:
                     break;
             }
-            mCallingMethod = null;
+            mCallingMethod = null; //free string memory and avoid potential accidental function calls.
         }
     }
 }
