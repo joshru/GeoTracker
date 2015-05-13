@@ -49,6 +49,14 @@ public class WebServiceHelper {
     /**Used to retrieve failure message*/
     private static final String FAIL_TAG = "fail";
 
+    public static final int LOGIN_CALL = 0;
+
+    public static final int PASSWORD_CALL = 1;
+
+    public static final int ADD_USER_CALL = 2;
+
+
+
    // private JSONArray mArray;
     protected JSONObject mJSONObject;
     private ProgressDialog mProgressDialog;
@@ -213,7 +221,7 @@ public class WebServiceHelper {
 
                 //Poptart.display(mContext, result, Toast.LENGTH_LONG);
 
-                EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
+                EventBus.getDefault().postSticky(new WebServiceEvent(result, success, ADD_USER_CALL));
                 Log.d("EVENT", "Event posted");
 
             } catch (JSONException e) {
@@ -258,7 +266,7 @@ public class WebServiceHelper {
 
         }
         //Send off event to listeners.
-        EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
+        EventBus.getDefault().postSticky(new WebServiceEvent(result, success, LOGIN_CALL));
 
         Log.d("LOGINEVENT", "Event posted.");
         //test change
@@ -286,7 +294,7 @@ public class WebServiceHelper {
 
 
                 //Send off event
-                EventBus.getDefault().postSticky(new WebServiceEvent(result, success));
+                EventBus.getDefault().postSticky(new WebServiceEvent(result, success, PASSWORD_CALL));
 
             } catch (JSONException e) {
                 Log.e("ResetFailed", "Exception thrown from reset password web service");
@@ -432,14 +440,18 @@ public class WebServiceHelper {
         /** Whether or not the query reached success*/
         public final boolean success;
 
+        public final int callingMethod;
+
+
         /**
          * Public constructor
          * @param message to send to subscribers
          * @param success whether or not the query was successful
          */
-        public WebServiceEvent(String message, boolean success) {
+        public WebServiceEvent(String message, boolean success, int called) {
             this.message = message;
             this.success = success;
+            this.callingMethod = called;
         }
 
     }
