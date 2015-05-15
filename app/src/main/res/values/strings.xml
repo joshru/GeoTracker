@@ -18,7 +18,7 @@
 
     <!-- REGISTER ACTIVITY -->
     <string name="tos_checkbox_text">Please read and accept Terms of Service here.</string>
-    <string name="register_succesful">Registration Succesful</string>
+    <string name="register_succesful">Registration Successful</string>
     <string name="register_pass_reset">Password Reset</string>
     <string name="register_fill_w_question">FILL WITH QUESTION</string>
     <string name="register_security_answer">Security Answer</string>
@@ -90,7 +90,7 @@
         <item>When was the last time you murdered for pleasure?</item>
         <item>What is your mother\'s maiden name?</item>
         <item>What was the name of your first pet?</item>
-        <item>What was the name of your highschool?</item>
+        <item>What was the name of your high school?</item>
         <item>Whats the name of your favorite television show?</item>
         <item>Whats your favorite kind of food?</item>
         <item>How many times have you raged while watching \'Game of Thrones\'?</item>

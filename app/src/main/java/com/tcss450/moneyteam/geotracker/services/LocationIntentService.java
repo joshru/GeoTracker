@@ -51,9 +51,12 @@ public class LocationIntentService extends Service {
         return START_REDELIVER_INTENT;
     }
 
+
     @Override
     public IBinder onBind(Intent intent) {
         //PULL LOCATION DATA AND SETUP MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Log.i(LOCATION_SERVICE_TAG, "onBind called");
+
         return null;
     }
 

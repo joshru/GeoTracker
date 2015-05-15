@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -49,10 +51,11 @@ public class WebServiceHelper {
     /**Used to retrieve failure message*/
     private static final String FAIL_TAG = "fail";
 
+    /** Constant to signify to listeners that login was the event source*/
     public static final int LOGIN_CALL = 0;
-
+    /** Constant to signify to listeners that password reset was the event source*/
     public static final int PASSWORD_CALL = 1;
-
+    /** Constant to signify to listeners that add user was the event source*/
     public static final int ADD_USER_CALL = 2;
 
 
@@ -229,7 +232,6 @@ public class WebServiceHelper {
 
             }
 
-            //mArray = null;
         }
     }
 
@@ -269,7 +271,6 @@ public class WebServiceHelper {
         EventBus.getDefault().postSticky(new WebServiceEvent(result, success, LOGIN_CALL));
 
         Log.d("LOGINEVENT", "Event posted.");
-        //test change
 
     }
     /**Handles the post execute behavior of resetting the password.*/
@@ -388,6 +389,18 @@ public class WebServiceHelper {
 
             }
         }
+    }
+
+    private void checkAndExecute(String query) {
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (isConnected) {
+            mDownloadTask.execute(query);
+        }
+
     }
 
     /**

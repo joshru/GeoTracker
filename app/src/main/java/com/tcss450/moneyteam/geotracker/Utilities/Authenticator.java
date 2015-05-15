@@ -49,7 +49,7 @@ public class Authenticator {
     /**
      * Verifies that the email has proper qualities of an email.
      * @param theEmail the email string to be tested.
-     * @return the boolean indicating if the email was valid succesful(true), or not(false).
+     * @return the boolean indicating if the email was valid successful(true), or not(false).
      */
     public static boolean emailFormatCheck(final String theEmail) {
         boolean isValid = false;
