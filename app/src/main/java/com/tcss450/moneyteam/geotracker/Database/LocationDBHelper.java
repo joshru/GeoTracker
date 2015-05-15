@@ -1,6 +1,5 @@
 package com.tcss450.moneyteam.geotracker.Database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -12,8 +11,6 @@ import android.util.Log;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
-
-import java.util.Date;
 
 /**
  * Class for adding location data to the database
@@ -89,15 +86,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
             Log.d("addLocation Error", "addLocation Error: UID Empty");
             return false;
         }
-       // ContentValues values = new ContentValues();
 
-        //---------Bundle up all the values----------
-        /*values.put(LocationTableSchema.COLUMN_LATITUDE, location.getLatitude());
-        values.put(LocationTableSchema.COLUMN_LONGITUDE, location.getLongitude());
-        values.put(LocationTableSchema.COLUMN_SPEED, location.getSpeed());
-        values.put(LocationTableSchema.COLUMN_HEADING, location.getBearing());
-        values.put(LocationTableSchema.COLUMN_SOURCE, uid);
-        values.put(LocationTableSchema.COLUMN_TIMESTAMP, location.getTime());*/
 
         insertStatement.bindDouble(1, location.getLatitude());
         insertStatement.bindDouble(2, location.getLongitude());

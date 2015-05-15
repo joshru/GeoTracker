@@ -19,11 +19,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
@@ -31,7 +31,6 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
-import com.tcss450.moneyteam.geotracker.activities.MainActivity;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.text.DateFormat;
@@ -39,8 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
 
 import de.greenrobot.event.EventBus;
 
@@ -169,6 +166,8 @@ public class TrackingFragment extends Fragment {
                     Log.i("DATE", "START: " + start.toString());
                     Log.i("DATE", "END: " + end.toString());
                     myHelper.getRange(start.getTime(), end.getTime());
+                } else {
+                    Poptart.display(rootView.getContext(), "Please fill in all fields", Toast.LENGTH_LONG);
                 }
             }
         });
@@ -281,6 +280,7 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         EventBus.getDefault().register(this);
     }
 
@@ -291,12 +291,17 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+      //  EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
     /**
      * Detaches, unregisters the Event Bus
-     */
+     *//*
     @Override
     public void onDetach() {
         super.onDetach();
@@ -304,15 +309,15 @@ public class TrackingFragment extends Fragment {
 
     }
 
-    /**
+    *//**
      * Destroys the view, unregisters Event Bus
-     */
+     *//*
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
 
-    }
+    }*/
 
     /**
      * Attaches, gets current context

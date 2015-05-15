@@ -3,10 +3,8 @@ package com.tcss450.moneyteam.geotracker.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,12 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.Authenticator;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.fragments.ForgotPasswordDialog;
-import com.tcss450.moneyteam.geotracker.Utilities.Authenticator;
-
-import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 
@@ -117,11 +113,11 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
-    /**
+   /* *//**
      * On event method for Event Bus. Notifies listeners in the same fashion as a property change
      * listener
      * @param event
-     */
+     *//*
     public void onEvent(WebServiceHelper.LocationEvent event) {
         if (event.mSuccess) {
             ArrayList<Location> list = event.mLocations;
@@ -133,7 +129,7 @@ public class LoginActivity extends FragmentActivity {
             Log.d("TESTING PULL", event.mEventMessage);
         }
 
-    }
+    }*/
 
 
     /**
@@ -210,11 +206,17 @@ public class LoginActivity extends FragmentActivity {
      */
     public void onEvent(WebServiceHelper.WebServiceEvent event) {
         if (event.success) {
-            Poptart.displayCustomDuration(this, "Welcome, " + mEmailText.getText().toString(), 4);
 
-            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
-            mainScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
-            startActivity(mainScreen);
+            if (event.callingMethod == WebServiceHelper.LOGIN_CALL) {
+                Poptart.displayCustomDuration(this, "Welcome, " + mEmailText.getText().toString(), 4);
+
+                Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+                mainScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
+                startActivity(mainScreen);
+            } else if (event.callingMethod == WebServiceHelper.PASSWORD_CALL) {
+                Poptart.display(this, event.message, Toast.LENGTH_SHORT);
+            }
+
         } else {
             Poptart.displayCustomDuration(getApplicationContext(), event.message, 6);
         }
