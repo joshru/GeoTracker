@@ -13,7 +13,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
-import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
+import com.tcss450.moneyteam.geotracker.database.LocationDBHelper;
 
 import java.util.Calendar;
 

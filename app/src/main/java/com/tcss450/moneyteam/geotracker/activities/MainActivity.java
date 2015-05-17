@@ -14,7 +14,7 @@ import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 
-import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
+import com.tcss450.moneyteam.geotracker.database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.fragments.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;

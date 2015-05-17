@@ -26,11 +26,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
+import com.tcss450.moneyteam.geotracker.database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
-import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
-import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
+import com.tcss450.moneyteam.geotracker.utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.utilities.Poptart;
+import com.tcss450.moneyteam.geotracker.utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.text.DateFormat;

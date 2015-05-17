@@ -28,7 +28,7 @@
         android:allowBackup="true"
         android:icon="@drawable/pip_satalite"
         android:label="@string/app_name" >
-        <receiver android:name=".Utilities.BootLoader"
+        <receiver android:name=".utilities.BootLoader"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>

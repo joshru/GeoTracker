@@ -1,12 +1,8 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +16,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
-import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 /**
  * The account settings and information fragment for main activity

@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
-import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
+import com.tcss450.moneyteam.geotracker.utilities.Poptart;
+import com.tcss450.moneyteam.geotracker.utilities.WebServiceHelper;
 
 import de.greenrobot.event.EventBus;
 
