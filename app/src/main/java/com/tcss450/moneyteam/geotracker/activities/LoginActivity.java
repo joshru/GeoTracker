@@ -150,7 +150,7 @@ public class LoginActivity extends FragmentActivity {
 
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor myEditor = myPreferences.edit();
-        myEditor.putString(getString(R.string.saved_email_key), emailCred);
+        myEditor.putString(getString(R.string.saved_email_key), emailCred).commit();
 
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
        // webServiceHelper.loginUser();

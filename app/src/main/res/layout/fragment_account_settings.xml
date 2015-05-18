@@ -35,12 +35,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:id="@+id/f_email_layout">
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView9"
+            android:id="@+id/f_email_line"
             android:background="@drawable/pip_hud_flat_bar"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -66,85 +67,6 @@
             android:textColor="#ff11f97c"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView8"
-            android:background="@drawable/pip_hud_flat_bar"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/f_account_question" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/account_security_question_current"
-            android:id="@+id/textView16"
-            android:layout_alignParentEnd="false"
-            android:layout_marginStart="20dp"
-            android:textColor="#ff11f97c" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/account_fill_text"
-            android:id="@+id/f_account_question"
-            android:textColor="#ff11f97c"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_below="@+id/textView16" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:nestedScrollingEnabled="false"
-        android:id="@+id/account_answer_layout">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/account_line_bar"
-            android:background="@drawable/pip_hud_flat_bar"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/f_account_answer" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/account_current_account_question"
-            android:id="@+id/textView18"
-            android:layout_alignParentEnd="false"
-            android:layout_marginStart="20dp"
-            android:textColor="#ff11f97c" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/account_fill_text"
-            android:id="@+id/f_account_answer"
-            android:textColor="#ff11f97c"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:visibility="invisible" />
 
     </RelativeLayout>
 

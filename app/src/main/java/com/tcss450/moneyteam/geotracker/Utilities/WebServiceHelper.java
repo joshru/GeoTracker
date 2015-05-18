@@ -114,6 +114,11 @@ public class WebServiceHelper {
         String query = BASE_URL + "login.php?" + "email=" + email + "&password=" + password;
         mDownloadTask.execute(query);
 
+        SharedPreferences myPreferences = mContext.getSharedPreferences(mContext.getString(R.string.user_info_main_key),
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor myEditor = myPreferences.edit();
+        myEditor.putString(mContext.getString(R.string.saved_email_key), email).commit();
+
     }
 
     /**

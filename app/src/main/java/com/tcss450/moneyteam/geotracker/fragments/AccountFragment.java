@@ -37,7 +37,7 @@ public class AccountFragment extends Fragment {
     private Button mPasswordResetButton;
 
     /** Security question layout*/
-    private RelativeLayout mAnswerLayout;
+    private RelativeLayout mEmailLayout;
 
     /** Root view*/
     private View rootView;
@@ -63,21 +63,15 @@ public class AccountFragment extends Fragment {
 
             //GET REFERENCE TO VIEW FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mUserEmailLabel = (TextView) rootView.findViewById(R.id.f_account_email);
-            mUserQuestionLabel = (TextView) rootView.findViewById(R.id.f_account_question);
-            mUserAnswerLabel = (TextView) rootView.findViewById(R.id.f_account_answer);
             mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
-            mAnswerLayout = (RelativeLayout) rootView.findViewById(R.id.account_answer_layout);
+            mEmailLayout = (RelativeLayout) rootView.findViewById(R.id.f_email_layout);
 
             //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
             String userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
-            String userQuestion = myPreferences.getString(getString(R.string.saved_question_key), "");
-            String userAnswer = myPreferences.getString(getString(R.string.saved_question_answer_key), "");
 
             //SET USER FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mUserEmailLabel.setText(userEmail);
-            mUserQuestionLabel.setText(userQuestion);
-            mUserAnswerLabel.setText(userAnswer);
 
             //SET ONCLICK LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mPasswordResetButton.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +82,11 @@ public class AccountFragment extends Fragment {
                 }
             });
 
-            mAnswerLayout.setOnClickListener(new View.OnClickListener() {
+            mEmailLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ImageView lineView = (ImageView) getActivity().findViewById(R.id.account_line_bar);
-                    TextView answer = (TextView) getActivity().findViewById(R.id.f_account_answer);
+                    ImageView lineView = (ImageView) getActivity().findViewById(R.id.f_email_line);
+                    TextView answer = (TextView) getActivity().findViewById(R.id.f_account_email);
                     ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
                     anim.setDuration(700);
                     lineView.startAnimation(anim);
@@ -112,11 +106,7 @@ public class AccountFragment extends Fragment {
      * OnClickListener for change password button.
      */
     public void changePassword() {
-        View lineView = getActivity().findViewById(R.id.account_line_bar);
-        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
-        anim.setDuration(700);
-        lineView.startAnimation(anim);
         ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
-       dialog.show(getFragmentManager(), "forgotPW");
+        dialog.show(getFragmentManager(), "forgotPW");
     }
 }
