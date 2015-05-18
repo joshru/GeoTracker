@@ -156,7 +156,7 @@ public class LoginActivity extends FragmentActivity {
        // webServiceHelper.loginUser();
 
 
-        webServiceHelper.loginUser(emailCred, passCredHash);
+        webServiceHelper.loginUser(emailCred, mPassText.getText().toString());
 
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButtonLayout.startAnimation(animAlpha);

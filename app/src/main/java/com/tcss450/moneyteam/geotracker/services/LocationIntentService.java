@@ -46,7 +46,7 @@ public class LocationIntentService extends Service {
         LocationManager locationManager = (LocationManager) this.getSystemService(
                 Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
+        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,
                 locationListener, Looper.myLooper());
         return START_REDELIVER_INTENT;
     }
