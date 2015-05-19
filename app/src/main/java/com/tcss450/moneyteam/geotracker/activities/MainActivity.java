@@ -141,7 +141,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 myPrefEditor.putBoolean(getString(R.string.saved_location_toggle_boolean), false);
                 myPrefEditor.apply();
 
-                LocationIntentService.setServiceAlarm(getApplicationContext(), false);
+                LocationIntentService.setServiceAlarm(getApplicationContext(), false, 1);
 
                 //PUSH ENTRIES TO SERVER.
                 LocationDBHelper helper = new LocationDBHelper(this);

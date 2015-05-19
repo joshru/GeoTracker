@@ -8,8 +8,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <ImageView
             android:layout_width="fill_parent"
@@ -36,13 +36,26 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Start Date"
+                android:id="@+id/textView22"
+                android:layout_alignEnd="@+id/f_location_date_text_start"
+                android:textColor="@color/pip_light_neon"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentTop="false"
+                android:gravity="center" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/pip_textview_hook">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -51,9 +64,7 @@
                     android:text="Date"
                     android:id="@+id/textView13"
                     android:layout_alignLeft="@+id/f_location_date_text_start"
-                    android:textColor="@color/pip_light_neon"
-                    android:paddingTop="5dp"
-                    android:layout_below="@+id/textView22" />
+                    android:textColor="@color/pip_light_neon" />
 
                 <TextView
                     android:layout_width="150dp"
@@ -79,7 +90,6 @@
                     android:id="@+id/textView19"
                     android:layout_alignLeft="@+id/f_location_time_text_start"
                     android:textColor="@color/pip_light_neon"
-                    android:paddingTop="5dp"
                     android:layout_above="@+id/f_location_time_text_start" />"
                     android:textColor="@color/pip_light_neon" />
 
@@ -99,26 +109,24 @@
                     android:paddingBottom="5dp"
                     android:layout_toRightOf="@+id/f_location_date_text_start" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Start"
-                    android:id="@+id/textView22"
-                    android:layout_alignEnd="@+id/f_location_date_text_start"
-                    android:layout_marginRight="80dp"
-                    android:layout_marginEnd="80dp"
-                    android:textColor="@color/pip_light_neon"
-                    android:layout_alignParentLeft="true" />
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=" End Date"
+                android:id="@+id/textView23"
+                android:textColor="@color/pip_light_neon"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="15dp" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/pip_textview_hook"
-                android:layout_marginTop="5dp">
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="150dp"
@@ -143,7 +151,6 @@
                     android:id="@+id/textView20"
                     android:layout_alignLeft="@id/f_location_date_text_end"
                     android:textColor="@color/pip_light_neon"
-                    android:paddingTop="5dp"
                     android:layout_below="@+id/textView23" />
 
                 <TextView
@@ -154,7 +161,6 @@
                     android:id="@+id/textView21"
                     android:layout_alignLeft="@+id/f_location_time_text_end"
                     android:textColor="@color/pip_light_neon"
-                    android:paddingTop="5dp"
                     android:layout_above="@+id/f_location_time_text_end" />
 
                 <TextView
@@ -173,13 +179,6 @@
                     android:paddingBottom="5dp"
                     android:layout_toRightOf="@+id/f_location_date_text_end" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="End"
-                    android:id="@+id/textView23"
-                    android:textColor="@color/pip_light_neon" />
             </RelativeLayout>
 
             <Button
@@ -188,8 +187,8 @@
                 android:text="Get Location Data"
                 android:id="@+id/f_location_get_Data"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/edit_text_gradient"
                 android:textColor="@color/pip_light_neon"
@@ -222,85 +221,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Location Tracking"
-                    android:id="@+id/textView9"
-                    android:textColor="@color/pip_light_neon"
-                    android:layout_alignParentStart="false"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp" />
-
-                <ToggleButton
-                    android:layout_width="90dp"
-                    android:layout_height="45dp"
-                    android:text="New ToggleButton"
-                    android:id="@+id/f_tracking_toggle_button"
-                    android:layout_gravity="center_horizontal"
-                    android:checked="false"
-                    android:layout_alignParentEnd="false"
-                    android:textOff="0ff"
-                    android:textOn="0n"
-                    android:textColor="@color/pip_light_neon"
-                    android:background="@drawable/edit_text_gradient"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Tracking Frequency"
-                    android:id="@+id/textView10"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/pip_light_neon"
-                    android:layout_centerHorizontal="true" />
-
-                <SeekBar
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:secondaryProgress="0"
-                    android:id="@+id/f_tracking_seeker"
-                    android:max="20"
-                    android:layout_alignParentEnd="true"
-                    android:progress="0"
-                    android:indeterminate="false"
-                    android:layout_below="@id/textView10"
-                    android:progressDrawable="@drawable/progress_draweable"
-
-
-                    android:thumb="@drawable/thumb_drawable"/>
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Location updates will occur every 1 minute"
-                android:id="@+id/f_tracking_seeker_time"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/pip_hint_shade" />
         </LinearLayout>
     </ScrollView>
 

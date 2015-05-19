@@ -26,8 +26,8 @@ import java.util.Calendar;
  */
 public class LocationIntentService extends IntentService {
 
-    /** The rate at which location data is polled. (60 seconds ~6000).*/
-    private static final int LOCATION_POLLING_INTERVAL = 10000;
+    /** The rate at which location data is polled. (6 seconds ~6000).*/
+    public static final int LOCATION_POLLING_INTERVAL = 360000;
     /** Tag for the location service intent. */
     private static final String LOCATION_SERVICE_TAG = "LocationIntentService" ;
     /** Reference to the application context*/
@@ -68,45 +68,24 @@ public class LocationIntentService extends IntentService {
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    /**
-     * Starts the service to start tracking points.
-     * @param context to start this service on
-     * @param isEnabled status flag
-     */
-    public static void setServiceAlarm(Context context, boolean isEnabled) {
+    public static void setServiceAlarm(final Context context, final boolean isEnabled,
+                                       final int locationMinutes) {
         mContext = context;
         final Calendar calendar =  Calendar.getInstance();
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Intent intent = new Intent(context, LocationIntentService.class);
         final PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, 0);
+
+        //Store the new isEnabled and locationTimer values into SP
         SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor mEdit = sp.edit();
-        mEdit.putBoolean(context.getString(R.string.saved_location_toggle_boolean), isEnabled).apply();
+        mEdit.putBoolean(context.getString(R.string.saved_location_toggle_boolean), isEnabled);
+        mEdit.putInt(context.getString(R.string.key_location_poll_timer), locationMinutes).apply();
 
-        if (isEnabled) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    LOCATION_POLLING_INTERVAL,
-                    alarmIntent);
-            Log.i(LOCATION_SERVICE_TAG, "SetRepeating Enabled");
-        } else {
-            alarmManager.cancel(alarmIntent);
-            alarmIntent.cancel();
-            Log.i(LOCATION_SERVICE_TAG, "SetRepeating Disabled");
-        }
-    }
+        //Convert locationInterval into milliseconds
+        int customTimeInterval = locationMinutes * 360000;
 
-    public static void setServiceAlarm(final Context context, final boolean isEnabled, final int minutes) {
-        mContext = context;
-        final Calendar calendar =  Calendar.getInstance();
-        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final Intent intent = new Intent(context, LocationIntentService.class);
-        final PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, 0);
-        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor mEdit = sp.edit();
-        mEdit.putBoolean(context.getString(R.string.saved_location_toggle_boolean), isEnabled).apply();
-        int customTimeInterval = minutes * 360000;
-
+        //Enable or disable alarm
         if (isEnabled) {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),

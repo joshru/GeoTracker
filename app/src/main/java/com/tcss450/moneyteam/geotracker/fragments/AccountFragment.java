@@ -1,21 +1,31 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
+import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 /**
  * The account settings and information fragment for main activity
@@ -47,6 +57,9 @@ public class AccountFragment extends Fragment {
 
     /** Local shared preferences*/
     private SharedPreferences myPreferences;
+    private SeekBar mSeekBar;
+    private ToggleButton mLocationTrackButton;
+    private TextView mSeekTimeLabel;
 
     /**
      * Creates the account information fragment and assigns all relevant listeners
@@ -61,14 +74,22 @@ public class AccountFragment extends Fragment {
             //GET ROOT VIEW REFERENCE AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~
             rootView = inflater.inflate(R.layout.fragment_account_settings, container, false);
 
+
             //GET REFERENCE TO VIEW FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mUserEmailLabel = (TextView) rootView.findViewById(R.id.f_account_email);
             mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
             mEmailLayout = (RelativeLayout) rootView.findViewById(R.id.f_email_layout);
+            mSeekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
+            mSeekTimeLabel = (TextView) rootView.findViewById(R.id.f_seek_time_label);
+            mToggleButton = (ToggleButton) rootView.findViewById(R.id.toggleButton);
+
+          //TOGGLE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
             String userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
+            int pollVal = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
+            final int pollTime = (pollVal != 0) ? pollVal : 0;
 
             //SET USER FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mUserEmailLabel.setText(userEmail);
@@ -81,6 +102,40 @@ public class AccountFragment extends Fragment {
                     dialog.show(getFragmentManager(), "forgotPW");
                 }
             });
+
+        //TOOGLE BUTTON ONCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mToggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationToggle(pollTime);
+            }
+        });
+
+        //SEEKER LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
+                progress = progressValue;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int minutesPolling = 1;
+                if (progress > 0) {
+                    minutesPolling = progress * 3;
+                }
+
+                mSeekTimeLabel.setText("Location updates will occur every: " + minutesPolling + " minute(s)");
+                int mPollingTime = minutesPolling;
+                toggle0n(mPollingTime);
+            }
+        });
 
             mEmailLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,5 +163,55 @@ public class AccountFragment extends Fragment {
     public void changePassword() {
         ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
         dialog.show(getFragmentManager(), "forgotPW");
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void toggle0ff() {
+        LocationIntentService.setServiceAlarm(rootView.getContext(), false, 1);
+
+        ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
+        PackageManager pm = rootView.getContext().getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+        //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mToggleButton.setChecked(false);
+        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), false).apply();
+        mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));
+        mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
+    }
+
+    /**
+     * Toggles location tracking on
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void toggle0n(final int pollingTime) {
+        LocationIntentService.setServiceAlarm(rootView.getContext(), true, pollingTime);
+
+        ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
+        PackageManager pm = rootView.getContext().getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+        //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mToggleButton.setChecked(true);
+        myPreferences.edit().putInt(getString(R.string.key_location_poll_timer), pollingTime).apply();
+        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), true).apply();
+        Log.i("Account Tag", "locationPollTime: " + pollingTime);
+        mToggleButton.setTextColor(getResources().getColor(R.color.pip_light_neon));
+        mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
+    }
+
+    /**
+     * Visually toggles the location tracking button
+     */
+    public void locationToggle(final int pollTime) {
+        if(mToggleButton.isChecked()) {
+            toggle0n(pollTime);
+        } else {
+            toggle0ff();
+        }
     }
 }

@@ -119,16 +119,13 @@ public class TrackingFragment extends Fragment {
 
         
         //GET REFERENCES TO UI ELEMENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mToggleButton = (ToggleButton) rootView.findViewById(R.id.f_tracking_toggle_button);
-        mSeekBar = (SeekBar) rootView.findViewById(R.id.f_tracking_seeker);
-        mSeekTimeText = (TextView) rootView.findViewById(R.id.f_tracking_seeker_time);
         mStartDate = (TextView) rootView.findViewById(R.id.f_location_date_text_start);
         mEndDate = (TextView) rootView.findViewById(R.id.f_location_date_text_end);
         mStartTime = (TextView) rootView.findViewById(R.id.f_location_time_text_start);
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
         mLocationList = (ListView) rootView.findViewById(R.id.list_location_listview);
-//        ListView list = (ListView) rootView.findViewById(R.id.list_location);
+        //ListView list = (ListView) rootView.findViewById(R.id.list_location);
 
 
 
@@ -137,11 +134,6 @@ public class TrackingFragment extends Fragment {
         myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         Boolean locationToggleBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
 
-        if(locationToggleBool) {
-            toggle0n();
-        } else {
-            toggle0ff();
-        }
 
         //GET DATA ONCLICK LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mGetDataButton.setOnClickListener(new View.OnClickListener() {
@@ -204,39 +196,6 @@ public class TrackingFragment extends Fragment {
             public void onClick(View v) {
                 activeText = mEndTime;
                 timeDialog();
-            }
-        });
-
-        //TOOGLE BUTTON ONCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mToggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                locationToggle();
-            }
-        });
-
-        //SEEKER LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progress = 0;
-
-            @Override
-            public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
-                progress = progressValue;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                int minutesPolling = 1;
-                if(progress > 0) {
-                    minutesPolling = progress * 3;
-                }
-                mSeekTimeText.setText("Location updates will occur every: " + minutesPolling + " minute(s)");
-                mPollingTime = minutesPolling;
-                LocationIntentService.setServiceAlarm(rootView.getContext(), true, mPollingTime);
             }
         });
 
@@ -331,37 +290,6 @@ public class TrackingFragment extends Fragment {
     }
 
     /**
-     * Visually toggles the location tracking button
-     */
-    public void locationToggle() {
-        if(mToggleButton.isChecked()) {
-            toggle0n();
-        } else {
-            toggle0ff();
-        }
-    }
-
-    /**
-     * Toggles location tracking on
-     */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void toggle0n() {
-        LocationIntentService.setServiceAlarm(rootView.getContext(), true);
-
-        ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
-        PackageManager pm = rootView.getContext().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-        //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mToggleButton.setChecked(true);
-        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), true).apply();
-        mToggleButton.setTextColor(getResources().getColor(R.color.pip_light_neon));
-        mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
-    }
-
-    /**
      * Event handler for Event bus. Gets fired locations and adds them to the list view
      * @param event
      */
@@ -391,25 +319,6 @@ public class TrackingFragment extends Fragment {
 
     }
 
-    /**
-     * Toggles location tracking off
-     */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void toggle0ff() {
-        LocationIntentService.setServiceAlarm(rootView.getContext(), false);
-
-        ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
-        PackageManager pm = rootView.getContext().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
-        //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mToggleButton.setChecked(false);
-        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), false).apply();
-        mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));
-        mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
-    }
 
     /**
      * Custom date listener inner class for listening for selected start and end dates
@@ -419,11 +328,11 @@ public class TrackingFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             activeText.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
             if(activeText.getId() == R.id.f_location_date_text_start) {
-                mGlobalStartDate[0] = monthOfYear;
+                mGlobalStartDate[0] = monthOfYear + 1;
                 mGlobalStartDate[1] = dayOfMonth;
                 mGlobalStartDate[2] = year;
             } else {
-                mGlobalEndDate[0] = monthOfYear;
+                mGlobalEndDate[0] = monthOfYear + 1;
                 mGlobalEndDate[1] = dayOfMonth;
                 mGlobalEndDate[2] = year;
             }

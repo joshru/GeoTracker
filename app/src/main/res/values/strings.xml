@@ -126,6 +126,7 @@
     <string name="account_reset_password_button">Change Password</string>
     <string name="saved_location_toggle_boolean">locationBoolean</string>
     <string name="saved_user_id_key">userID</string>
+    <string name="key_location_poll_timer">key_location_poll_timer</string>
 
 
     <!-- UNSORTED VALUES-->
