@@ -232,10 +232,11 @@ public class TrackingFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int minutesPolling = 1;
                 if(progress > 0) {
-                    minutesPolling = progress * 6;
+                    minutesPolling = progress * 3;
                 }
                 mSeekTimeText.setText("Location updates will occur every: " + minutesPolling + " minute(s)");
                 mPollingTime = minutesPolling;
+                LocationIntentService.setServiceAlarm(rootView.getContext(), true, mPollingTime);
             }
         });
 

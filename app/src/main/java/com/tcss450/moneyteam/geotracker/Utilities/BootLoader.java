@@ -19,8 +19,11 @@ public class BootLoader extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             MainActivity myClass = new MainActivity();
-            //SharedPreferences sp = myClass.getSharedPreferences(myClass.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-            //LocationIntentService.setServiceAlarm(context, sp.getBoolean(myClass.getString(R.string.saved_location_toggle_boolean), false));
+            SharedPreferences sp = myClass.getSharedPreferences(myClass.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+            Boolean locationBool = sp.getBoolean(myClass.getString(R.string.saved_location_toggle_boolean), false);
+            if(locationBool != null) {
+                LocationIntentService.setServiceAlarm(context, locationBool);
+            }
         }
     }
 }

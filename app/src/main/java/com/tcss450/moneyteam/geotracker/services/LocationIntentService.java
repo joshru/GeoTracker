@@ -1,10 +1,12 @@
 package com.tcss450.moneyteam.geotracker.services;
 
 import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +16,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
+import com.tcss450.moneyteam.geotracker.R;
 
 import java.util.Calendar;
 
@@ -21,7 +24,7 @@ import java.util.Calendar;
  * Created by Alex on 4/30/2015.
  * Polls for user location in the background.
  */
-public class LocationIntentService extends Service {
+public class LocationIntentService extends IntentService {
 
     /** The rate at which location data is polled. (60 seconds ~6000).*/
     private static final int LOCATION_POLLING_INTERVAL = 10000;
@@ -37,7 +40,8 @@ public class LocationIntentService extends Service {
      * Creates an IntentService.  Invoked by your subclass's constructor.
      */
     public LocationIntentService() {
-        super();
+        super("IntentService");
+
     }
 
     @Override
@@ -46,18 +50,20 @@ public class LocationIntentService extends Service {
         LocationManager locationManager = (LocationManager) this.getSystemService(
                 Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
-        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
                 locationListener, Looper.myLooper());
         return START_REDELIVER_INTENT;
     }
 
 
     @Override
-    public IBinder onBind(Intent intent) {
-        //PULL LOCATION DATA AND SETUP MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Log.i(LOCATION_SERVICE_TAG, "onBind called");
-
-        return null;
+    protected void onHandleIntent(Intent intent) {
+        Log.i(LOCATION_SERVICE_TAG, "Intent Called");
+        LocationManager locationManager = (LocationManager) this.getSystemService(
+                Context.LOCATION_SERVICE);
+        LocationListener locationListener = new MyLocationListener();
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
+                locationListener, Looper.myLooper());
     }
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,6 +79,9 @@ public class LocationIntentService extends Service {
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Intent intent = new Intent(context, LocationIntentService.class);
         final PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, 0);
+        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor mEdit = sp.edit();
+        mEdit.putBoolean(context.getString(R.string.saved_location_toggle_boolean), isEnabled).apply();
 
         if (isEnabled) {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
@@ -85,6 +94,31 @@ public class LocationIntentService extends Service {
             alarmIntent.cancel();
             Log.i(LOCATION_SERVICE_TAG, "SetRepeating Disabled");
         }
+    }
+
+    public static void setServiceAlarm(final Context context, final boolean isEnabled, final int minutes) {
+        mContext = context;
+        final Calendar calendar =  Calendar.getInstance();
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final Intent intent = new Intent(context, LocationIntentService.class);
+        final PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, 0);
+        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor mEdit = sp.edit();
+        mEdit.putBoolean(context.getString(R.string.saved_location_toggle_boolean), isEnabled).apply();
+        int customTimeInterval = minutes * 360000;
+
+        if (isEnabled) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    customTimeInterval,
+                    alarmIntent);
+            Log.i(LOCATION_SERVICE_TAG, "SetRepeating Enabled with time intervals of: " + customTimeInterval);
+        } else {
+            alarmManager.cancel(alarmIntent);
+            alarmIntent.cancel();
+            Log.i(LOCATION_SERVICE_TAG, "SetRepeating Disabled");
+        }
+
     }
 
     /**

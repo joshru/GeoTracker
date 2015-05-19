@@ -20,6 +20,7 @@ import com.tcss450.moneyteam.geotracker.fragments.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
+import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 /**
  * The Main Activity class. Account and location recording data will be displayed to the user here.
@@ -137,7 +138,10 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor myPrefEditor = myPreferences.edit();
                 myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
+                myPrefEditor.putBoolean(getString(R.string.saved_location_toggle_boolean), false);
                 myPrefEditor.apply();
+
+                LocationIntentService.setServiceAlarm(getApplicationContext(), false);
 
                 //PUSH ENTRIES TO SERVER.
                 LocationDBHelper helper = new LocationDBHelper(this);
