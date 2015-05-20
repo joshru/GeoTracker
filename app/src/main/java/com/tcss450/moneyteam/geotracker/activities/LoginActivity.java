@@ -49,6 +49,8 @@ public class LoginActivity extends FragmentActivity {
     /** Relative layout of the login button.*/
     private RelativeLayout mLoginButtonLayout;
 
+
+
     /**
      * onCreate is called when the LoginActivity is instantiated.
      * @param savedInstanceState the bundle containing intent info.
@@ -155,8 +157,15 @@ public class LoginActivity extends FragmentActivity {
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
        // webServiceHelper.loginUser();
 
-
-        webServiceHelper.loginUser(emailCred, mPassText.getText().toString());
+        if (emailForm && passForm) {
+            webServiceHelper.loginUser(emailCred, mPassText.getText().toString());
+        } else {
+            mLoginTries++;
+            Poptart.display(this, "Invalid credentials, please try again.", Toast.LENGTH_SHORT);
+        }
+        if (mLoginTries % 3 == 0) {
+            Poptart.display(this, "You forgot, didn't you?", Toast.LENGTH_SHORT);
+        }
 
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButtonLayout.startAnimation(animAlpha);
@@ -206,13 +215,15 @@ public class LoginActivity extends FragmentActivity {
      */
     public void onEvent(WebServiceHelper.WebServiceEvent event) {
         if (event.success) {
-
+            //success, user logged in
             if (event.callingMethod == WebServiceHelper.LOGIN_CALL) {
                 Poptart.displayCustomDuration(this, "Welcome, " + mEmailText.getText().toString(), 4);
 
                 Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
                 mainScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
                 startActivity(mainScreen);
+
+            //Failed, invalid credentials
             } else if (event.callingMethod == WebServiceHelper.PASSWORD_CALL) {
                 Poptart.display(this, event.message, Toast.LENGTH_SHORT);
             }

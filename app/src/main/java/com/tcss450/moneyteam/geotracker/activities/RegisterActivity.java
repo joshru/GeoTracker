@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.Authenticator;
@@ -158,6 +159,12 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
     /**
      * Called after finalize(). Destroys the activity, usually done by OS to free resources.
      * Disconnects the Event Bus
@@ -165,7 +172,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+       // EventBus.getDefault().unregister(this);
 
     }
 
@@ -229,16 +236,27 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
 
-            /* Testing webservice */
-
-        if (validEmail && validPass && validRepeat && validQuestionResponse) {
+        if (validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString(getString(R.string.saved_email_key), email);
-            myPrefEditor.putString(getString(R.string.saved_question_key), question);
-            myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
+           // myPrefEditor.putString(getString(R.string.saved_question_key), question);
+          // myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
             myPrefEditor.apply();
+
+            webServiceHelper.addUser(email, passphraseHash, question, answer);
+
+        } else if (!validEmail) {
+
+            Poptart.display(this, "Please input a valid email.", Toast.LENGTH_SHORT);
+        } else if (validEmail && !validPass) {
+            Poptart.display(this, "Invalid password format.", Toast.LENGTH_SHORT);
+        } else if  (validEmail && validPass && !validRepeat) {
+            Poptart.display(this, "Passwords do not match.", Toast.LENGTH_SHORT);
+        } else if (validEmail && validPass && validRepeat && ! validQuestionResponse) {
+            Poptart.display(this, "Please input a security answer.", Toast.LENGTH_SHORT);
+        } else if (validEmail && validPass && validRepeat
+                && validQuestionResponse && !mTermsCheckBox.isChecked()) {
+            Poptart.display(this, "Please accept the terms of service.", Toast.LENGTH_SHORT);
         }
-        //myPrefEditor.pu
-        webServiceHelper.addUser(email, passphraseHash, question, answer);
 
         mRegisterButton.startAnimation(animAlpha);
 

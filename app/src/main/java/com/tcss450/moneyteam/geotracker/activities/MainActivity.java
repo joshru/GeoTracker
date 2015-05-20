@@ -140,7 +140,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 int theSeekTime = theSeekBar.getProgress();
                 int theSeekMilliSeconds = theSeekTime * 3 * 60000;
 
-                //GET SHARED PREFERERENCES/SET LOGGIN IN BOOL~~~~~~~~~~~~~~~~~~~~~~~~
+                //GET SHARED PREFERERENCES/SET LOGIN IN BOOL~~~~~~~~~~~~~~~~~~~~~~~~
                 SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor myPrefEditor = myPreferences.edit();
                 myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
