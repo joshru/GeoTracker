@@ -83,7 +83,7 @@ public class LocationIntentService extends IntentService {
         mEdit.putInt(context.getString(R.string.key_location_poll_timer), locationMinutes).apply();
 
         //Convert locationInterval into milliseconds
-        int customTimeInterval = locationMinutes * 360000;
+        int customTimeInterval = locationMinutes * 60000;
 
         //Enable or disable alarm
         if (isEnabled) {
@@ -91,11 +91,13 @@ public class LocationIntentService extends IntentService {
                     calendar.getTimeInMillis(),
                     customTimeInterval,
                     alarmIntent);
+            //WebPushIntent.setWebUploadAlarm();
             Log.i(LOCATION_SERVICE_TAG, "SetRepeating Enabled with time intervals of: " + customTimeInterval);
         } else {
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
             Log.i(LOCATION_SERVICE_TAG, "SetRepeating Disabled");
+            WebPushIntent.setWebUploadAlarm(context, false, -2);
         }
 
     }

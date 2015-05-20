@@ -5,4 +5,13 @@
         <item>Map</item>
         <item>Account Settings</item>
     </string-array>
+
+    <string-array name="service_spinner_values">
+        <item>Every half-hour</item>
+        <item>Every hour</item>
+        <item>Every two hours</item>
+        <item>Twice a Day</item>
+        <item>Once a Day</item>
+        <item>Only when connected to an external power source</item>
+    </string-array>
 </resources>
