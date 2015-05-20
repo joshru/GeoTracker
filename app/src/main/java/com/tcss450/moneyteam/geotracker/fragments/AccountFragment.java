@@ -1,7 +1,6 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.annotation.TargetApi;
-import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,11 +17,9 @@ import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -191,12 +188,18 @@ public class AccountFragment extends Fragment {
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mServiceSpinner.setAdapter(adapter);
 
-        mServiceSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+           /* @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }*/
+
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int minutesPerUpload = 60;
 
-                switch (i){
+                switch (i) {
                     case 0:
                         minutesPerUpload = 30;
                     case 1:
@@ -213,6 +216,11 @@ public class AccountFragment extends Fragment {
                 }
 
                 WebPushIntent.setWebUploadAlarm(rootView.getContext(), true, minutesPerUpload);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //dont do anything
             }
         });
         return rootView;
