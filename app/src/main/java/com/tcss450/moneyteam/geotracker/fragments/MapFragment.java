@@ -85,7 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         //SETUP MAP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if (mMap != null) {
              mMap.setMyLocationEnabled(true);
-            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         }
 
         mQueryLocations = new ArrayList<>();

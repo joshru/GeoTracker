@@ -137,15 +137,15 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             case android.R.id.home:
                 //Get the seekbar value
                 SeekBar theSeekBar = (SeekBar) findViewById(R.id.seekBar);
-                int theSeekTime = theSeekBar.getProgress();
-                int theSeekMilliSeconds = theSeekTime * 3 * 60000;
+//                int theSeekTime = theSeekBar.getProgress();
+//                int theSeekMilliSeconds = theSeekTime * 3 * 60000;
 
                 //GET SHARED PREFERERENCES/SET LOGIN IN BOOL~~~~~~~~~~~~~~~~~~~~~~~~
                 SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor myPrefEditor = myPreferences.edit();
                 myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
                 myPrefEditor.putBoolean(getString(R.string.saved_location_toggle_boolean), false);
-                myPrefEditor.putInt(getString(R.string.key_location_poll_timer), theSeekMilliSeconds);
+//                myPrefEditor.putInt(getString(R.string.key_location_poll_timer), theSeekMilliSeconds);
                 myPrefEditor.apply();
 
                 LocationIntentService.setServiceAlarm(getApplicationContext(), false, 1);
@@ -160,9 +160,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 this.finish();
                 return(true);
+            default:
+                return(super.onOptionsItemSelected(item));
         }
-
-        return(super.onOptionsItemSelected(item));
     }
 
 

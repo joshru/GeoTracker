@@ -74,7 +74,7 @@ public class LoginActivity extends FragmentActivity {
         mLoginButtonLayout = (RelativeLayout) findViewById(R.id.login_button_layout);
 
         //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mLoginTries = 0;
+        mLoginTries = 1;
 
         //REGISTER LABEL ONCLICK ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mRegisterLabel.setOnClickListener(new OnClickListener() {
