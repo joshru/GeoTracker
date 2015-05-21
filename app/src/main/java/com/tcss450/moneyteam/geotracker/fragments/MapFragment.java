@@ -1,7 +1,10 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.app.Fragment;
+import android.database.Cursor;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * The fragment for displaying Google Map activity.
@@ -32,6 +41,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     /** The actual Google Map*/
     private GoogleMap mMap;
 
+    private View mRootView;
+
+    /** Collection of location objects*/
+    private ArrayList<Location> mQueryLocations;
+
+    private WebServiceHelper mWebHelper;
+
+    private LocationDBHelper mDBHelper;
+
     /**
      * Creates the new Google Map fragment
      * @param inflater the inflater
@@ -43,10 +61,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //GET ROOT VIEW AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_map, container, false);
+        mWebHelper = new WebServiceHelper(mRootView.getContext());
+        mDBHelper = new LocationDBHelper(mRootView.getContext());
 
         //REFERENCES FOR MAP~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
+        mMapView = (MapView) mRootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMap = mMapView.getMap();
         //DISPLAY MAP NOW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,21 +88,61 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         }
 
+        mQueryLocations = new ArrayList<>();
+
+        Date start = new Date(0);
+        Date end = new Date();
+        mWebHelper.getRange(start, end);
+        updateMarkers();
+
         //PERFORM CAMERA UPDATES HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        return rootView;
+        return mRootView;
+    }
+
+    public void onEvent(WebServiceHelper.LocationEvent event) {
+        if (event.mSuccess) {
+            mQueryLocations = event.mLocations;
+            for (Location l : mQueryLocations) {
+                LatLng point = new LatLng(l.getLatitude(), l.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(point));
+            }
+        }
+
+    }
+
+    public void updateMarkers() {
+        Cursor all = mDBHelper.selectAllLocations();
+        LatLng point;
+        if (all.moveToFirst()) {
+            while (all.moveToNext()) {
+                point = new LatLng(all.getDouble(0), all.getDouble(1));
+                mMap.addMarker(new MarkerOptions().position(point));
+                Log.i("MAP POINT", point.toString());
+            }
+        }
     }
 
     //UNIMPLEMENTED CAN BE IGNORED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+        updateMarkers();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        updateMarkers();
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -103,7 +163,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng mapCenter = new LatLng(41.889, -87.622);
+        LatLng mapCenter = new LatLng(47.2414, 122.4594);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 13));
 
