@@ -112,6 +112,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public void updateMarkers() {
+//        mQueryLocations = getActivity().getLocations();
         for (Location l : mQueryLocations) {
             LatLng point = new LatLng(l.getLatitude(), l.getLongitude());
             mMap.addMarker(new MarkerOptions().position(point));
@@ -122,7 +123,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         updateMarkers();
     }
 
@@ -138,13 +141,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onPause() {
         super.onPause();
         mMapView.onPause();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override

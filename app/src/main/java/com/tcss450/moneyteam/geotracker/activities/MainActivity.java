@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
@@ -22,6 +23,8 @@ import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
+
+import java.util.ArrayList;
 
 /**
  * The Main Activity class. Account and location recording data will be displayed to the user here.
@@ -52,6 +55,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     /** Google maps with location data will be displayed to user via Map Tab*/
     private Fragment mMapFragment;
+
+    /** Collection of location objects*/
+    private ArrayList<Location> mQueryLocations;
 
     /** The gesture detector object*/
     private GestureDetectorCompat mDetector;
@@ -199,6 +205,14 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             default:
                 return super.onTouchEvent(event);
         }
+    }
+
+    public void setLocations(ArrayList<Location> theLocations) {
+        mQueryLocations = theLocations;
+    }
+
+    public ArrayList<Location> getLocations() {
+        return mQueryLocations;
     }
 
     /**
