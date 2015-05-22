@@ -259,6 +259,15 @@ public class TrackingFragment extends Fragment {
         super.onPause();
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mQueryLocations != null && !mQueryLocations.isEmpty()) {
+            listLocations();
+        }
+    }
+
     /**
      * Detaches, unregisters the Event Bus
      *//*
@@ -297,26 +306,27 @@ public class TrackingFragment extends Fragment {
         Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
 
         if (event.mSuccess) {
-            // TODO add the list items here
             mQueryLocations = event.mLocations;
             Log.i("RANGE DATA", mQueryLocations.toString());
-
-            ArrayList<String> locations = new ArrayList<String>();
-            for(Location l : mQueryLocations) {
-                String time = l.getTime() * 1000 + ", Long: ";
-                String longit = l.getLongitude() + ", Lat: ";
-                String latit = l.getLatitude() + "";
-
-                Date date = new Date(l.getTime() * 1000);
-                DateFormat df = new SimpleDateFormat("EE, MM/dd, yyyy HH:mm a");
-
-                locations.add(df.format(date) + ", Long: " + longit + latit);
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext(), R.layout.list_row, locations);
-            mLocationList.setAdapter(adapter);
-
+            listLocations();
         }
 
+    }
+
+    private void listLocations()  {
+        ArrayList<String> locationList = new ArrayList<>();
+        for(Location l : mQueryLocations) {
+            String time = l.getTime() * 1000 + ", Long: ";
+            String longit = l.getLongitude() + ", Lat: ";
+            String latit = l.getLatitude() + "";
+
+            Date date = new Date(l.getTime() * 1000);
+            DateFormat df = new SimpleDateFormat("EE, MM/dd, yyyy HH:mm a");
+
+            locationList.add(df.format(date) + ", Long: " + longit + latit);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext(), R.layout.list_row, locationList);
+        mLocationList.setAdapter(adapter);
     }
 
 

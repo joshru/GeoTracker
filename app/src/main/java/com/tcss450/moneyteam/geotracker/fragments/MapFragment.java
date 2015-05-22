@@ -89,36 +89,32 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         mQueryLocations = new ArrayList<>();
-
-        Date start = new Date(0);
-        Date end = new Date();
-        mWebHelper.getRange(start, end);
-        updateMarkers();
+//
+//        Date start = new Date(0);
+//        Date end = new Date();
+//        mWebHelper.getRange(start, end);
+//        EventBus.getDefault().register(this);
+//        updateMarkers();
 
         //PERFORM CAMERA UPDATES HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         return mRootView;
     }
 
     public void onEvent(WebServiceHelper.LocationEvent event) {
+        Log.i("MAP EVENT", "This map has seen some shit");
         if (event.mSuccess) {
+            mMap.clear();
             mQueryLocations = event.mLocations;
-            for (Location l : mQueryLocations) {
-                LatLng point = new LatLng(l.getLatitude(), l.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(point));
-            }
+            updateMarkers();
+
         }
 
     }
 
     public void updateMarkers() {
-        Cursor all = mDBHelper.selectAllLocations();
-        LatLng point;
-        if (all.moveToFirst()) {
-            while (all.moveToNext()) {
-                point = new LatLng(all.getDouble(0), all.getDouble(1));
-                mMap.addMarker(new MarkerOptions().position(point));
-                Log.i("MAP POINT", point.toString());
-            }
+        for (Location l : mQueryLocations) {
+            LatLng point = new LatLng(l.getLatitude(), l.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(point));
         }
     }
 
