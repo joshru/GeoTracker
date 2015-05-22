@@ -1,5 +1,6 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.database.Cursor;
 import android.location.Location;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
+import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +35,7 @@ import de.greenrobot.event.EventBus;
  * @author Alexander Cherry
  * @author Joshua Rueschenberg
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, TabInterface {
 
     /** The Google Map view*/
     private MapView mMapView;
@@ -49,6 +51,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private WebServiceHelper mWebHelper;
 
     private LocationDBHelper mDBHelper;
+
+    private TabInterface mMainActivity;
 
     /**
      * Creates the new Google Map fragment
@@ -111,12 +115,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    public void updateMarkers() {
-//        mQueryLocations = getActivity().getLocations();
-        for (Location l : mQueryLocations) {
-            LatLng point = new LatLng(l.getLatitude(), l.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(point));
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mMainActivity = (TabInterface) activity;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+    }
+
+    public void updateMarkers() {
+        mQueryLocations = mMainActivity.getLocations();
+        if (mQueryLocations != null && !mQueryLocations.isEmpty()) {
+            for (Location l : mQueryLocations) {
+                LatLng point = new LatLng(l.getLatitude(), l.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(point));
+            }
+        }
+
     }
 
     //UNIMPLEMENTED CAN BE IGNORED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -186,5 +204,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                 2000, null);
+    }
+
+    @Override
+    public void setLocations(ArrayList<Location> theLocations) {
+
+    }
+
+    @Override
+    public ArrayList<Location> getLocations() {
+        return null;
     }
 }

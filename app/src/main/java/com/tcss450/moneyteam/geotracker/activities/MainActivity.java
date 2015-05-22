@@ -22,6 +22,7 @@ import com.tcss450.moneyteam.geotracker.fragments.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
+import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
  * @author Joshua Rueschenberg
  */
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener,
-        GestureDetector.OnDoubleTapListener {
+        GestureDetector.OnDoubleTapListener, TabInterface {
 
     /** String used for logcat debugging*/
     private static final String DEBUG_TAG = "MAIN ACTIVITY DEBUG";
@@ -207,10 +208,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         }
     }
 
+
+    @Override
     public void setLocations(ArrayList<Location> theLocations) {
         mQueryLocations = theLocations;
     }
 
+    @Override
     public ArrayList<Location> getLocations() {
         return mQueryLocations;
     }

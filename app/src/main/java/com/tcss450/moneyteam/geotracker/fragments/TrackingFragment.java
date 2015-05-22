@@ -31,8 +31,10 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
+import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
+import java.security.spec.ECField;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -92,7 +94,7 @@ public class TrackingFragment extends Fragment {
     private ListView mLocationList;
 
     /** Current context*/
-    private Context mContext;
+    private TabInterface mMainActivity;
 
     //Month/day/year/hour/minute
     private int[] mGlobalStartDate;
@@ -295,7 +297,12 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mContext = activity.getApplicationContext();
+//        mContext = activity.getApplicationContext();
+        try {
+            mMainActivity = (TabInterface) activity;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -307,6 +314,7 @@ public class TrackingFragment extends Fragment {
 
         if (event.mSuccess) {
             mQueryLocations = event.mLocations;
+            mMainActivity.setLocations(mQueryLocations);
             Log.i("RANGE DATA", mQueryLocations.toString());
             listLocations();
         }
