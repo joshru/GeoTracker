@@ -1,6 +1,7 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
@@ -26,6 +27,7 @@ import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
 
@@ -77,6 +79,7 @@ public class AccountFragment extends Fragment {
     private ToggleButton mLocationTrackButton;
     private TextView mSeekTimeLabel;
     private Spinner mServiceSpinner;
+    private TabInterface mMainActivity;
 
     /**
      * Creates the account information fragment and assigns all relevant listeners
@@ -92,7 +95,6 @@ public class AccountFragment extends Fragment {
         //GET ROOT VIEW REFERENCE AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~
         rootView = inflater.inflate(R.layout.fragment_account_settings, container, false);
 
-
         //GET REFERENCE TO VIEW FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mUserEmailLabel = (TextView) rootView.findViewById(R.id.f_account_email);
         mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
@@ -102,24 +104,11 @@ public class AccountFragment extends Fragment {
         mToggleButton = (ToggleButton) rootView.findViewById(R.id.toggleButton);
         mServiceSpinner = (Spinner) rootView.findViewById(R.id.server_spinner);
 
-        //TOGGLE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-        String userEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
-        int pollVal = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
-        final int pollTime = (pollVal != 0) ? pollVal : 1;
-        boolean savedLocationVal = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
-        final int serviceGap = myPreferences.getInt(getString(R.string.key_location_upload_gap), 0);
-
         //SET USER FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mUserEmailLabel.setText(userEmail);
-        mSeekBar.setProgress(pollVal / 3);
-        changeTimeLabel(pollTime);
-        Log.i("Account Fragment", "SavedLocationBoolVal: " + savedLocationVal);
-        mToggleButton.setChecked(savedLocationVal);
-        LocationIntentService.setServiceAlarm(rootView.getContext(), savedLocationVal, pollTime);
-        WebPushIntent. setWebUploadAlarm(rootView.getContext(), true, serviceGap);
+        myPreferences = rootView.getContext().getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
+        setDisplayPreferences();
+        setUpSpinner();
+
         //SET ONCLICK LISTENERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mPasswordResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +117,6 @@ public class AccountFragment extends Fragment {
                 dialog.show(getFragmentManager(), "forgotPW");
             }
         });
-        //END
 
         //TOOGLE BUTTON ONCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setOnClickListener(new View.OnClickListener() {
@@ -157,12 +145,9 @@ public class AccountFragment extends Fragment {
                 if (progress > 0) {
                     minutesPolling = progress * 3;
                 }
-                changeTimeLabel(minutesPolling);
-                myPreferences.edit()
-                        .putInt(getString(R.string.key_location_poll_timer), minutesPolling)
-                        .apply();
+                updateLocationTimer(minutesPolling);
             }
-        });
+        }); // END seekBar Listeners
 
         //EMAIL LAYOUT LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mEmailLayout.setOnClickListener(new View.OnClickListener() {
@@ -182,48 +167,36 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        //Assign Spinner Server Options
+        return rootView;
+    }
+
+    private void setUpSpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.service_spinner_values,
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mServiceSpinner.setAdapter(adapter);
+    }
 
-        mServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-           /* @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    private void setDisplayPreferences() {
+        mUserEmailLabel.setText(mMainActivity.getUserEmail());
+        mSeekBar.setProgress(mMainActivity.getLocationTimer());
+        changeTimeLabel(mMainActivity.getLocationTimer());
+        mToggleButton.setChecked(mMainActivity.getLocationBool());
+    }
 
-            }*/
+    private void updateLocationTimer(int minutesPolling) {
+        changeTimeLabel(minutesPolling);
+        myPreferences.edit().putInt(getResources()
+                .getString(R.string.key_location_poll_timer), minutesPolling)
+                .apply();
+        Log.i("LOCATION TIMER", "Timer Minutes: " + minutesPolling);
+    }
 
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int minutesPerUpload = 60;
-
-                switch (i) {
-                    case 0:
-                        minutesPerUpload = 30;
-                    case 1:
-                        minutesPerUpload = 60;
-                    case 2:
-                        minutesPerUpload = 120;
-                    case 3:
-                        minutesPerUpload = 720;
-                    case 4:
-                        minutesPerUpload = 1440;
-                    default:
-                        minutesPerUpload = -1;
-                        break;
-                }
-
-                WebPushIntent.setWebUploadAlarm(rootView.getContext(), true, minutesPerUpload);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //dont do anything
-            }
-        });
-        return rootView;
+    private void updateServerTimer(int minutesGap) {
+        myPreferences.edit().putInt(getResources()
+                .getString(R.string.key_location_upload_gap), minutesGap)
+                .apply();
     }
 
     /**
@@ -234,17 +207,17 @@ public class AccountFragment extends Fragment {
         mSeekTimeLabel.setText("Location updates will occur every: " + minutesPerTick + " minute(s)");
     } //END void changeTimeLabel
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mMainActivity = (TabInterface) activity;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-
-    /**
-     * OnClickListener for change password button.
-     */
-    public void changePassword() {
-        ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
-        dialog.show(getFragmentManager(), "forgotPW");
-    } //END void changePassword()
-
-
+    //TOGGLE METHODS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0ff() {
@@ -262,8 +235,6 @@ public class AccountFragment extends Fragment {
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
     } //END void toggle0ff()
-
-
 
     /**
      * Toggles location tracking on
@@ -287,8 +258,6 @@ public class AccountFragment extends Fragment {
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_light_neon));
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
     } //END void toggle0n()
-
-
 
     /**
      * Visually toggles the location tracking button

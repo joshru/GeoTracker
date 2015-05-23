@@ -65,6 +65,9 @@ public class MainActivity extends Activity implements TabInterface {
 
     /** The gesture detector object*/
     private GestureDetectorCompat mDetector;
+    private String mUserEmail;
+    private boolean mLocationBool;
+    private int mLocationTimer;
 
     /**
      * Instantiates all fields for the Main Activity, populates tab layout, and sets listeners.
@@ -82,6 +85,11 @@ public class MainActivity extends Activity implements TabInterface {
         mAccountSettingsFragment = new AccountFragment();
         mTrackingFragment = new TrackingFragment();
         mMapFragment = new MapFragment();
+
+        //GETS ALL FRAGMENT USED SHAREDPREFERENCES ON STARTUP~~~~~~~~~~~~~~~~~~~~~~~
+        loadSharedPreferences();
+        LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
+        //WebPushIntent. setWebUploadAlarm(rootView.getContext(), true, serviceGap);
 
         //GET ACTION BAR AND ADJUST SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ActionBar actionBar = getActionBar();
@@ -112,6 +120,13 @@ public class MainActivity extends Activity implements TabInterface {
         mMapTab.setTabListener(new PipTabListener(mMapFragment));
         actionBar.addTab(mMapTab);
 
+    }
+
+    private void loadSharedPreferences() {
+        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        mUserEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
+        mLocationBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
+        mLocationTimer = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
     }
 
     /**
@@ -236,10 +251,36 @@ public class MainActivity extends Activity implements TabInterface {
     public ArrayList<Location> getLocations() {
         Log.i("RANGE DATA", "Getter in main called");
         if(!mQueryLocations.isEmpty()) {
-            Log.i("RANGE DATA", "Location Data sent to Fragment");
             return mQueryLocations;
         }
         return null;
+    }
+
+    @Override
+    public String getUserEmail() {
+        return mUserEmail;
+    }
+
+    @Override
+    public int getLocationTimer() {
+        if(mLocationTimer > 0) {
+            return mLocationTimer;
+        }
+        return 1;
+    }
+
+    @Override
+    public boolean getLocationBool() {
+        return mLocationBool;
+    }
+
+    @Override
+    public void requestListUpdate() {
+        if(mQueryLocations != null && !mQueryLocations.isEmpty()) {
+            mTrackingFragment.setListAdapter(mQueryLocations);
+        } else {
+            Poptart.display(this,"No Data to display", 2);
+        }
     }
 }
 

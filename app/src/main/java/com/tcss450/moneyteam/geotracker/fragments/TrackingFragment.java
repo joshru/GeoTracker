@@ -240,6 +240,12 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMainActivity.requestListUpdate();
+    }
+
     /**
      * Attaches, gets current context
      * @param activity current activity

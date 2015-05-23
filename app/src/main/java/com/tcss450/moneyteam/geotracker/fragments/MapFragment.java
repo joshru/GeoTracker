@@ -35,7 +35,7 @@ import de.greenrobot.event.EventBus;
  * @author Alexander Cherry
  * @author Joshua Rueschenberg
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback, TabInterface {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     /** The Google Map view*/
     private MapView mMapView;
@@ -204,15 +204,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, TabInte
         // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                 2000, null);
-    }
-
-    @Override
-    public void setLocations(ArrayList<Location> theLocations) {
-
-    }
-
-    @Override
-    public ArrayList<Location> getLocations() {
-        return null;
     }
 }

@@ -13,4 +13,11 @@ public interface TabInterface {
 
     public ArrayList<Location> getLocations();
 
+    public String getUserEmail();
+
+    public int getLocationTimer();
+
+    public boolean getLocationBool();
+
+    void requestListUpdate();
 }
