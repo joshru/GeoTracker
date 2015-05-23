@@ -18,6 +18,8 @@ import android.widget.SeekBar;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
+import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.fragments.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
@@ -27,14 +29,15 @@ import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * The Main Activity class. Account and location recording data will be displayed to the user here.
  * @author Brandon Bell
  * @author Alexander Cherry
  * @author Joshua Rueschenberg
  */
-public class MainActivity extends Activity implements GestureDetector.OnGestureListener,
-        GestureDetector.OnDoubleTapListener, TabInterface {
+public class MainActivity extends Activity implements TabInterface {
 
     /** String used for logcat debugging*/
     private static final String DEBUG_TAG = "MAIN ACTIVITY DEBUG";
@@ -43,13 +46,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private Tab mAccountSettingsTab;
 
     /** The account settings fragment to be displayed via Account Settings Tab*/
-    private Fragment mAccountSettingsFragment;
+    private AccountFragment mAccountSettingsFragment;
 
     /** The location tracking tab*/
     private Tab mTrackingTab;
 
     /** The tracking information fragment to be displayed via Tracking Tab*/
-    private Fragment mTrackingFragment;
+    private TrackingFragment mTrackingFragment;
 
     /** The Google maps tab*/
     private Tab mMapTab;
@@ -109,10 +112,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         mMapTab.setTabListener(new PipTabListener(mMapFragment));
         actionBar.addTab(mMapTab);
 
-        //GESTURE DETECTOR~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mDetector = new GestureDetectorCompat(this,this);
-        mDetector.setOnDoubleTapListener(this);
-
     }
 
     /**
@@ -157,7 +156,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
                 LocationIntentService.setServiceAlarm(getApplicationContext(), false, 1);
 
-                //PUSH ENTRIES TO SERVER.
+                //PUSH ENTRIES TO SERVER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 LocationDBHelper helper = new LocationDBHelper(this);
                 helper.pushPointsToServer();
 
@@ -175,6 +174,26 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     //FOLLOWING TOUCH LISTENERS HAVE NOT BEEN IMPLEMENTED (IGNORE)~~~~~~~~~~~~~~~~~~
     //TODO (PHASE II) IMPLEMENTED WANTED EVENTS, CODE REVIEWeRS CAN IGNORE~~~~~~~~~~~
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    /**
+     * Event handler for Event bus. Gets fired locations and adds them to the list view
+     * @param event
+     */
+    public void onEvent(WebServiceHelper.LocationEvent event) {
+        Poptart.displayCustomDuration(this, event.mEventMessage, 3);
+
+        if (event.mSuccess) {
+            mQueryLocations = event.mLocations;
+            mTrackingFragment.setListAdapter(mQueryLocations);
+            Log.i("RANGE DATA", mQueryLocations.toString());
+        }
+    }
 
     /**
      * Method used for printing debug messages to the android log for debugging purposes.
@@ -208,7 +227,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         }
     }
 
-
     @Override
     public void setLocations(ArrayList<Location> theLocations) {
         mQueryLocations = theLocations;
@@ -216,110 +234,12 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
 
     @Override
     public ArrayList<Location> getLocations() {
-        return mQueryLocations;
-    }
-
-    /**
-     * For debugging single taps on main activity.
-     * @param e the motion event.
-     * @return true
-     */
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onDSingleTapConfirmed: " + e.toString());
-        return true;
-    }
-
-    /**
-     * For debugging double taps on main activity.
-     * @param e the motion event.
-     * @return true
-     */
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onDoubleTap: " + e.toString());
-        return true;
-    }
-
-    /**
-     * For debugging double tap events on the main activity.
-     * @param e the motion event.
-     * @return true
-     */
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onDoubleTapEvent: " + e.toString());
-        return true;
-    }
-
-    /**
-     * For debugging touch activity on the main activity.
-     * @param e the motion event.
-     * @return true.
-     */
-    @Override
-    public boolean onDown(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onDown: " + e.toString());
-        return true;
-    }
-
-    /**
-     * For debugging long holds to show data on main activity.
-     * @param e the motion event.
-     */
-    @Override
-    public void onShowPress(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onShowPress: " + e.toString());
-    }
-
-    /**
-     * For debugging when the user taps on the Main Event
-     * @param e the the motion event.
-     * @return true
-     */
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onSingleTapUp: " + e.toString());
-        return true;
-    }
-
-    /**
-     * For debugging when the user has scrolled on the Main Event
-     * @param e1 the motion event 1
-     * @param e2 the motion event 2
-     * @param distanceX the x distance
-     * @param distanceY the y distance
-     * @return true
-     */
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        Log.d(DEBUG_TAG, "onScroll: e1:" + e1.toString() + " e2:" + e2.toString() + "(dX, dY):("
-                          + distanceX + ", " + distanceY + ")");
-        return true;
-    }
-
-    /**
-     * For debugging when the user long presses on the main event.
-     * @param e the motion event
-     */
-    @Override
-    public void onLongPress(MotionEvent e) {
-        Log.d(DEBUG_TAG, "onLongPress: " + e.toString());
-    }
-
-    /**
-     * For debugging when the user performs a fling on main event.
-     * @param e1 the motion event 1
-     * @param e2 the motion event 2
-     * @param velocityX x velocity
-     * @param velocityY y velocity
-     * @return true
-     */
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.d(DEBUG_TAG, "onFling: e1:" + e1.toString() + " e2:" + e2.toString() + "(vX, vY):("
-                          + velocityX + ", " + velocityY + ")");
-        return true;
+        Log.i("RANGE DATA", "Getter in main called");
+        if(!mQueryLocations.isEmpty()) {
+            Log.i("RANGE DATA", "Location Data sent to Fragment");
+            return mQueryLocations;
+        }
+        return null;
     }
 }
 

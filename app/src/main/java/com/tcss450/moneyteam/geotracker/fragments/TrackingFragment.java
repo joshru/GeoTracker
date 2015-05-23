@@ -240,15 +240,6 @@ public class TrackingFragment extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mQueryLocations != null && !mQueryLocations.isEmpty()) {
-            listLocations();
-        }
-    }
-
-
     /**
      * Attaches, gets current context
      * @param activity current activity
@@ -263,36 +254,26 @@ public class TrackingFragment extends Fragment {
         }
     }
 
-    /**
-     * Event handler for Event bus. Gets fired locations and adds them to the list view
-     * @param event
-     */
-    public void onEvent(WebServiceHelper.LocationEvent event) {
-        Poptart.displayCustomDuration(rootView.getContext(), event.mEventMessage, 3);
+    public void setListAdapter(ArrayList<Location> locationList) {
+        Log.i("RANGE DATA", "Location Data sent to Fragment");
 
-        if (event.mSuccess) {
-            mQueryLocations = event.mLocations;
-            mMainActivity.setLocations(mQueryLocations);
-            Log.i("RANGE DATA", mQueryLocations.toString());
-            listLocations();
+        ArrayList<String> stringList = new ArrayList<>();   /* List to hold locations strings. */
+        StringBuilder sb = new StringBuilder();             /* String builder to create each location line. */
+
+        // Parse the locations into a list of Strings
+        for(Location l : locationList) {
+            Date currentDate = new Date(l.getTime());
+            Log.i("ADAPTER", "List Adapter: " + currentDate.toString());
+
+
+            //TODO fix this please Brando
+            sb.append(String.format("%d/%d/%d", currentDate.getMonth(), currentDate.getDay(), currentDate.getYear()))
+                    .append("Lat: ")
+                    .append(l.getLatitude())
+                    .append(", Lon: ")
+                    .append(l.getLongitude());
         }
-
-    }
-
-    private void listLocations()  {
-        ArrayList<String> locationList = new ArrayList<>();
-        for(Location l : mQueryLocations) {
-            String time = l.getTime() * 1000 + ", Long: ";
-            String longit = l.getLongitude() + ", Lat: ";
-            String latit = l.getLatitude() + "";
-
-            Date date = new Date(l.getTime() * 1000);
-            DateFormat df = new SimpleDateFormat("EE, MM/dd, yyyy HH:mm a");
-
-            locationList.add(df.format(date) + ", Long: " + longit + latit);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext(), R.layout.list_row, locationList);
-        mLocationList.setAdapter(adapter);
+        return;
     }
 
 
@@ -314,9 +295,6 @@ public class TrackingFragment extends Fragment {
             }
         }
     }
-
-
-
 
     /**
      * Custom time listener for listening for selected start and end times
