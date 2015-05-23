@@ -129,6 +129,15 @@ public class MainActivity extends Activity implements TabInterface {
         mLocationTimer = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
     }
 
+    private void savePreferences() {
+        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = myPreferences.edit();
+        edit.putString(getString(R.string.saved_email_key), mUserEmail);
+        edit.putBoolean(getString(R.string.saved_location_toggle_boolean), mLocationBool);
+        edit.putInt(getString(R.string.key_location_poll_timer), mLocationTimer);
+
+    }
+
     /**
      * Calls super onSaveInstanceState
      * @param outState
@@ -194,6 +203,12 @@ public class MainActivity extends Activity implements TabInterface {
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        savePreferences();
     }
 
     /**
