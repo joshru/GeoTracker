@@ -127,7 +127,7 @@ public class WebServiceHelper {
      */
     public void resetPassword(final String email) {
         mCallingMethod = "resetPassword";
-        String query = BASE_URL + "reset.php?email=" + email;
+        String query = BASE_URL + "reset.php?email=" + email.replace(" ", "%20");
         mDownloadTask.execute(query);
 
     }
