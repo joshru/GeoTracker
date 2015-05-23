@@ -305,11 +305,11 @@ public class TrackingFragment extends Fragment {
             activeText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
             if(activeText.getId() == R.id.f_location_date_text_start) {
                 mGlobalStartDate[0] = year;
-                mGlobalStartDate[1] = monthOfYear + 1;
+                mGlobalStartDate[1] = monthOfYear;
                 mGlobalStartDate[2] = dayOfMonth;
             } else {
                 mGlobalEndDate[0] = year;
-                mGlobalEndDate[1] = monthOfYear + 1;
+                mGlobalEndDate[1] = monthOfYear;
                 mGlobalEndDate[2] = dayOfMonth;
             }
         }

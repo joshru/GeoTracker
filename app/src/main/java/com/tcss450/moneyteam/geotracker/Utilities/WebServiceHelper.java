@@ -182,7 +182,7 @@ public class WebServiceHelper {
         String uid = prefs.getString(mContext.getString(R.string.saved_user_id_key),
                 mContext.getString(R.string.default_restore_key));
         mCallingMethod = "getRange";
-       /* Log.d("GETTINGRANGE", "Initiated range query");
+        Log.d("GETTINGRANGE", "Initiated range query");
 
         Log.d("QTIME", "START DATE: " + startDate.toString());
 
@@ -190,7 +190,7 @@ public class WebServiceHelper {
 
         Log.d("QTIME", "\nEND DATE: " + endDate.toString());
 
-        Log.d("QTIME", "\nEND TIME: " + (endDate.getTime() / 1000L));*/
+        Log.d("QTIME", "\nEND TIME: " + (endDate.getTime() / 1000L));
 
         String query = BASE_URL + "view.php?uid=" + uid
                 + "&start=" + startDate.getTime() / 1000L
