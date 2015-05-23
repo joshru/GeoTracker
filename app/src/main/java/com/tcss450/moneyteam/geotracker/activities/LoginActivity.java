@@ -93,46 +93,7 @@ public class LoginActivity extends FragmentActivity {
             }
         });
 
-        //LOGIN BUTTON ONLONGCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mLoginButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                launchActivity("");
-                Poptart.display(LoginActivity.this, "Admin Login", Toast.LENGTH_LONG);
-                return true;
-            }
-        });
-
-        //JOSH TESTING CUSTOM TOASTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        ImageView toastTest = (ImageView) findViewById(R.id.imageView3);
-
-        toastTest.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Poptart.display(LoginActivity.this, "Testing \n double line test", Toast.LENGTH_LONG);
-            }
-        });
-
     }
-
-   /* *//**
-     * On event method for Event Bus. Notifies listeners in the same fashion as a property change
-     * listener
-     * @param event
-     *//*
-    public void onEvent(WebServiceHelper.LocationEvent event) {
-        if (event.mSuccess) {
-            ArrayList<Location> list = event.mLocations;
-            for (int i = 0; i < list.size(); i++) {
-                Log.d("TESTING PULL", list.get(i).toString());
-
-            }
-        } else {
-            Log.d("TESTING PULL", event.mEventMessage);
-        }
-
-    }*/
-
 
     /**
      * Acting OnClickListener for the login button.
@@ -140,44 +101,26 @@ public class LoginActivity extends FragmentActivity {
      */
     public void loginUser(View view) {
         //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        String toastString = getString(R.string.login_no_device_user);
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
         final String emailCred = mEmailText.getText().toString();
-        final String passCredHash = Authenticator.generateHash(mPassText.getText().toString());
-        final String userEmail;
-        final String userPassHash;
         final boolean emailForm = Authenticator.emailFormatCheck(emailCred);
         final boolean passForm = Authenticator.passFormatCheck(mPassText.getText().toString());
-        View badView = mLoginButton;
 
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor myEditor = myPreferences.edit();
-        myEditor.putString(getString(R.string.saved_email_key), emailCred).commit();
+        myEditor.putString(getString(R.string.saved_email_key), emailCred).apply();
 
         WebServiceHelper webServiceHelper = new WebServiceHelper(this);
-       // webServiceHelper.loginUser();
-
         if (emailForm && passForm) {
             webServiceHelper.loginUser(emailCred, mPassText.getText().toString());
-        } else {
-            mLoginTries++;
-            Poptart.display(this, "Invalid credentials, please try again.", Toast.LENGTH_SHORT);
-        }
-        if (mLoginTries % 3 == 0) {
-            Poptart.display(this, "You forgot, didn't you?", Toast.LENGTH_SHORT);
+        } else if(!emailForm) {
+            Poptart.displayCustomDuration(this, "Invalid e-mail format. ", 2);
+        } else { /* Bad Password format. */
+            Poptart.displayCustomDuration(this, "Invalid passphrase format. ", 2);
         }
 
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginButtonLayout.startAnimation(animAlpha);
-    }
-
-    /**
-     * Currently unimplemented.
-     * @param view
-     */
-    public void iAmANoob (View view) {
-        //TODO Add something cool here.
-        //wut
     }
 
     /**
@@ -191,20 +134,11 @@ public class LoginActivity extends FragmentActivity {
     }
 
     /**
-     * On Destroy
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-       // EventBus.getDefault().unregister(this);
-    }
-
-    /**
      * Registers the Event Bus when the activity is started
      */
     @Override
     protected void onStart() {
-        //super.onStart();
+        super.onStart();
         EventBus.getDefault().register(this);
         super.onStart();
     }
@@ -222,8 +156,9 @@ public class LoginActivity extends FragmentActivity {
                 Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
                 mainScreen.putExtra(getString(R.string.saved_email_key), mEmailText.getText().toString());
                 startActivity(mainScreen);
-
-            //Failed, invalid credentials
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                this.finish();
+                //Failed, invalid credentials
             } else if (event.callingMethod == WebServiceHelper.PASSWORD_CALL) {
                 Poptart.display(this, event.message, Toast.LENGTH_SHORT);
             }

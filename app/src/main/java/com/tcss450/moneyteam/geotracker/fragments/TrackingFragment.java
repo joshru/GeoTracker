@@ -96,7 +96,9 @@ public class TrackingFragment extends Fragment {
     /** Current context*/
     private TabInterface mMainActivity;
 
-    //Month/day/year/hour/minute
+    /**
+     * year/month/day/hour/minute
+     */
     private int[] mGlobalStartDate;
     private int[] mGlobalEndDate;
 
@@ -127,15 +129,9 @@ public class TrackingFragment extends Fragment {
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
         mLocationList = (ListView) rootView.findViewById(R.id.list_location_listview);
-        //ListView list = (ListView) rootView.findViewById(R.id.list_location);
 
-
-
-        //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //
+        //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-        Boolean locationToggleBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
-
 
         //GET DATA ONCLICK LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mGetDataButton.setOnClickListener(new View.OnClickListener() {
@@ -143,19 +139,27 @@ public class TrackingFragment extends Fragment {
             public void onClick(View v) {
                 WebServiceHelper myHelper = new WebServiceHelper(rootView.getContext());
                 LocationDBHelper dbHelper = new LocationDBHelper(rootView.getContext());
-                String startDate = mStartDate.getText().toString();
-                String endDate = mEndDate.getText().toString();
-                String startTime = mStartTime.getText().toString();
-                String endTime = mStartTime.getText().toString();
 
-                if(!startDate.isEmpty() && !endDate.isEmpty()
-                        && !startTime.isEmpty() && !endTime.isEmpty()) {
-                    dbHelper.pushPointsToServer();
-                    Calendar start = Calendar.getInstance();
-                    Calendar end = Calendar.getInstance();
-                    start.set(mGlobalStartDate[2], mGlobalStartDate[0], mGlobalStartDate[1], mGlobalStartDate[3], mGlobalStartDate[4]);
+                if(!mStartDate.getText().toString().isEmpty() &&        /* Start date not empty. */
+                        !mEndDate.getText().toString().isEmpty() &&     /* End date not empty. */
+                        !mStartTime.getText().toString().isEmpty() &&   /* Start time not empty. */
+                        !mEndTime.getText().toString().isEmpty()) {     /* End time not empty. */
 
-                    end.set(mGlobalEndDate[2], mGlobalEndDate[0], mGlobalEndDate[1], mGlobalEndDate[3],mGlobalEndDate[4]);
+                    dbHelper.pushPointsToServer();                      /* SQL -> Server. */
+
+                    Calendar start = Calendar.getInstance();            /* Start Date / TIME*/
+                    start.set(mGlobalStartDate[0],                      /* Start year. */
+                              mGlobalStartDate[1],                      /* Start month. */
+                              mGlobalStartDate[2],                      /* Start day. */
+                              mGlobalStartDate[3],                      /* Start hour. */
+                              mGlobalStartDate[4]);                     /* Start minute. */
+
+                    Calendar end = Calendar.getInstance();              /* End Date / TIME*/
+                    end.set(mGlobalEndDate[0],                          /* End year. */
+                            mGlobalEndDate[1],                          /* End month. */
+                            mGlobalEndDate[2],                          /* End day. */
+                            mGlobalEndDate[3],                          /* End hour. */
+                            mGlobalEndDate[4]);                         /* End minute. */
 
                     Log.i("DATE", "START: " + start.toString());
                     Log.i("DATE", "END: " + end.toString());
@@ -236,32 +240,6 @@ public class TrackingFragment extends Fragment {
 
     }
 
-    /**
-     * Starts, registers the Event Bus
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        EventBus.getDefault().register(this);
-    }
-
-
-    /**
-     * Destroys, unregisters the Event Bus
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-      //  EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        EventBus.getDefault().unregister(this);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -270,25 +248,6 @@ public class TrackingFragment extends Fragment {
         }
     }
 
-    /**
-     * Detaches, unregisters the Event Bus
-     *//*
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        EventBus.getDefault().unregister(this);
-
-    }
-
-    *//**
-     * Destroys the view, unregisters Event Bus
-     *//*
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
-
-    }*/
 
     /**
      * Attaches, gets current context
@@ -297,7 +256,6 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//        mContext = activity.getApplicationContext();
         try {
             mMainActivity = (TabInterface) activity;
         } catch (Exception e) {
@@ -346,16 +304,19 @@ public class TrackingFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             activeText.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
             if(activeText.getId() == R.id.f_location_date_text_start) {
-                mGlobalStartDate[0] = monthOfYear + 1;
-                mGlobalStartDate[1] = dayOfMonth;
-                mGlobalStartDate[2] = year;
+                mGlobalStartDate[0] = year;
+                mGlobalStartDate[1] = monthOfYear + 1;
+                mGlobalStartDate[2] = dayOfMonth;
             } else {
-                mGlobalEndDate[0] = monthOfYear + 1;
-                mGlobalEndDate[1] = dayOfMonth;
-                mGlobalEndDate[2] = year;
+                mGlobalEndDate[0] = year;
+                mGlobalEndDate[1] = monthOfYear + 1;
+                mGlobalEndDate[2] = dayOfMonth;
             }
         }
     }
+
+
+
 
     /**
      * Custom time listener for listening for selected start and end times

@@ -117,7 +117,7 @@ public class WebServiceHelper {
         SharedPreferences myPreferences = mContext.getSharedPreferences(mContext.getString(R.string.user_info_main_key),
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor myEditor = myPreferences.edit();
-        myEditor.putString(mContext.getString(R.string.saved_email_key), email).commit();
+        myEditor.putString(mContext.getString(R.string.saved_email_key), email).apply();
 
     }
 
@@ -278,6 +278,7 @@ public class WebServiceHelper {
         Log.d("LOGINEVENT", "Event posted.");
 
     }
+
     /**Handles the post execute behavior of resetting the password.*/
     private void resetPasswordPostExecute() {
         String result;
