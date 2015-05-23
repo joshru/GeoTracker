@@ -302,7 +302,7 @@ public class TrackingFragment extends Fragment {
     private class customDateListener implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            activeText.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+            activeText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
             if(activeText.getId() == R.id.f_location_date_text_start) {
                 mGlobalStartDate[0] = year;
                 mGlobalStartDate[1] = monthOfYear + 1;
