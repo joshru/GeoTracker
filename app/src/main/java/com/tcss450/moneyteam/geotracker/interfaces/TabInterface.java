@@ -17,7 +17,11 @@ public interface TabInterface {
 
     public int getLocationTimer();
 
+    public void setLocationTimer(final int minutes);
+
     public boolean getLocationBool();
+
+    public void setLocationBool(final boolean toggleEnabled);
 
     void requestListUpdate();
 }

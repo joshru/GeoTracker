@@ -270,8 +270,20 @@ public class MainActivity extends Activity implements TabInterface {
     }
 
     @Override
+    public void setLocationTimer(int minutes) {
+        if(minutes > 0) {
+            mLocationTimer = minutes;
+        }
+    }
+
+    @Override
     public boolean getLocationBool() {
         return mLocationBool;
+    }
+
+    @Override
+    public void setLocationBool(boolean toggleEnabled) {
+        mLocationBool = toggleEnabled;
     }
 
     @Override
