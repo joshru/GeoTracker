@@ -180,16 +180,15 @@ public class AccountFragment extends Fragment {
 
     private void setDisplayPreferences() {
         mUserEmailLabel.setText(mMainActivity.getUserEmail());
-        mSeekBar.setProgress(mMainActivity.getLocationTimer());
+        mSeekBar.setProgress(mMainActivity.getLocationTimer() / 3);
         changeTimeLabel(mMainActivity.getLocationTimer());
         mToggleButton.setChecked(mMainActivity.getLocationBool());
+        locationToggle();
     }
 
     private void updateLocationTimer(int minutesPolling) {
         changeTimeLabel(minutesPolling);
-        myPreferences.edit().putInt(getResources()
-                .getString(R.string.key_location_poll_timer), minutesPolling)
-                .apply();
+        mMainActivity.setLocationTimer(minutesPolling);
         Log.i("LOCATION TIMER", "Timer Minutes: " + minutesPolling);
     }
 
@@ -221,17 +220,18 @@ public class AccountFragment extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0ff() {
-        LocationIntentService.setServiceAlarm(rootView.getContext(), false, 1);
+        //LocationIntentService.setServiceAlarm(rootView.getContext(), false, 1);
 
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
+        mMainActivity.setLocationBool(false);
         PackageManager pm = rootView.getContext().getPackageManager();
 
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
+
         //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setChecked(false);
-        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), false).apply();
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient_inverse));
     } //END void toggle0ff()
@@ -241,20 +241,19 @@ public class AccountFragment extends Fragment {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0n() {
-        int pollingTime = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
-        LocationIntentService.setServiceAlarm(rootView.getContext(), true, pollingTime);
+        int pollingTime = mMainActivity.getLocationTimer();
+        //LocationIntentService.setServiceAlarm(rootView.getContext(), true, pollingTime);
 
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
+        mMainActivity.setLocationBool(true);
         PackageManager pm = rootView.getContext().getPackageManager();
 
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
+
         //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setChecked(true);
-        myPreferences.edit().putInt(getString(R.string.key_location_poll_timer), pollingTime).apply();
-        myPreferences.edit().putBoolean(getString(R.string.saved_location_toggle_boolean), true).apply();
-        Log.i("Account Tag", "locationPollTime: " + pollingTime);
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_light_neon));
         mToggleButton.setBackground(getResources().getDrawable(R.drawable.edit_text_gradient));
     } //END void toggle0n()

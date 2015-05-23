@@ -76,12 +76,6 @@ public class LocationIntentService extends IntentService {
         final Intent intent = new Intent(context, LocationIntentService.class);
         final PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, 0);
 
-        //Store the new isEnabled and locationTimer values into SP
-        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor mEdit = sp.edit();
-        mEdit.putBoolean(context.getString(R.string.saved_location_toggle_boolean), isEnabled);
-        mEdit.putInt(context.getString(R.string.key_location_poll_timer), locationMinutes).apply();
-
         //Convert locationInterval into milliseconds
         int customTimeInterval = locationMinutes * 60000;
 
@@ -92,12 +86,11 @@ public class LocationIntentService extends IntentService {
                     customTimeInterval,
                     alarmIntent);
             //WebPushIntent.setWebUploadAlarm();
-            Log.i(LOCATION_SERVICE_TAG, "SetRepeating Enabled with time intervals of: " + customTimeInterval);
+            Log.i(LOCATION_SERVICE_TAG, "Background Location Tracking Enabled, Intervals: " + locationMinutes);
         } else {
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
-            Log.i(LOCATION_SERVICE_TAG, "SetRepeating Disabled");
-            WebPushIntent.setWebUploadAlarm(context, false, -2);
+            Log.i(LOCATION_SERVICE_TAG, "Background Location Tracking Disabled");
         }
 
     }

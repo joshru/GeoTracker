@@ -123,19 +123,27 @@ public class MainActivity extends Activity implements TabInterface {
     }
 
     private void loadSharedPreferences() {
+        Log.i("LOAD", "Preferences Loaded in Main");
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         mUserEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
         mLocationBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
         mLocationTimer = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
+
+        Log.i("LOAD", "Email: " + mUserEmail + " LocationBool: " + mLocationBool + " LocationTimer: " + mLocationTimer);
+
     }
 
     private void savePreferences() {
+        Log.i("SAVE", "Preferences Saved in Main");
+
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = myPreferences.edit();
         edit.putString(getString(R.string.saved_email_key), mUserEmail);
         edit.putBoolean(getString(R.string.saved_location_toggle_boolean), mLocationBool);
         edit.putInt(getString(R.string.key_location_poll_timer), mLocationTimer);
+        edit.apply();
 
+        Log.i("SAVE", "Email: " + mUserEmail + " LocationBool: " + mLocationBool + " LocationTimer: " + mLocationTimer);
     }
 
     /**
@@ -175,7 +183,7 @@ public class MainActivity extends Activity implements TabInterface {
                 SharedPreferences.Editor myPrefEditor = myPreferences.edit();
                 myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
                 myPrefEditor.putBoolean(getString(R.string.saved_location_toggle_boolean), false);
-//                myPrefEditor.putInt(getString(R.string.key_location_poll_timer), theSeekMilliSeconds);
+//              myPrefEditor.putInt(getString(R.string.key_location_poll_timer), theSeekMilliSeconds);
                 myPrefEditor.apply();
 
                 LocationIntentService.setServiceAlarm(getApplicationContext(), false, 1);
@@ -195,10 +203,6 @@ public class MainActivity extends Activity implements TabInterface {
         }
     }
 
-
-    //FOLLOWING TOUCH LISTENERS HAVE NOT BEEN IMPLEMENTED (IGNORE)~~~~~~~~~~~~~~~~~~
-    //TODO (PHASE II) IMPLEMENTED WANTED EVENTS, CODE REVIEWeRS CAN IGNORE~~~~~~~~~~~
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -208,6 +212,7 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     protected void onStop() {
         super.onStop();
+        Log.i("ONSTOP", "onStop called in mainActivity");
         savePreferences();
     }
 
@@ -225,38 +230,6 @@ public class MainActivity extends Activity implements TabInterface {
         }
     }
 
-    /**
-     * Method used for printing debug messages to the android log for debugging purposes.
-     * @param event the motion event
-     * @return the on touch event
-     */
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        int action = MotionEventCompat.getActionMasked(event);
-
-        switch (action) {
-            case (MotionEvent.ACTION_DOWN):
-                Log.d(DEBUG_TAG, "Action was DOWN");
-                return true;
-            case (MotionEvent.ACTION_MOVE):
-                Log.d(DEBUG_TAG, "Action was MOVE");
-                return true;
-            case (MotionEvent.ACTION_UP):
-                Log.d(DEBUG_TAG, "Action was UP");
-                return true;
-            case (MotionEvent.ACTION_CANCEL):
-                Log.d(DEBUG_TAG, "Action was CANCEL");
-                return true;
-            case (MotionEvent.ACTION_OUTSIDE):
-                Log.d(DEBUG_TAG, "Movement occurred outside bounds " +
-                        "of current screen element");
-                return true;
-            default:
-                return super.onTouchEvent(event);
-        }
-    }
-
     @Override
     public void setLocations(ArrayList<Location> theLocations) {
         mQueryLocations = theLocations;
@@ -265,7 +238,7 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public ArrayList<Location> getLocations() {
         Log.i("RANGE DATA", "Getter in main called");
-        if(!mQueryLocations.isEmpty()) {
+        if(mQueryLocations != null && !mQueryLocations.isEmpty()) {
             return mQueryLocations;
         }
         return null;
@@ -288,6 +261,10 @@ public class MainActivity extends Activity implements TabInterface {
     public void setLocationTimer(int minutes) {
         if(minutes > 0) {
             mLocationTimer = minutes;
+
+            if(mLocationBool) {
+                LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
+            }
         }
     }
 
