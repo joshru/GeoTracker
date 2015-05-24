@@ -196,7 +196,7 @@ public class MainActivity extends Activity implements TabInterface {
                 setLoginBool(false);
 
                 LocationIntentService.setServiceAlarm(this, false, 1);
-                WebPushIntent.setServerAlarm(this, false, 0);
+                WebPushIntent.setServerAlarm(this, false, mSpinnerPos);
 
                 //PUSH ENTRIES TO SERVER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 LocationDBHelper helper = new LocationDBHelper(this);
@@ -286,6 +286,8 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public void setLocationBool(boolean toggleEnabled) {
         mLocationBool = toggleEnabled;
+        LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
+        WebPushIntent.setServerAlarm(this, mLocationBool, mLocationTimer);
     }
 
     @Override
@@ -297,7 +299,7 @@ public class MainActivity extends Activity implements TabInterface {
     public void setSpinnerPosition(int position) {
         mSpinnerPos = position;
         if(mLocationBool) {
-            WebPushIntent.setServerAlarm(this, true, position);
+            WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
         }
     }
 

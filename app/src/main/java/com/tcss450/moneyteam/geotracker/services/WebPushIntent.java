@@ -75,7 +75,7 @@ public class WebPushIntent extends IntentService {
                     calendar.getTimeInMillis(),
                     msTimer,
                     alarmIntent);
-            Log.i(WEB_SERVICE_TAG, "Server Updates enabled, Interval: " + msTimer);
+            Log.i(WEB_SERVICE_TAG, "Server Updates enabled, Interval: " + msTimer + " Spinner Position: " + position);
         } else {
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();

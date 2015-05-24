@@ -173,6 +173,7 @@ public class AccountFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mMainActivity.setSpinnerPosition(i);
                 mServiceSpinner.setSelection(i);
+                Log.i("SPINNER ITEM", "Spinner Item #" + i);
             }
 
             @Override
@@ -228,7 +229,7 @@ public class AccountFragment extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0ff() {
-        //LocationIntentService.setServiceAlarm(rootView.getContext(), false, 1);
+        Log.i("TOGGLE", "Location Toggle-0ff");
 
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(false);
@@ -249,8 +250,7 @@ public class AccountFragment extends Fragment {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0n() {
-        int pollingTime = mMainActivity.getLocationTimer();
-        //LocationIntentService.setServiceAlarm(rootView.getContext(), true, pollingTime);
+        Log.i("TOGGLE", "Location Toggle-0n");
 
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(true);
