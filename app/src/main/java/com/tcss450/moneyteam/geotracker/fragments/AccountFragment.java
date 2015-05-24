@@ -44,16 +44,6 @@ public class AccountFragment extends Fragment {
     private TextView mUserEmailLabel;
 
     /**
-     * The user secret answer text view
-     */
-    private TextView mUserAnswerLabel;
-
-    /**
-     * The user secret question text view
-     */
-    private TextView mUserQuestionLabel;
-
-    /**
      * Password reset button
      */
     private Button mPasswordResetButton;
@@ -189,11 +179,11 @@ public class AccountFragment extends Fragment {
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mServiceSpinner.setAdapter(adapter);
+        mServiceSpinner.setSelection(mMainActivity.getSpinnerPosition());
     }
 
 
     private void setDisplayPreferences() {
-        mServiceSpinner.setSelection(mMainActivity.getSpinnerPosition());
         mUserEmailLabel.setText(mMainActivity.getUserEmail());
         mSeekBar.setProgress(mMainActivity.getLocationTimer() / 3);
         changeTimeLabel(mMainActivity.getLocationTimer());

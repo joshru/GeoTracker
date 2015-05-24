@@ -84,13 +84,15 @@ public class MainActivity extends Activity implements TabInterface {
         //THIS CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         this.setContentView(R.layout.activity_main_tab);
 
+        loadSharedPreferences();
+
         //CREATE FRAGMENTS (TABS)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mAccountSettingsFragment = new AccountFragment();
         mTrackingFragment = new TrackingFragment();
         mMapFragment = new MapFragment();
 
         //GETS ALL FRAGMENT USED SHAREDPREFERENCES ON STARTUP~~~~~~~~~~~~~~~~~~~~~~~
-        loadSharedPreferences();
+        Log.i("STARTUP", "MainActivity onCreate: " + mSpinnerPos);
         LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
         WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
         //WebPushIntent. setWebUploadAlarm(rootView.getContext(), true, serviceGap);
@@ -285,9 +287,10 @@ public class MainActivity extends Activity implements TabInterface {
 
     @Override
     public void setLocationBool(boolean toggleEnabled) {
+        Log.d("DEBUG_MAIN", "setLocationBool called, spinner pos: " + mSpinnerPos);
         mLocationBool = toggleEnabled;
         LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
-        WebPushIntent.setServerAlarm(this, mLocationBool, mLocationTimer);
+        WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
     }
 
     @Override
@@ -297,6 +300,7 @@ public class MainActivity extends Activity implements TabInterface {
 
     @Override
     public void setSpinnerPosition(int position) {
+        Log.d("DEBUG_MAIN", "setSpinnerPosition called, position: " + position);
         mSpinnerPos = position;
         if(mLocationBool) {
             WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
