@@ -21,6 +21,18 @@
  The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but are recommended.
     -->
+    <receiver
+        android:name="Utilities.BootLoader"
+        android:enabled="true"
+        android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.BATTERY_LOW"/>
+            <action android:name="android.intent.action.BATTERY_OKAY"/>
+            <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+            <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+        </intent-filter>
+    </receiver>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 

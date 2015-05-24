@@ -58,7 +58,10 @@ public class WebPushIntent extends IntentService {
     public static void setServerAlarm(final Context context, boolean isEnabled,
                                        final int position) {
         if(position == 4) {
-            return; /* Do nothing, mainActivity has already notified the plugin Listener */
+            Log.i(WEB_SERVICE_TAG, "Intent Called");
+            SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+            sp.edit().putBoolean(context.getString(R.string.saved_on_connected_bool), true).apply();
+            return;
         }
 
         mContext = context;
