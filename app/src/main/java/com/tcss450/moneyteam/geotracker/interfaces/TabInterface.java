@@ -23,5 +23,9 @@ public interface TabInterface {
 
     public void setLocationBool(final boolean toggleEnabled);
 
+    public int getSpinnerPosition();
+
+    public void setSpinnerPosition(final int position);
+
     void requestListUpdate();
 }

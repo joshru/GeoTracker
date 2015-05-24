@@ -130,9 +130,6 @@ public class TrackingFragment extends Fragment {
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
         mLocationList = (ListView) rootView.findViewById(R.id.list_location_listview);
 
-        //GET SHARED PREFERENCES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        myPreferences = getActivity().getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
-
         //GET DATA ONCLICK LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mGetDataButton.setOnClickListener(new View.OnClickListener() {
             @Override

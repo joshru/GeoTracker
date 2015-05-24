@@ -26,8 +26,6 @@ import java.util.Calendar;
  */
 public class LocationIntentService extends IntentService {
 
-    /** The rate at which location data is polled. (6 seconds ~6000).*/
-    public static final int LOCATION_POLLING_INTERVAL = 360000;
     /** Tag for the location service intent. */
     private static final String LOCATION_SERVICE_TAG = "LocationIntentService" ;
     /** Reference to the application context*/
@@ -45,20 +43,8 @@ public class LocationIntentService extends IntentService {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent, flags, startId);
-        LocationManager locationManager = (LocationManager) this.getSystemService(
-                Context.LOCATION_SERVICE);
-        LocationListener locationListener = new MyLocationListener();
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
-                locationListener, Looper.myLooper());
-        return START_REDELIVER_INTENT;
-    }
-
-
-    @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i(LOCATION_SERVICE_TAG, "Intent Called");
+        Log.i(LOCATION_SERVICE_TAG, "Location Updated");
         LocationManager locationManager = (LocationManager) this.getSystemService(
                 Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
@@ -85,7 +71,6 @@ public class LocationIntentService extends IntentService {
                     calendar.getTimeInMillis(),
                     customTimeInterval,
                     alarmIntent);
-            //WebPushIntent.setWebUploadAlarm();
             Log.i(LOCATION_SERVICE_TAG, "Background Location Tracking Enabled, Intervals: " + locationMinutes);
         } else {
             alarmManager.cancel(alarmIntent);

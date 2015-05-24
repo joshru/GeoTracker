@@ -147,7 +147,7 @@ public class AccountFragment extends Fragment {
                 }
                 updateLocationTimer(minutesPolling);
             }
-        }); // END seekBar Listeners
+        });
 
         //EMAIL LAYOUT LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mEmailLayout.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +167,19 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        //SPINNER ON SELECT LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mServiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mMainActivity.setSpinnerPosition(i);
+                mServiceSpinner.setSelection(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
         return rootView;
     }
 
@@ -179,6 +192,7 @@ public class AccountFragment extends Fragment {
 
 
     private void setDisplayPreferences() {
+        mServiceSpinner.setSelection(mMainActivity.getSpinnerPosition());
         mUserEmailLabel.setText(mMainActivity.getUserEmail());
         mSeekBar.setProgress(mMainActivity.getLocationTimer() / 3);
         changeTimeLabel(mMainActivity.getLocationTimer());
@@ -190,12 +204,6 @@ public class AccountFragment extends Fragment {
         changeTimeLabel(minutesPolling);
         mMainActivity.setLocationTimer(minutesPolling);
         Log.i("LOCATION TIMER", "Timer Minutes: " + minutesPolling);
-    }
-
-    private void updateServerTimer(int minutesGap) {
-        myPreferences.edit().putInt(getResources()
-                .getString(R.string.key_location_upload_gap), minutesGap)
-                .apply();
     }
 
     /**

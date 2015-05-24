@@ -7,7 +7,6 @@
     </string-array>
 
     <string-array name="service_spinner_values">
-        <item>Every half-hour</item>
         <item>Every hour</item>
         <item>Every two hours</item>
         <item>Twice a Day</item>

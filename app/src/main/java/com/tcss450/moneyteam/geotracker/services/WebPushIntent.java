@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Looper;
 import android.util.Log;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 
 import java.util.Calendar;
@@ -48,51 +49,57 @@ public class WebPushIntent extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(WEB_SERVICE_TAG, "Intent Called");
-
-        //Push all the information to the WebService.
+        LocationDBHelper db = new LocationDBHelper(mContext);
+        db.pushPointsToServer();
     }
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public static void setWebUploadAlarm(final Context context, boolean isEnabled,
-                                       final int minutesBetweenPushes) {
+    public static void setServerAlarm(final Context context, boolean isEnabled,
+                                       final int position) {
+        if(position == 4) {
+            return; /* Do nothing, mainActivity has already notified the plugin Listener */
+        }
+
         mContext = context;
-        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         final Calendar calendar =  Calendar.getInstance();
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Intent intent = new Intent(context, WebPushIntent.class);
         final PendingIntent alarmIntent = PendingIntent.getService(context, 0, intent, 0);
 
-        //Store the new webservice gap in SP if minutes > -2 (Means no change from previous)
-        if(minutesBetweenPushes > -2) {
-            SharedPreferences.Editor mEdit = sp.edit();
-            mEdit.putInt(context.getString(R.string.key_location_upload_gap), minutesBetweenPushes).apply();
-        }
-        //Listen for charging Event, set alarm false.
-        if(minutesBetweenPushes == -2) {
-            //TODO finish this ish
-            //sp.edit().put
-            isEnabled = false;
-        }
-
-        //
-        final int milliSecondsGap = minutesBetweenPushes * 60000;
+        final int msTimer = getPositionTime(position);
 
         //Enable or disable alarm
         if (isEnabled) {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
-                    milliSecondsGap,
+                    msTimer,
                     alarmIntent);
-            Log.i(WEB_SERVICE_TAG, "SetRepeating Enabled with time intervals of: " + milliSecondsGap);
+            Log.i(WEB_SERVICE_TAG, "Server Updates enabled, Interval: " + msTimer);
         } else {
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
-            Log.i(WEB_SERVICE_TAG, "SetRepeating Disabled");
+            Log.i(WEB_SERVICE_TAG, "Server Updates disabled.");
         }
 
     }
 
-    
-private static void parseTimeVal(int minutesBetweenPushes) {
-    }}
+    private static int getPositionTime(int position) {
+        int hours = 1;
+        switch (position) {
+            case 0:
+                hours = 1;
+                break;
+            case 1:
+                hours = 2;
+                break;
+            case 2:
+                hours = 12;
+                break;
+            case 3:
+                hours = 24;
+                break;
+        }
+        return hours * 60 * 60 * 1000;  /* Hours * (min/hour) * (sec/min) * (ms/sec) */
+    }
+}

@@ -1,7 +1,9 @@
 package com.tcss450.moneyteam.geotracker.Utilities;
 
+import android.app.IntentService;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;

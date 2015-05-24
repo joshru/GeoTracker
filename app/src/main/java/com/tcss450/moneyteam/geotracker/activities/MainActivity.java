@@ -26,6 +26,7 @@ import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
+import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
 
 import java.util.ArrayList;
 
@@ -68,6 +69,8 @@ public class MainActivity extends Activity implements TabInterface {
     private String mUserEmail;
     private boolean mLocationBool;
     private int mLocationTimer;
+    private int mSpinnerPos;
+    private boolean mLoginBool;
 
     /**
      * Instantiates all fields for the Main Activity, populates tab layout, and sets listeners.
@@ -89,6 +92,7 @@ public class MainActivity extends Activity implements TabInterface {
         //GETS ALL FRAGMENT USED SHAREDPREFERENCES ON STARTUP~~~~~~~~~~~~~~~~~~~~~~~
         loadSharedPreferences();
         LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
+        WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
         //WebPushIntent. setWebUploadAlarm(rootView.getContext(), true, serviceGap);
 
         //GET ACTION BAR AND ADJUST SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,7 +102,7 @@ public class MainActivity extends Activity implements TabInterface {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Logout");
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-       // TabHost
+
         //ACCOUNT SETTINGS TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mAccountSettingsTab = actionBar.newTab();
         mAccountSettingsTab.setIcon(getResources().getDrawable(R.drawable.pip_gains));
@@ -128,8 +132,15 @@ public class MainActivity extends Activity implements TabInterface {
         mUserEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
         mLocationBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
         mLocationTimer = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
+        mSpinnerPos = myPreferences.getInt(getString(R.string.saved_spinner_position), 4);
+        mLoginBool = true;
+        setLoginBool(true);
 
-        Log.i("LOAD", "Email: " + mUserEmail + " LocationBool: " + mLocationBool + " LocationTimer: " + mLocationTimer);
+        Log.i("LOAD", "Email: " + mUserEmail +
+                " LocationBool: " + mLocationBool +
+                " LocationTimer: " + mLocationTimer +
+                " Spinner Position: " + mSpinnerPos +
+                " Logged In: " + mLoginBool);
 
     }
 
@@ -141,9 +152,16 @@ public class MainActivity extends Activity implements TabInterface {
         edit.putString(getString(R.string.saved_email_key), mUserEmail);
         edit.putBoolean(getString(R.string.saved_location_toggle_boolean), mLocationBool);
         edit.putInt(getString(R.string.key_location_poll_timer), mLocationTimer);
+        edit.putInt(getString(R.string.saved_spinner_position), mSpinnerPos);
+        edit.putBoolean(getString(R.string.logged_in_boolean), mLoginBool);
+
         edit.apply();
 
-        Log.i("SAVE", "Email: " + mUserEmail + " LocationBool: " + mLocationBool + " LocationTimer: " + mLocationTimer);
+        Log.i("SAVE", "Email: " + mUserEmail +
+                " LocationBool: " + mLocationBool +
+                " LocationTimer: " + mLocationTimer +
+                " Spinner Position: " + mSpinnerPos +
+                " Logged In: " + mLoginBool);
     }
 
     /**
@@ -173,20 +191,12 @@ public class MainActivity extends Activity implements TabInterface {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //Get the seekbar value
-                SeekBar theSeekBar = (SeekBar) findViewById(R.id.seekBar);
-//                int theSeekTime = theSeekBar.getProgress();
-//                int theSeekMilliSeconds = theSeekTime * 3 * 60000;
-
                 //GET SHARED PREFERERENCES/SET LOGIN IN BOOL~~~~~~~~~~~~~~~~~~~~~~~~
-                SharedPreferences myPreferences = getSharedPreferences(getString(R.string.shared_pref_key), Context.MODE_PRIVATE);
-                SharedPreferences.Editor myPrefEditor = myPreferences.edit();
-                myPrefEditor.putBoolean(getString(R.string.logged_in_boolean), false);
-                myPrefEditor.putBoolean(getString(R.string.saved_location_toggle_boolean), false);
-//              myPrefEditor.putInt(getString(R.string.key_location_poll_timer), theSeekMilliSeconds);
-                myPrefEditor.apply();
+                setLocationBool(false);
+                setLoginBool(false);
 
-                LocationIntentService.setServiceAlarm(getApplicationContext(), false, 1);
+                LocationIntentService.setServiceAlarm(this, false, 1);
+                WebPushIntent.setServerAlarm(this, false, 0);
 
                 //PUSH ENTRIES TO SERVER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 LocationDBHelper helper = new LocationDBHelper(this);
@@ -276,6 +286,27 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public void setLocationBool(boolean toggleEnabled) {
         mLocationBool = toggleEnabled;
+    }
+
+    @Override
+    public int getSpinnerPosition() {
+        return mSpinnerPos;
+    }
+
+    @Override
+    public void setSpinnerPosition(int position) {
+        mSpinnerPos = position;
+        if(mLocationBool) {
+            WebPushIntent.setServerAlarm(this, true, position);
+        }
+    }
+
+    private void setLoginBool(boolean b) {
+        mLoginBool = b;
+    }
+
+    private boolean getLoginBool() {
+        return mLocationBool;
     }
 
     @Override
