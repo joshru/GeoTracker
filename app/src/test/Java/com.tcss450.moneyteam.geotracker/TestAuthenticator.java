@@ -73,14 +73,20 @@ public class TestAuthenticator {
         );
     }
 
+    /**
+     * Tests the password format checker. It only tests to make
+     * sure the lengths is > 5 so nothing too special here.
+     */
     @Test
     public void testPassFormat() {
         final String badPass = "2shrt";
         final String goodPass = "longenough";
 
-        assertFalse(Authenticator.passFormatCheck(badPass));
+        assertFalse("Password should be > 5 characters",
+                Authenticator.passFormatCheck(badPass));
 
-        assertTrue(Authenticator.passFormatCheck(goodPass));
+        assertTrue("Password should be > 5 characters",
+                Authenticator.passFormatCheck(goodPass));
 
 
     }
