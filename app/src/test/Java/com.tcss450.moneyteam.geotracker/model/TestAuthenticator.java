@@ -1,4 +1,4 @@
-package com.tcss450.moneyteam.geotracker;
+package com.tcss450.moneyteam.geotracker.model;
 
 import com.tcss450.moneyteam.geotracker.Utilities.Authenticator;
 
@@ -11,7 +11,10 @@ import static junit.framework.Assert.assertFalse;
 
 import static junit.framework.Assert.assertTrue;
 
-
+/**
+ * Tests the Authenticator class.
+ * @author Brandon Bell
+ */
 public class TestAuthenticator {
 
     /**
