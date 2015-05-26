@@ -114,9 +114,12 @@ public class LoginActivity extends FragmentActivity {
         if (emailForm && passForm) {
             webServiceHelper.loginUser(emailCred, mPassText.getText().toString());
         } else if(!emailForm) {
-            Poptart.displayCustomDuration(this, "Invalid e-mail format. ", 2);
+            //Toast.makeText(this, "Invalid e-mail format.", Toast.LENGTH_SHORT).show();
+            Poptart.display(this, "Invalid e-mail format.", Toast.LENGTH_SHORT);
         } else { /* Bad Password format. */
-            Poptart.displayCustomDuration(this, "Invalid passphrase format. ", 2);
+            //Toast.makeText(this, "Invalid passphrase format.", Toast.LENGTH_SHORT).show();
+
+            Poptart.display(this, "Invalid passphrase format.", Toast.LENGTH_SHORT);
         }
 
         //START ANIMATION AND PROVIDE USER HINT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,7 +161,7 @@ public class LoginActivity extends FragmentActivity {
                 startActivity(mainScreen);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 this.finish();
-                //Failed, invalid credentials
+            //Failed, invalid credentials
             } else if (event.callingMethod == WebServiceHelper.PASSWORD_CALL) {
                 Poptart.display(this, event.message, Toast.LENGTH_SHORT);
             }
