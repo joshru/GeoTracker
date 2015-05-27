@@ -130,6 +130,7 @@
     <string name="key_location_upload_gap">Location Gap Value</string>
     <string name="saved_spinner_position">Spinner Position</string>
     <string name="saved_on_connected_bool">saved_on_connected_bool</string>
+    <string name="logged_in_activity">logged in activity</string>
 
 
     <!-- UNSORTED VALUES-->

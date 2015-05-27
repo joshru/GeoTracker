@@ -29,11 +29,12 @@ public class StartupActivity extends Activity {
         SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.shared_pref_key),
                 Context.MODE_PRIVATE);
 
-        final boolean loggedIn = sharedPrefs.getBoolean(getString(R.string.logged_in_boolean), false);
+        final String loggedIn = sharedPrefs.getString(getString(R.string.logged_in_activity), "");
         Intent intent;
-        //TODO check if mainActivity, loginActivity where destroyed before recreating
-        if (loggedIn) {
+        if (loggedIn != null && loggedIn.equals("main")) {
             intent = new Intent(getApplicationContext(), MainActivity.class);
+        } else if(loggedIn != null && loggedIn.equals("register")) {
+            intent = new Intent(getApplicationContext(), RegisterActivity.class);
         } else {
             intent = new Intent(getApplicationContext(), LoginActivity.class);
         }

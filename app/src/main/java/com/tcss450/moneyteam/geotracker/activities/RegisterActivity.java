@@ -79,6 +79,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     /** The animation alpha effect*/
     private Animation animAlpha;
+    private SharedPreferences myPreferences;
 
     /**
      * Creates the registration activity and sets all appropriate listeners.
@@ -92,6 +93,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         //THIS CALLS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         this.setContentView(R.layout.activity_register);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+        setLoginStatus("register");
 
         //READ IN FROM CALLING ACTIVITY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Intent i = getIntent();
@@ -384,5 +387,11 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             mProgressBar.setBackgroundDrawable(getResources().getDrawable(progress));
             mProgressBarIcon.setBackgroundDrawable(getResources().getDrawable(icon));
         }
+    }
+
+    public void setLoginStatus(String loginStatus) {
+        myPreferences.edit()
+                .putString(getString(R.string.logged_in_activity), loginStatus)
+                .apply();
     }
 }

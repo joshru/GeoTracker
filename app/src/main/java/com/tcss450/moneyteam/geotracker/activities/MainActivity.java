@@ -42,6 +42,8 @@ public class MainActivity extends Activity implements TabInterface {
 
     /** String used for logcat debugging*/
     private static final String DEBUG_MAIN = "DEBUG MAIN";
+    private static final String SAVE = "SAVE";
+    private static final String LOAD = "LOAD";
 
     /** The account setting tab*/
     private Tab mAccountSettingsTab;
@@ -89,7 +91,7 @@ public class MainActivity extends Activity implements TabInterface {
         myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
 
         loadSharedPreferences();
-        setLoginStatus(true);
+        setLoginStatus("main");
 
         //CREATE FRAGMENTS (TABS)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mAccountSettingsFragment = new AccountFragment();
@@ -142,7 +144,7 @@ public class MainActivity extends Activity implements TabInterface {
         mLoginBool = true;
         setLoginBool(true);
 
-        Log.i("LOAD", "Email: " + mUserEmail +
+        Log.i(LOAD, "Email: " + mUserEmail +
                 " LocationBool: " + mLocationBool +
                 " LocationTimer: " + mLocationTimer +
                 " Spinner Position: " + mSpinnerPos +
@@ -161,7 +163,7 @@ public class MainActivity extends Activity implements TabInterface {
 
         edit.apply();
 
-        Log.i("SAVE", "Email: " + mUserEmail +
+        Log.i(SAVE, "Email: " + mUserEmail +
                 " LocationBool: " + mLocationBool +
                 " LocationTimer: " + mLocationTimer +
                 " Spinner Position: " + mSpinnerPos +
@@ -210,7 +212,7 @@ public class MainActivity extends Activity implements TabInterface {
                 Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(loginScreen);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                setLoginStatus(false);
+                setLoginStatus("login");
                 this.finish();
                 return(true);
             default:
@@ -242,7 +244,7 @@ public class MainActivity extends Activity implements TabInterface {
         if (event.mSuccess) {
             mQueryLocations = event.mLocations;
             mTrackingFragment.setListAdapter(mQueryLocations);
-            Log.i("RANGE DATA", mQueryLocations.toString());
+            Log.i(DEBUG_MAIN, mQueryLocations.toString());
         }
     }
 
@@ -253,7 +255,7 @@ public class MainActivity extends Activity implements TabInterface {
 
     @Override
     public ArrayList<Location> getLocations() {
-        Log.i("RANGE DATA", "Getter in main called");
+        Log.i(DEBUG_MAIN, "Getter in main called");
         if(mQueryLocations != null && !mQueryLocations.isEmpty()) {
             return mQueryLocations;
         }
@@ -328,9 +330,9 @@ public class MainActivity extends Activity implements TabInterface {
         }
     }
 
-    public void setLoginStatus(boolean loginStatus) {
+    public void setLoginStatus(String loginStatus) {
        myPreferences.edit()
-               .putBoolean(getString(R.string.logged_in_boolean), loginStatus)
+               .putString(getString(R.string.logged_in_activity), loginStatus)
                .apply();
     }
 }

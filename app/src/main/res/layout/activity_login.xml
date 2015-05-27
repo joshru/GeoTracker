@@ -160,7 +160,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/pip_reaper"
-            android:onClick="iAmANoob"
             android:clickable="true"
             android:contentDescription="@string/general_content_description_101"
             android:layout_alignParentBottom="true"
