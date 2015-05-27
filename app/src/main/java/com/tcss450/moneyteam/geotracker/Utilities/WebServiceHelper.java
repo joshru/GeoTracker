@@ -1,9 +1,7 @@
 package com.tcss450.moneyteam.geotracker.Utilities;
 
-import android.app.IntentService;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
@@ -115,6 +113,7 @@ public class WebServiceHelper {
 
         String query = BASE_URL + "login.php?" + "email=" + email + "&password=" + password;
         mDownloadTask.execute(query);
+
 
         SharedPreferences myPreferences = mContext.getSharedPreferences(mContext.getString(R.string.user_info_main_key),
                 Context.MODE_PRIVATE);
@@ -481,7 +480,7 @@ public class WebServiceHelper {
      * Private Asynctask used to process all queries to the webservice.
      * Mostly boilerplate code for retrieving a JSON string from the webservice.
      */
-    private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
+    public class DownloadWebPageTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {

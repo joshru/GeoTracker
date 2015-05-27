@@ -21,9 +21,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowAsyncTask;
 import org.robolectric.shadows.ShadowToast;
 
 import static org.junit.Assert.assertEquals;
@@ -128,9 +126,10 @@ public class TestLoginActivity {
         mEmailForm.setText("brandb94@uw.edu");
         mPasswordForm.setText("password1");
 
-        mLoginButton.performClick();
 
+        ShadowApplication.runBackgroundTasks();//plswork
         Intent intent = Shadows.shadowOf(mLoginActivity).peekNextStartedActivity();
+        //assertTrue("Toast should display", ShadowToast.showedCustomToast("") );
         assertEquals("Should start Main Activity",
                 MainActivity.class.getCanonicalName(),
                 intent.getComponent().getClassName());
