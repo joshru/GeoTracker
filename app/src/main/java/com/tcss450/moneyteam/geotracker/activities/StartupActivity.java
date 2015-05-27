@@ -31,6 +31,7 @@ public class StartupActivity extends Activity {
 
         final boolean loggedIn = sharedPrefs.getBoolean(getString(R.string.logged_in_boolean), false);
         Intent intent;
+        //TODO check if mainActivity, loginActivity where destroyed before recreating
         if (loggedIn) {
             intent = new Intent(getApplicationContext(), MainActivity.class);
         } else {

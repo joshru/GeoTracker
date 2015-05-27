@@ -71,6 +71,7 @@ public class MainActivity extends Activity implements TabInterface {
     private int mLocationTimer;
     private int mSpinnerPos;
     private boolean mLoginBool;
+    private SharedPreferences myPreferences;
 
     /**
      * Instantiates all fields for the Main Activity, populates tab layout, and sets listeners.
@@ -84,7 +85,11 @@ public class MainActivity extends Activity implements TabInterface {
         //THIS CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         this.setContentView(R.layout.activity_main_tab);
 
+        //Get Shared pref. reference
+        myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+
         loadSharedPreferences();
+        setLoginStatus(true);
 
         //CREATE FRAGMENTS (TABS)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mAccountSettingsFragment = new AccountFragment();
@@ -99,7 +104,6 @@ public class MainActivity extends Activity implements TabInterface {
 
         //GET ACTION BAR AND ADJUST SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Logout");
@@ -148,8 +152,6 @@ public class MainActivity extends Activity implements TabInterface {
 
     private void savePreferences() {
         Log.i("SAVE", "Preferences Saved in Main");
-
-        SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = myPreferences.edit();
         edit.putString(getString(R.string.saved_email_key), mUserEmail);
         edit.putBoolean(getString(R.string.saved_location_toggle_boolean), mLocationBool);
@@ -208,6 +210,7 @@ public class MainActivity extends Activity implements TabInterface {
                 Intent loginScreen = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(loginScreen);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                setLoginStatus(false);
                 this.finish();
                 return(true);
             default:
@@ -225,6 +228,7 @@ public class MainActivity extends Activity implements TabInterface {
     protected void onStop() {
         super.onStop();
         Log.i("ONSTOP", "onStop called in mainActivity");
+        EventBus.getDefault().unregister(this);
         savePreferences();
     }
 
@@ -322,6 +326,12 @@ public class MainActivity extends Activity implements TabInterface {
         } else {
             Poptart.display(this,"No Data to display", 2);
         }
+    }
+
+    public void setLoginStatus(boolean loginStatus) {
+       myPreferences.edit()
+               .putBoolean(getString(R.string.logged_in_boolean), loginStatus)
+               .apply();
     }
 }
 
