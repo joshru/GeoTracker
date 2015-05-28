@@ -22,6 +22,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -496,15 +498,21 @@ public class WebServiceHelper {
         protected String doInBackground(String... urls) {
 
             String response = "";
+            HttpURLConnection urlConnection = null;
 
             for (String url : urls) {
                 Log.d("URLLOOP", url);
-                DefaultHttpClient defClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(url);
+                //DefaultHttpClient defClient = new DefaultHttpClient();
+               // HttpGet httpGet = new HttpGet(url);
 
                 try {
-                    HttpResponse execute = defClient.execute(httpGet);
-                    InputStream content = execute.getEntity().getContent();
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                   // HttpResponse execute = defClient.execute(httpGet);
+                    //InputStream content = execute.getEntity().getContent();
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
                     String s;
 
@@ -515,6 +523,10 @@ public class WebServiceHelper {
                 } catch (Exception e) {
                     Log.d("DOINBACK", "Failed to download web page.");
                     e.printStackTrace();
+                    response = "Unable to get results of query, Reason: " + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null) urlConnection.disconnect();
                 }
             }
             Log.d("RESPONSERETURNED", response);

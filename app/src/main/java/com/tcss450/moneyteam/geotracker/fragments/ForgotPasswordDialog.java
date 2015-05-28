@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.Authenticator;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 
@@ -91,7 +92,15 @@ public class ForgotPasswordDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         WebServiceHelper webServiceHelper = new WebServiceHelper(getActivity());
                         EditText email = (EditText) v.findViewById(R.id.dialog_email_input);
-                        webServiceHelper.resetPassword(email.getText().toString());                    }
+
+                        String emailText = email.getText().toString();
+                        if (Authenticator.emailFormatCheck(emailText)) {
+
+                            webServiceHelper.resetPassword(email.getText().toString());
+                        } else {
+                            Poptart.display(getActivity(), "Invalid email format.", Toast.LENGTH_SHORT);
+                        }
+                    }
                 })
                 //SETS ACTION FOR NEGATIVE BUTTON~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 .setNegativeButton(R.string.reset_cancel_button, new DialogInterface.OnClickListener() {

@@ -148,17 +148,12 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             mEnterListener.set();
         }
 
-
         //ASSIGN SPINNER VALUES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.security_questions_array,
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mSecuritySpinner.setAdapter(adapter);
 
-     //   WebServiceHelper helper = new WebServiceHelper(this);
-
-      //  helper.getAgreement();
-       // Log.d("Getting Agreement", "called getAgreement from RegisterAct");
 
     }
 
@@ -241,8 +236,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
         if (validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString(getString(R.string.saved_email_key), email);
-           // myPrefEditor.putString(getString(R.string.saved_question_key), question);
-          // myPrefEditor.putString(getString(R.string.saved_question_answer_key), answer);
+
             myPrefEditor.apply();
 
             webServiceHelper.addUser(email, passphraseHash, question, answer);
