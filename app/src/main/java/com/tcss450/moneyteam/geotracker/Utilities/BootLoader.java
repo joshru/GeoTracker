@@ -41,6 +41,9 @@ public class BootLoader extends BroadcastReceiver {
                 /* Force stop all network services. */
             LocationIntentService.setServiceAlarm(context, false, locationTimer);
             WebPushIntent.setServerAlarm(context, false, 0);
+            sp.edit()
+                    .putBoolean(context.getString(R.string.saved_location_toggle_boolean), false)
+                    .apply();
         }
 
         //Handles ACTION_POWER_CONNECTED intent
