@@ -41,18 +41,12 @@ public class TestLoginActivity {
     /*
     * Invalid email no password                      *done*
     * valid email no password                        *done*
-    * valid email invalid password
-    * valid email valid password
-    * forgot password pops up dialog
-    * register button opens new activity.
+    * valid email invalid password                   *done*
+    * valid email valid password                     *done*
+    * forgot password pops up dialog                 *done*
+    * register button opens new activity.            *done*
     * Rotating screen doesn't invalidate text fields
-     *
-     * Will potentially have to make the methods return a boolean or int to signal
-     * different outcomes
-     *
-     * Can also test the toast text
-     * ShadowToast.getLatest...
-     */
+    */
 
     private EditText mEmailForm;
     private EditText mPasswordForm;
@@ -99,7 +93,6 @@ public class TestLoginActivity {
 
         mLoginButton.performClick();
 
-        //assertTrue(ShadowToast.showedToast("Invalid e-mail format."));
         assertTrue(ShadowToast.showedCustomToast("Invalid e-mail format.", R.id.custom_toast_text));
 
     }
@@ -111,7 +104,6 @@ public class TestLoginActivity {
         mLoginButton.performClick();
         assertTrue(ShadowToast.showedCustomToast("Invalid passphrase format.", R.id.custom_toast_text));
 
-        //assertTrue(ShadowToast.showedToast("Invalid passphrase format."));
     }
 
     @Test
@@ -126,7 +118,7 @@ public class TestLoginActivity {
         mEmailForm.setText("brandb94@uw.edu");
         mPasswordForm.setText("password1");
 
-
+        mLoginButton.performClick();
         ShadowApplication.runBackgroundTasks();//plswork
         Intent intent = Shadows.shadowOf(mLoginActivity).peekNextStartedActivity();
         //assertTrue("Toast should display", ShadowToast.showedCustomToast("") );
@@ -146,7 +138,7 @@ public class TestLoginActivity {
                 RegisterActivity.class.getCanonicalName(),
                 intent.getComponent().getClassName());
     }
-    //TODO create test class for the dialog.
+
     @Test
     public void testDialogFragmentOpens() {
         TextView forgotPasswordLabel = (TextView) mLoginActivity

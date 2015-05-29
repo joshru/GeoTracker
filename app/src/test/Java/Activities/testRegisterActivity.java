@@ -1,9 +1,11 @@
 package Activities;
 
 import android.os.AsyncTask;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,13 +19,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowAsyncTask;
+import org.robolectric.shadows.ShadowDrawable;
 import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -74,8 +79,7 @@ public class testRegisterActivity {
     public void setup() throws Exception {
         ActivityController controller = Robolectric.buildActivity(RegisterActivity.class).create();
 
-        //Robolectric.getBackgroundThreadScheduler().pause();
-        //Robolectric.getForegroundThreadScheduler().pause();
+
 
 
         ShadowApplication.runBackgroundTasks();
@@ -187,6 +191,7 @@ public class testRegisterActivity {
     @Test
     public void testTOSNotAccepted() {
         mEmailForm.setText("email@email.com");
+
         mPassForm.setText("validpass1");
 
         mRepeatPassForm.setText("validpass1");
@@ -197,6 +202,54 @@ public class testRegisterActivity {
         assertTrue("Should display accept terms toast",
                 ShadowToast.showedCustomToast("Please accept the terms of service.",
                         R.id.custom_toast_text));
+    }
+
+    /**
+     * Pain in the patootie
+     */
+   /* @Test
+    public void testTOSHasText() {
+        //ShadowApplication.runBackgroundTasks();
+
+        String terms = mTermsOfService.getText().toString();
+        assertTrue(terms.length() > 0);
+    }*/
+
+    @Test
+    public void testProgressbarUpdates() {
+        ImageView imageView = (ImageView) mRegisterActivity.findViewById(R.id.register_progress);
+        ShadowDrawable baseShadow = Shadows.shadowOf(imageView.getDrawable());
+        assertEquals(R.drawable.pip_progress_0, baseShadow.getCreatedFromResId());
+
+        mEmailForm.setText("email@email.com");
+        mEmailForm.onEditorAction(EditorInfo.IME_ACTION_NEXT);
+        imageView = (ImageView) mRegisterActivity.findViewById(R.id.register_progress);
+
+        baseShadow = Shadows.shadowOf(imageView.getBackground());
+        assertEquals(R.drawable.pip_progress_1, baseShadow.getCreatedFromResId());
+        mPassForm.setText("validpass1");
+        mPassForm.onEditorAction(EditorInfo.IME_ACTION_DONE);
+        baseShadow = Shadows.shadowOf(imageView.getBackground());
+        assertEquals(R.drawable.pip_progress_2, baseShadow.getCreatedFromResId());
+
+        mRepeatPassForm.setText("validpass1");
+        mRepeatPassForm.onEditorAction(EditorInfo.IME_ACTION_DONE);
+        baseShadow = Shadows.shadowOf(imageView.getBackground());
+        assertEquals(R.drawable.pip_progress_3, baseShadow.getCreatedFromResId());
+
+
+
+        mSecurityAnswerForm.setText("answer");
+        mSecurityAnswerForm.onEditorAction(EditorInfo.IME_ACTION_DONE);
+        baseShadow = Shadows.shadowOf(imageView.getBackground());
+        assertEquals(R.drawable.pip_progress_4, baseShadow.getCreatedFromResId());
+
+        mTOSCheckbox.performClick();
+        mTOSCheckbox.onEditorAction(EditorInfo.IME_ACTION_DONE);
+        baseShadow = Shadows.shadowOf(imageView.getBackground());
+        assertEquals(R.drawable.pip_progress_5, baseShadow.getCreatedFromResId());
+
+
     }
 
 

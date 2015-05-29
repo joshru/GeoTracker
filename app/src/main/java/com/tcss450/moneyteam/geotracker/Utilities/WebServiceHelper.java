@@ -498,19 +498,24 @@ public class WebServiceHelper {
         protected String doInBackground(String... urls) {
 
             String response = "";
+            /*Up to date method of establishing an http connection*/
             HttpURLConnection urlConnection = null;
 
             for (String url : urls) {
                 Log.d("URLLOOP", url);
+
+                /*The problem was here*/
                 //DefaultHttpClient defClient = new DefaultHttpClient();
                // HttpGet httpGet = new HttpGet(url);
 
                 try {
+                    /*This fixed it*/
                     URL urlObject = new URL(url);
                     urlConnection = (HttpURLConnection) urlObject.openConnection();
 
                     InputStream content = urlConnection.getInputStream();
 
+                    /*And here*/
                    // HttpResponse execute = defClient.execute(httpGet);
                     //InputStream content = execute.getEntity().getContent();
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));

@@ -286,6 +286,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             super();
         }
 
+
+
         /**
          * Listener for actions in the editor
          * @param v the text view
