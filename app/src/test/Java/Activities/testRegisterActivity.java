@@ -1,5 +1,6 @@
 package Activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.tcss450.moneyteam.geotracker.BuildConfig;
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.activities.LoginActivity;
 import com.tcss450.moneyteam.geotracker.activities.RegisterActivity;
 
 import org.junit.After;
@@ -21,6 +23,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.internal.Shadow;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowAsyncTask;
 import org.robolectric.shadows.ShadowDrawable;
@@ -78,10 +81,6 @@ public class testRegisterActivity {
     @Before
     public void setup() throws Exception {
         ActivityController controller = Robolectric.buildActivity(RegisterActivity.class).create();
-
-
-
-
         ShadowApplication.runBackgroundTasks();
         mRegisterActivity = (RegisterActivity) controller.start().resume().visible().get();
 
@@ -249,6 +248,24 @@ public class testRegisterActivity {
         baseShadow = Shadows.shadowOf(imageView.getBackground());
         assertEquals(R.drawable.pip_progress_5, baseShadow.getCreatedFromResId());
 
+
+    }
+
+    @Test
+    public void testSuccessfulRegister() {
+        mEmailForm.setText("email@email.com");
+        mPassForm.setText("password1");
+        mRepeatPassForm.setText("password1");
+        mSecurityAnswerForm.setText("answer");
+        mTOSCheckbox.performClick();
+        mRegisterButton.performClick();
+
+        ShadowApplication.runBackgroundTasks();
+        Intent intent = Shadows.shadowOf(mRegisterActivity)
+                .peekNextStartedActivity();
+        assertEquals("Should go back to loginActivity",
+                LoginActivity.class.getCanonicalName(),
+                intent.getComponent().getClassName());
 
     }
 
