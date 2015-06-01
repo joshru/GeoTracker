@@ -38,6 +38,9 @@ import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
  * @author Joshua Rueschenberg
  */
 public class AccountFragment extends Fragment {
+
+    public static String ACCOUNT_TEST_LOG = "AccountFragment.junit.log";
+
     /**
      * The user email text view
      */
@@ -123,6 +126,8 @@ public class AccountFragment extends Fragment {
             @Override
             public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
                 progress = progressValue;
+                Log.d(ACCOUNT_TEST_LOG, "Tracking frequency changed to: " + progressValue);
+
             }
 
             @Override
@@ -162,7 +167,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mMainActivity.setSpinnerPosition(i);
-                mServiceSpinner.setSelection(i);
+                mServiceSpinner.setSelection(i, true); //obscure bug fixed here
                 Log.i("SPINNER ITEM", "Spinner Item #" + i);
             }
 
@@ -170,6 +175,7 @@ public class AccountFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
 
         return rootView;
     }
@@ -194,6 +200,7 @@ public class AccountFragment extends Fragment {
     private void updateLocationTimer(int minutesPolling) {
         changeTimeLabel(minutesPolling);
         mMainActivity.setLocationTimer(minutesPolling);
+
         Log.i("LOCATION TIMER", "Timer Minutes: " + minutesPolling);
     }
 
@@ -220,6 +227,7 @@ public class AccountFragment extends Fragment {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0ff() {
         Log.i("TOGGLE", "Location Toggle-0ff");
+        Log.d(ACCOUNT_TEST_LOG, "Location tracking toggled off.");
 
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(false);
@@ -240,6 +248,7 @@ public class AccountFragment extends Fragment {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void toggle0n() {
+        Log.d(ACCOUNT_TEST_LOG, "Location tracking toggled on.");
         Log.i("TOGGLE", "Location Toggle-0n");
 
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);

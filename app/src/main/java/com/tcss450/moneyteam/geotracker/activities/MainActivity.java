@@ -40,6 +40,8 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends Activity implements TabInterface {
 
+    public static final String MAINACTIVITY_TEST_TAG = "MAINACTIVITY.JUNIT.TAG";
+
     /** String used for logcat debugging*/
     private static final String DEBUG_MAIN = "DEBUG MAIN";
     private static final String SAVE = "SAVE";
@@ -255,6 +257,7 @@ public class MainActivity extends Activity implements TabInterface {
 
     @Override
     public ArrayList<Location> getLocations() {
+
         Log.i(DEBUG_MAIN, "Getter in main called");
         if(mQueryLocations != null && !mQueryLocations.isEmpty()) {
             return mQueryLocations;
@@ -297,6 +300,9 @@ public class MainActivity extends Activity implements TabInterface {
         mLocationBool = toggleEnabled;
         LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
         WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
+
+        Log.d(MAINACTIVITY_TEST_TAG, "Location tracking enabled");
+
     }
 
     @Override
@@ -307,8 +313,10 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public void setSpinnerPosition(int position) {
         Log.d(DEBUG_MAIN, "setSpinnerPosition called, position: " + position);
+        Log.d(MAINACTIVITY_TEST_TAG, "Spinner position changed.");
         mSpinnerPos = position;
         if(mLocationBool) {
+            Log.d(MAINACTIVITY_TEST_TAG, "Push interval updated.");
             WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
         }
     }
