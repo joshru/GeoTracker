@@ -30,13 +30,14 @@ import static org.junit.Assert.assertTrue;
 
 
 /**
- * Created by Brandon on 5/24/2015.
+ * Robolectric test class for LoginActivity
+ * @author Brandon Bell
  */
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, emulateSdk = 21)
-public class TestLoginActivity {
-
+@Config(constants = BuildConfig.class, emulateSdk = 21) //emulate sdk isn't necessary
+public class TestLoginActivity {                        //useful for testing a specific version
+                                                        //of android
     //TODO Things to test in login activity
     /*
     * Invalid email no password                      *done*
@@ -48,30 +49,44 @@ public class TestLoginActivity {
     * Rotating screen doesn't invalidate text fields
     */
 
+    /**
+     * Components
+     */
     private EditText mEmailForm;
     private EditText mPasswordForm;
     private Button mLoginButton;
 
     private LoginActivity mLoginActivity;
 
+    /**
+     * Setup the activity and commonly used components.
+     */
     @Before
     public void setup() {
 
+
         mLoginActivity = Robolectric.buildActivity(LoginActivity.class)
-                .create().start().resume().get(); //start and resume may not be necessary
+                .create().start().resume().visible().get();
         mEmailForm = (EditText)mLoginActivity.findViewById(R.id.email_text);
         mPasswordForm = (EditText) mLoginActivity.findViewById(R.id.passphrase_text);
         mLoginButton = (Button) mLoginActivity.findViewById(R.id.login_button);
 
     }
+
+    /**
+     * Free resources.
+     */
     @After
     public void tearDown() {
-        mEmailForm.setText("");
-        mPasswordForm.setText("");
+
     }
 
+    /**
+     * Sanity check: make sure everything exists.
+     */
     @Test
     public void testActivityHasComponents() {
+        /*Didn't feel like making instance fields*/
         TextView registerTextView = (TextView) mLoginActivity.findViewById(R.id.register_label);
         TextView forgotPasswordView = (TextView) mLoginActivity.findViewById(R.id.login_forgot_password_label);
 
@@ -85,10 +100,12 @@ public class TestLoginActivity {
         assertNotNull(forgotPasswordView);
     }
 
+    /**
+     * Test logging in with an invalid email.
+     */
     @Test
     public void testLoginBadEmail() {
-        assertNotNull(mLoginButton);
-        assertNotNull(mEmailForm);
+
         mEmailForm.setText("badEmail");
 
         mLoginButton.performClick();
@@ -96,8 +113,12 @@ public class TestLoginActivity {
         assertTrue(ShadowToast.showedCustomToast("Invalid e-mail format.", R.id.custom_toast_text));
 
     }
+
+    /**
+     * Test logging in with a bad password(empty)
+     */
     @Test
-    public void testLoginGoodEmailNoPassword() throws InterruptedException {
+    public void testLoginGoodEmailNoPassword() {
 
 
         mEmailForm.setText("email@email.com");
@@ -106,6 +127,9 @@ public class TestLoginActivity {
 
     }
 
+    /**
+     * Test logging in with no credentials.
+     */
     @Test
     public void testLoginNoCredentials() {
         mLoginButton.performClick();
@@ -113,20 +137,28 @@ public class TestLoginActivity {
 
     }
 
+    /**
+     * Test logging in with valid credentials
+     */
     @Test
     public void testLoginValidCredentials() {
-        mEmailForm.setText("brandb94@uw.edu");
+        mEmailForm.setText("anemail@uw.edu"); //You thought I'd let you steal my identity, didn't you?
         mPasswordForm.setText("password1");
 
         mLoginButton.performClick();
-        ShadowApplication.runBackgroundTasks();//plswork
+        ShadowApplication.runBackgroundTasks();//Tells Robolectric to wait for background
+                                               //threads to complete before continuing
+                                               //useful for waiting on web service requests.
         Intent intent = Shadows.shadowOf(mLoginActivity).peekNextStartedActivity();
-        //assertTrue("Toast should display", ShadowToast.showedCustomToast("") );
         assertEquals("Should start Main Activity",
                 MainActivity.class.getCanonicalName(),
                 intent.getComponent().getClassName());
 
     }
+
+    /**
+     * Test that the register button opens the register menu.
+     */
     @Test
     public void testRegisterOpensActivity() {
         TextView registerLabel = (TextView) mLoginActivity.findViewById(R.id.register_label);
@@ -139,6 +171,9 @@ public class TestLoginActivity {
                 intent.getComponent().getClassName());
     }
 
+    /**
+     * Tests that the forgot password dialog opens when the textview is clicked.
+     */
     @Test
     public void testDialogFragmentOpens() {
         TextView forgotPasswordLabel = (TextView) mLoginActivity
@@ -149,7 +184,6 @@ public class TestLoginActivity {
         assertNotNull(frag);
         assertTrue(frag instanceof DialogFragment);
         assertTrue(frag.isAdded());
-
 
 
     }

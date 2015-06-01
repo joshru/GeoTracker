@@ -40,7 +40,8 @@ import static org.junit.Assert.assertTrue;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
- * Created by Brandon on 5/30/2015.
+ * Robolectric test class for AccountFragment
+ * @author Brandon Bell
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
