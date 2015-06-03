@@ -338,6 +338,7 @@ public class MainActivity extends Activity implements TabInterface {
         }
     }
 
+
     public void setLoginStatus(String loginStatus) {
        myPreferences.edit()
                .putString(getString(R.string.logged_in_activity), loginStatus)

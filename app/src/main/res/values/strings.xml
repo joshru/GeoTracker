@@ -131,7 +131,8 @@
     <string name="saved_spinner_position">Spinner Position</string>
     <string name="saved_on_connected_bool">saved_on_connected_bool</string>
     <string name="logged_in_activity">logged in activity</string>
-
+    <string name="previous_lat_key">PreviousLocation</string>
+    <string name="previous_long_key">PreviousLong</string>
 
     <!-- UNSORTED VALUES-->
 
