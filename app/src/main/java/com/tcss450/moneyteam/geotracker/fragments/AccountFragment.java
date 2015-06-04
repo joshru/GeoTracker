@@ -181,7 +181,8 @@ public class AccountFragment extends Fragment {
     }
 
     private void setUpSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.service_spinner_values,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(),
+                R.array.service_spinner_values,
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mServiceSpinner.setAdapter(adapter);
@@ -209,7 +210,8 @@ public class AccountFragment extends Fragment {
      * @param minutesPerTick
      */
     private void changeTimeLabel(final int minutesPerTick) {
-        mSeekTimeLabel.setText("Location updates will occur every: " + minutesPerTick + " minute(s)");
+        mSeekTimeLabel.setText("Location updates will occur every: "
+                + minutesPerTick + " minute(s)");
     } //END void changeTimeLabel
 
     @Override

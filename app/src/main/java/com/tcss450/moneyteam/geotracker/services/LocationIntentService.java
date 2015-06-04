@@ -22,8 +22,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 /**
- * Created by Alex on 4/30/2015.
  * Polls for user location in the background.
+ * @author Alexander Cherry
  */
 public class LocationIntentService extends IntentService {
 
