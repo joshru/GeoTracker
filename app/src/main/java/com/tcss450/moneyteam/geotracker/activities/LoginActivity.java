@@ -196,6 +196,21 @@ public class LoginActivity extends FragmentActivity {
         }
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(getString(R.string.saved_email_key), mEmailText.getText().toString());
+        outState.putString(getString(R.string.saved_pass_key), mPassText.getText().toString());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mEmailText.setText(savedInstanceState.getString(getString(R.string.saved_email_key), ""));
+        mPassText.setText(savedInstanceState.getString(getString(R.string.saved_pass_key), ""));
+    }
 }
 
 

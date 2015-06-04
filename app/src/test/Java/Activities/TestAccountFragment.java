@@ -1,6 +1,5 @@
 package Activities;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -18,7 +17,6 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.activities.MainActivity;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,17 +25,14 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.internal.Shadow;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowDrawable;
 import org.robolectric.shadows.ShadowLog;
 import org.robolectric.shadows.ShadowSeekBar;
-import org.w3c.dom.Text;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
  * Robolectric test class for AccountFragment
@@ -105,7 +100,6 @@ public class TestAccountFragment {
         assertNotNull(mActivity);
         assertNotNull(mFragment);
         assertTrue("Fragment should be visible.", mFragment.isAdded());
-//        assertTrue("Fragment should be on screen", mFragment.isVisible()); redundant?
     }
 
     /**
@@ -147,6 +141,7 @@ public class TestAccountFragment {
         if (trackingToggleButton.isChecked())
             assertEquals(R.drawable.edit_text_gradient, shadow.getCreatedFromResId());
         else assertEquals(R.drawable.edit_text_gradient_inverse, shadow.getCreatedFromResId());
+
         //seekbar
         shadow = Shadows.shadowOf(trackingSlider.getProgressDrawable());
         assertEquals(R.drawable.progress_draweable, shadow.getCreatedFromResId());
@@ -267,6 +262,7 @@ public class TestAccountFragment {
      */
     private void assertLogged(int type, String tag, String msg, Throwable throwable) {
         boolean foundLog = false;
+
         for (ShadowLog.LogItem lastLog : ShadowLog.getLogsForTag(tag)) {
             if (lastLog.msg.equals(msg)) {
                 assertEquals(type, lastLog.type);

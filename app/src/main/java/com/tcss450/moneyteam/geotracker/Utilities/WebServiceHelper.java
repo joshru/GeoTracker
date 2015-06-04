@@ -12,9 +12,6 @@ import android.util.Log;
 
 import com.tcss450.moneyteam.geotracker.R;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -505,8 +502,8 @@ public class WebServiceHelper {
                 Log.d("URLLOOP", url);
 
                 /*The problem was here*/
-                //DefaultHttpClient defClient = new DefaultHttpClient();
-               // HttpGet httpGet = new HttpGet(url);
+                // DefaultHttpClient defClient = new DefaultHttpClient();
+                // HttpGet httpGet = new HttpGet(url);
 
                 try {
                     /*This fixed it*/
@@ -515,7 +512,7 @@ public class WebServiceHelper {
 
                     InputStream content = urlConnection.getInputStream();
 
-                    /*And here*/
+                    /*More problems here*/
                    // HttpResponse execute = defClient.execute(httpGet);
                     //InputStream content = execute.getEntity().getContent();
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));

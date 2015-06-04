@@ -33,7 +33,7 @@ public class StartupActivity extends Activity {
         Intent intent;
         if (loggedIn != null && loggedIn.equals("main")) {
             intent = new Intent(getApplicationContext(), MainActivity.class);
-        } else if(loggedIn != null && loggedIn.equals("register")) {
+        } else if (loggedIn != null && loggedIn.equals("register")) {
             intent = new Intent(getApplicationContext(), RegisterActivity.class);
         } else {
             intent = new Intent(getApplicationContext(), LoginActivity.class);

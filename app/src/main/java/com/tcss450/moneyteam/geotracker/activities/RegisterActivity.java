@@ -390,4 +390,44 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 .putString(getString(R.string.logged_in_activity), loginStatus)
                 .apply();
     }
+
+    /**
+     * Saves all user's choices for configuration changes.
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(getString(R.string.register_config_email),
+                mEmail.getText().toString());
+        outState.putString(getString(R.string.register_config_password),
+                mPassword.getText().toString());
+
+
+        outState.putString(getString(R.string.register_config_repeat),
+                mRepeatPassword.getText().toString());
+        outState.putInt(getString(R.string.register_config_spinner),
+                mSecuritySpinner.getSelectedItemPosition());
+        outState.putString(getString(R.string.register_config_answer),
+                mSecurityAnswer.getText().toString());
+        outState.putBoolean(getString(R.string.register_checkbox_bool
+        ), mTermsCheckBox.isChecked());
+
+
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * Restores user input on configuration change.
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mEmail.setText(savedInstanceState.getString(getString(R.string.register_config_email), ""));
+        mPassword.setText(savedInstanceState.getString(getString(R.string.register_config_password), ""));
+        mRepeatPassword.setText(savedInstanceState.getString(getString(R.string.register_config_repeat), ""));
+        mSecuritySpinner.setSelection(savedInstanceState.getInt(getString(R.string.register_config_spinner), 0));
+        mSecurityAnswer.setText(savedInstanceState.getString(getString(R.string.register_config_answer), ""));
+        mTermsCheckBox.setChecked(savedInstanceState.getBoolean(getString(R.string.register_checkbox_bool), false));
+    }
 }
