@@ -14,14 +14,14 @@ public interface TabInterface {
      *
      * @param theLocations new list of locations.
      */
-    public void setLocations(ArrayList<Location> theLocations);
+    void setLocations(ArrayList<Location> theLocations);
 
     /**
      * Gets the list of locations.
      *
      * @return the list of locations.
      */
-    public ArrayList<Location> getLocations();
+    ArrayList<Location> getLocations();
 
     /**
      * Gets the current user's email.
@@ -29,47 +29,47 @@ public interface TabInterface {
      *
      * @return the email
      */
-    public String getUserEmail();
+     String getUserEmail();
 
     /**
      * ?
      *
      * @return
      */
-    public int getLocationTimer();
+     int getLocationTimer();
 
     /**
      * ?
      *
      * @param minutes
      */
-    public void setLocationTimer(final int minutes);
+     void setLocationTimer(final int minutes);
 
     /**
      * @return
      */
-    public boolean getLocationBool();
+     boolean getLocationBool();
 
     /**
      * Toggles location tracking.
      *
      * @param toggleEnabled
      */
-    public void setLocationBool(final boolean toggleEnabled);
+     void setLocationBool(final boolean toggleEnabled);
 
     /**
      * Gets the spinner position.
      *
      * @return the position
      */
-    public int getSpinnerPosition();
+     int getSpinnerPosition();
 
     /**
      * Sets the spinner position.
      *
      * @param position
      */
-    public void setSpinnerPosition(final int position);
+     void setSpinnerPosition(final int position);
 
     /**
      * ?
