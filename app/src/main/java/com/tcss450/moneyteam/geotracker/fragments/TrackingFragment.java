@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -109,8 +112,10 @@ public class TrackingFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_tracking_settings, container, false);
 
         //INSTANTIATE FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mGlobalStartDate = new int[5];
-        mGlobalEndDate = new int[5];
+//        mGlobalStartDate = new int[5];
+//        mGlobalEndDate = new int[5];
+        mGlobalStartDate = mMainActivity.getUserRangeStart();
+        mGlobalEndDate = mMainActivity.getUserRangeEnd();
 
         
         //GET REFERENCES TO UI ELEMENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -153,7 +158,12 @@ public class TrackingFragment extends Fragment {
 
                     Log.i("DATE", "START: " + start.toString());
                     Log.i("DATE", "END: " + end.toString());
-                    myHelper.getRange(start.getTime(), end.getTime());
+                    if (hasNetworkAccess()) {
+                        myHelper.getRange(start.getTime(), end.getTime());
+                    } else {
+                        Poptart.display(rootView.getContext(),
+                                "No network access to access server.", Toast.LENGTH_SHORT);
+                    }
                 } else {
                     Poptart.display(rootView.getContext(), "Please fill in all fields", Toast.LENGTH_LONG);
                 }
@@ -244,7 +254,7 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        updateRangeDisplay();
+//        updateRangeDisplay();
         try {
             mMainActivity = (TabInterface) activity;
         } catch (Exception e) {
@@ -298,10 +308,31 @@ public class TrackingFragment extends Fragment {
         mLocationList.setAdapter(adapter);
     }
 
+    private boolean hasNetworkAccess() {
+        boolean haveWifi = false;
+        boolean haveMobile = false;
+        Context ctx = rootView.getContext();
+        ConnectivityManager cm = (ConnectivityManager)
+                ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI")) {
+                if (ni.isConnected()) {
+                    haveWifi = true;
+                }
+            }
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE")) {
+                if (ni.isConnected()) {
+                    haveMobile = true;
+                }
+            }
+        }
+        return haveWifi || haveMobile;
+    }
 
-    /**
-     * Custom date listener inner class for listening for selected start and end dates
-     */
+        /**
+         * Custom date listener inner class for listening for selected start and end dates
+         */
     private class customDateListener implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

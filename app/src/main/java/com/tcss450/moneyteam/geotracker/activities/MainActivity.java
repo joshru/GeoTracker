@@ -131,6 +131,9 @@ public class MainActivity extends Activity implements TabInterface {
         mTrackingTab.setText("Location Tracking Settings");
         mTrackingTab.setTabListener(new PipTabListener(mTrackingFragment));
         actionBar.addTab(mTrackingTab);
+        mUserRangeStart = new int[5];
+        mUserRangeEnd = new int[5];
+        fillStartEnd();
 
         //MAP TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mMapTab = actionBar.newTab();
