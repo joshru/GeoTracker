@@ -75,6 +75,12 @@ public interface TabInterface {
      * ?
      */
     void requestListUpdate();
+
+    int[] getUserRangeStart();
+
+    int[] getUserRangeEnd();
+
+    void setUserRange(final int[] start, final int[] end);
 }
 
 

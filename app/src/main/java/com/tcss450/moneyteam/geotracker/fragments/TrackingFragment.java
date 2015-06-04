@@ -129,6 +129,7 @@ public class TrackingFragment extends Fragment {
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
         mLocationList = (ListView) rootView.findViewById(R.id.list_location_listview);
+        mLocationList.setScrollContainer(false);
 
         //GET DATA ONCLICK LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mGetDataButton.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +137,7 @@ public class TrackingFragment extends Fragment {
             public void onClick(View v) {
                 WebServiceHelper myHelper = new WebServiceHelper(rootView.getContext());
                 LocationDBHelper dbHelper = new LocationDBHelper(rootView.getContext());
+                mMainActivity.setUserRange(mGlobalStartDate, mGlobalEndDate);
 
                 if(!mStartDate.getText().toString().isEmpty() &&        /* Start date not empty. */
                         !mEndDate.getText().toString().isEmpty() &&     /* End date not empty. */
@@ -241,6 +243,7 @@ public class TrackingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMainActivity.requestListUpdate();
+//        updateRangeDisplay();
     }
 
     /**
@@ -250,11 +253,39 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        updateRangeDisplay();
         try {
             mMainActivity = (TabInterface) activity;
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    public void updateRangeDisplay() {
+        mGlobalStartDate = mMainActivity.getUserRangeStart();
+        mGlobalEndDate = mMainActivity.getUserRangeEnd();
+        if(!mStartDate.getText().toString().isEmpty() &&        /* Start date not empty. */
+                !mEndDate.getText().toString().isEmpty() &&     /* End date not empty. */
+                !mStartTime.getText().toString().isEmpty() &&   /* Start time not empty. */
+                !mEndTime.getText().toString().isEmpty()) {     /* End time not empty. */
+
+            Calendar start = Calendar.getInstance();            /* Start Date / TIME*/
+            start.set(mGlobalStartDate[0],                      /* Start year. */
+                    mGlobalStartDate[1],                        /* Start month. */
+                    mGlobalStartDate[2],                        /* Start day. */
+                    mGlobalStartDate[3],                        /* Start hour. */
+                    mGlobalStartDate[4]);                       /* Start minute. */
+
+            Calendar end = Calendar.getInstance();              /* End Date / TIME*/
+            end.set(mGlobalEndDate[0],                          /* End year. */
+                    mGlobalEndDate[1],                          /* End month. */
+                    mGlobalEndDate[2],                          /* End day. */
+                    mGlobalEndDate[3],                          /* End hour. */
+                    mGlobalEndDate[4]);                         /* End minute. */
+        }
+
     }
 
     public void setListAdapter(ArrayList<Location> locationList) {

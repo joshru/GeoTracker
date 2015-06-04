@@ -29,6 +29,7 @@ import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 
@@ -67,6 +68,10 @@ public class MainActivity extends Activity implements TabInterface {
 
     /** Collection of location objects*/
     private ArrayList<Location> mQueryLocations;
+
+    private int[] mUserRangeStart;
+
+    private int[] mUserRangeEnd;
 
     /** The gesture detector object*/
     private GestureDetectorCompat mDetector;
@@ -336,6 +341,36 @@ public class MainActivity extends Activity implements TabInterface {
         } else {
             Poptart.display(this,"No Data to display", 2);
         }
+    }
+
+    public void fillStartEnd() {
+        final Calendar c = Calendar.getInstance();
+        mUserRangeStart[0] = c.get(Calendar.YEAR);
+        mUserRangeStart[1] = c.get(Calendar.MONTH);
+        mUserRangeStart[2] = c.get(Calendar.DAY_OF_MONTH);
+        mUserRangeStart[3] = c.get(Calendar.HOUR_OF_DAY);
+        mUserRangeStart[4] = c.get(Calendar.MINUTE);
+        mUserRangeEnd[0] = c.get(Calendar.YEAR);
+        mUserRangeEnd[1] = c.get(Calendar.MONTH);
+        mUserRangeEnd[2] = c.get(Calendar.DAY_OF_MONTH);
+        mUserRangeEnd[3] = c.get(Calendar.HOUR_OF_DAY);
+        mUserRangeEnd[4] = c.get(Calendar.MINUTE);
+    }
+
+    @Override
+    public int[] getUserRangeStart() {
+        return mUserRangeStart;
+    }
+
+    @Override
+    public int[] getUserRangeEnd() {
+        return mUserRangeEnd;
+    }
+
+    @Override
+    public void setUserRange(int[] start, int[] end) {
+        mUserRangeStart = start;
+        mUserRangeEnd = end;
     }
 
 
