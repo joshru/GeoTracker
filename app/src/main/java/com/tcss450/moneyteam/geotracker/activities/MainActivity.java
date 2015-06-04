@@ -9,12 +9,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.widget.SeekBar;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
@@ -65,6 +61,8 @@ public class MainActivity extends Activity implements TabInterface {
 
     /** Google maps with location data will be displayed to user via Map Tab*/
     private Fragment mMapFragment;
+
+    private Fragment mListFragment;
 
     /** Collection of location objects*/
     private ArrayList<Location> mQueryLocations;
@@ -253,7 +251,7 @@ public class MainActivity extends Activity implements TabInterface {
 
         if (event.mSuccess) {
             mQueryLocations = event.mLocations;
-            mTrackingFragment.setListAdapter(mQueryLocations);
+            mTrackingFragment.setLocations(mQueryLocations);
             Log.i(DEBUG_MAIN, mQueryLocations.toString());
         }
     }
@@ -340,7 +338,7 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public void requestListUpdate() {
         if(mQueryLocations != null && !mQueryLocations.isEmpty()) {
-            mTrackingFragment.setListAdapter(mQueryLocations);
+            mTrackingFragment.setLocations(mQueryLocations);
         } else {
             Poptart.display(this,"No Data to display", 2);
         }

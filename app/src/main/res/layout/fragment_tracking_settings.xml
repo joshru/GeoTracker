@@ -203,14 +203,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
-            <ListView
-                android:layout_width="fill_parent"
-                android:layout_height="500dp"
-                android:id="@+id/list_location_listview"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="0dp"
-                android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationListText"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/pip_light_neon" />
 
             <ImageView
                 android:layout_width="fill_parent"

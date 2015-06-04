@@ -89,6 +89,8 @@ public class TrackingFragment extends Fragment {
     /** Current context*/
     private TabInterface mMainActivity;
 
+    private TextView mList;
+
     /**
      * year/month/day/hour/minute
      */
@@ -124,8 +126,9 @@ public class TrackingFragment extends Fragment {
         mStartTime = (TextView) rootView.findViewById(R.id.f_location_time_text_start);
         mEndTime = (TextView) rootView.findViewById(R.id.f_location_time_text_end);
         mGetDataButton = (Button) rootView.findViewById(R.id.f_location_get_Data);
-        mLocationList = (ListView) rootView.findViewById(R.id.list_location_listview);
-        mLocationList.setScrollContainer(false);
+
+        mList = (TextView) rootView.findViewById(R.id.locationListText);
+
 
         //GET DATA ONCLICK LISTENER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mGetDataButton.setOnClickListener(new View.OnClickListener() {
@@ -244,7 +247,7 @@ public class TrackingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMainActivity.requestListUpdate();
-//        updateRangeDisplay();
+        updateRangeDisplay();
     }
 
     /**
@@ -254,7 +257,8 @@ public class TrackingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//        updateRangeDisplay();
+        if (mStartDate != null && mStartTime != null && mEndDate != null && mEndTime != null)
+            updateRangeDisplay();
         try {
             mMainActivity = (TabInterface) activity;
         } catch (Exception e) {
@@ -265,12 +269,14 @@ public class TrackingFragment extends Fragment {
 
 
     public void updateRangeDisplay() {
-        mGlobalStartDate = mMainActivity.getUserRangeStart();
-        mGlobalEndDate = mMainActivity.getUserRangeEnd();
-        if(!mStartDate.getText().toString().isEmpty() &&        /* Start date not empty. */
-                !mEndDate.getText().toString().isEmpty() &&     /* End date not empty. */
-                !mStartTime.getText().toString().isEmpty() &&   /* Start time not empty. */
-                !mEndTime.getText().toString().isEmpty()) {     /* End time not empty. */
+
+//        if(!mStartDate.getText().toString().isEmpty() &&        /* Start date not empty. */
+//                !mEndDate.getText().toString().isEmpty() &&     /* End date not empty. */
+//                !mStartTime.getText().toString().isEmpty() &&   /* Start time not empty. */
+//                !mEndTime.getText().toString().isEmpty()) {     /* End time not empty. */
+
+            mGlobalStartDate = mMainActivity.getUserRangeStart();
+            mGlobalEndDate = mMainActivity.getUserRangeEnd();
 
             Calendar start = Calendar.getInstance();            /* Start Date / TIME*/
             start.set(mGlobalStartDate[0],                      /* Start year. */
@@ -285,27 +291,25 @@ public class TrackingFragment extends Fragment {
                     mGlobalEndDate[2],                          /* End day. */
                     mGlobalEndDate[3],                          /* End hour. */
                     mGlobalEndDate[4]);                         /* End minute. */
-        }
+//        }
 
     }
 
-    public void setListAdapter(ArrayList<Location> locationList) {
+    public void setLocations(ArrayList<Location> locationList) {
         Log.i("RANGE DATA", "Location Data sent to Fragment");
 
-        ArrayList<String> stringList = new ArrayList<>();   /* List to hold locations strings. */
+        StringBuilder sb = new StringBuilder();
 
         // Parse the locations into a list of Strings
         for(Location l : locationList) {
-            String longit = l.getLongitude() + ", Lat: ";
-            String latit = l.getLatitude() + "";
+            String longit = l.getLongitude() + "";
+            String latit = l.getLatitude() + ", Long: ";
 
             Date date = new Date(l.getTime() * 1000);
             DateFormat df = new SimpleDateFormat("EE, MM/dd, yyyy HH:mm a");
-            stringList.add(df.format(date) + ", Long: " + longit + latit);
+            sb.append(df.format(date) + ", Lat: " + latit + longit + "\n\n");
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(),
-                R.layout.list_row, stringList);
-        mLocationList.setAdapter(adapter);
+        mList.setText(sb.toString());
     }
 
     private boolean hasNetworkAccess() {
