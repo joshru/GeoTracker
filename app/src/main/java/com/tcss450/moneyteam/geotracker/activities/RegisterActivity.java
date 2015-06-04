@@ -169,25 +169,25 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus)mEmail.onEditorAction(EditorInfo.IME_ACTION_NEXT);
+                if (!hasFocus)mEmail.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }
         });
         mPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) mPassword.onEditorAction(EditorInfo.IME_ACTION_NEXT);
+                if(!hasFocus) mPassword.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }
         });
         mRepeatPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus)mRepeatPassword.onEditorAction(EditorInfo.IME_ACTION_NEXT);
+                if (!hasFocus)mRepeatPassword.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }
         });
         mSecurityAnswer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus)mSecurityAnswer.onEditorAction(EditorInfo.IME_ACTION_NEXT);
+                if (!hasFocus)mSecurityAnswer.onEditorAction(EditorInfo.IME_ACTION_DONE);
             }
         });
     }
