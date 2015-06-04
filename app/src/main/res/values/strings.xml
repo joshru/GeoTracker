@@ -18,7 +18,7 @@
 
     <!-- REGISTER ACTIVITY -->
     <string name="tos_checkbox_text">Please read and accept Terms of Service here.</string>
-    <string name="register_succesful">Registration Successful</string>
+    <string name="register_successful">Registration Successful</string>
     <string name="register_pass_reset">Password Reset</string>
     <string name="register_fill_w_question">FILL WITH QUESTION</string>
     <string name="register_security_answer">Security Answer</string>
@@ -32,10 +32,16 @@
     <string name="register_register">Register</string>
     <string name="registration_progress">Registration Progress</string>
     <string name="register_zero">0</string>
+    <string name="register_config_email">restore_email_key</string>
+    <string name="register_config_password">restore_pw_key</string>
+    <string name="register_config_repeat">restore_repeat_key</string>
+    <string name="register_config_spinner">spinner position</string>
+    <string name="register_config_answer">sec_ans_key</string>
+    <string name="register_checkbox_bool">TOS_key</string>
 
 
     <!-- LOGIN ACTIVITY -->
-    <string name="pasphrase_label">Passphrase</string>
+    <string name="passphrase_label">Passphrase</string>
     <string name="email_label">Email</string>
     <string name="email_example_label">example@email.com</string>
     <string name="passphrase_example_label">********</string>
@@ -45,6 +51,8 @@
     <string name="login_no_device_user">No current device user</string>
     <string name="login_forgot_pass">You forgot it, didn\'t you?</string>
     <string name="login_forgot_pass_label">Forgot passphrase? Recover it here.</string>
+    <string name="save_instance_email_key">save email key</string>
+    <string name="save_instance_pass_key">save passphrase key</string>
 
 
     <!-- MAIN ACTIVITY -->

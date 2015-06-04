@@ -1,16 +1,11 @@
 package com.tcss450.moneyteam.geotracker.fragments;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,20 +23,15 @@ import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
-import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 
-import java.security.spec.ECField;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Activity for handling logic inside the tracking settings fragment.
@@ -113,7 +103,8 @@ public class TrackingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        setRetainInstance(true);
+        setRetainInstance(true); //may not be necessary
+
         //GET REFERENCE TO ROOTVIEW AND INFLATE FRAGMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         rootView = inflater.inflate(R.layout.fragment_tracking_settings, container, false);
 

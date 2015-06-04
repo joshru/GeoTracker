@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -130,16 +131,18 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         mTermsCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckBox myCheckbox = (CheckBox)v;
-                if(myCheckbox.isChecked()) {
+                CheckBox myCheckbox = (CheckBox) v;
+                if (myCheckbox.isChecked()) {
                     progressArr[4] = 1;
                     mEnterListener.set();
-                }else if(!myCheckbox.isChecked()){
+                } else {
                     progressArr[4] = 0;
                     mEnterListener.set();
                 }
             }
         });
+
+        setFocusListeners(); //experimenting with setting focus changed listeners.
 
         //SET EMAIL PROGRESS IF PASSED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if(userEmail != null && Authenticator.emailFormatCheck(userEmail)) {
@@ -153,8 +156,40 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mSecuritySpinner.setAdapter(adapter);
+      //
 
+        Log.d("REGISTERYUNOWORK", "RegisterActivity created.");
+    }
 
+    /**
+     * Assigns focus change listeners to components so the progress bar will
+     * update without needing to hit the enter key.
+     */
+    private void setFocusListeners() {
+        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)mEmail.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        });
+        mPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) mPassword.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        });
+        mRepeatPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)mRepeatPassword.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        });
+        mSecurityAnswer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)mSecurityAnswer.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            }
+        });
     }
 
     @Override
@@ -200,7 +235,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     /**
      * Gets the agreement from the webservice and displays it
-     * @param event
+     * @param event the agreement wrapper event
      */
     public void onEventMainThread(WebServiceHelper.AgreementEvent event) {
         Log.d("AGREEMENTEVENTRECEIVED", "agreement arrived.");
@@ -244,23 +279,23 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         } else if (!validEmail) {
 
             Poptart.display(this, "Please input a valid email.", Toast.LENGTH_SHORT);
-        } else if (validEmail && !validPass) {
+        } else if (!validPass) {
             Poptart.display(this, "Invalid password format.", Toast.LENGTH_SHORT);
-        } else if  (validEmail && validPass && !validRepeat) {
+        } else if  (!validRepeat) {
             Poptart.display(this, "Passwords do not match.", Toast.LENGTH_SHORT);
-        } else if (validEmail && validPass && validRepeat && ! validQuestionResponse) {
+        } else if (!validQuestionResponse) {
             Poptart.display(this, "Please input a security answer.", Toast.LENGTH_SHORT);
-        } else if (validEmail && validPass && validRepeat
-                && validQuestionResponse && !mTermsCheckBox.isChecked()) {
+        } else {
             Poptart.display(this, "Please accept the terms of service.", Toast.LENGTH_SHORT);
         }
 
         mRegisterButton.startAnimation(animAlpha);
 
     }
-    //TODO do we need this?
+
     /**
      * Currently unimplemented.
+     * needs to be overriden to satisfy the interface
      * @param v the view
      * @param event the motion event
      * @return true
@@ -268,6 +303,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         //TODO update progress bar when views lose focus.
+
+
         return true;
     }
 
@@ -322,7 +359,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                         break;
                     //REGISTER REPEAT PASSWORD UPDATE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     case R.id.register_repeat_password:
-                        if (progressArr[1] == 1 &&
+                        if ((progressArr[1] == 1) &&
                                 mRepeatPassword.getText().toString().equals(mPassword.getText().toString())) {
                             progressArr[2] = 1;
                         } else if (progressArr[1] == 0
@@ -380,14 +417,58 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             //CALL ANIMATION/SET ICON~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             mProgressBarIcon.startAnimation(animAlpha);
             mProgressBar.startAnimation(animAlpha);
+            //All they did was change the name of the method to make this deprecated
+            //no use in changing target api for it
             mProgressBar.setBackgroundDrawable(getResources().getDrawable(progress));
             mProgressBarIcon.setBackgroundDrawable(getResources().getDrawable(icon));
         }
     }
 
+
+
     public void setLoginStatus(String loginStatus) {
         myPreferences.edit()
                 .putString(getString(R.string.logged_in_activity), loginStatus)
                 .apply();
+    }
+
+    /**
+     * Saves all user's choices for configuration changes.
+     * @param outState bundle to store args
+     */
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(getString(R.string.register_config_email),
+                mEmail.getText().toString());
+        outState.putString(getString(R.string.register_config_password),
+                mPassword.getText().toString());
+
+
+        outState.putString(getString(R.string.register_config_repeat),
+                mRepeatPassword.getText().toString());
+        outState.putInt(getString(R.string.register_config_spinner),
+                mSecuritySpinner.getSelectedItemPosition());
+        outState.putString(getString(R.string.register_config_answer),
+                mSecurityAnswer.getText().toString());
+        outState.putBoolean(getString(R.string.register_checkbox_bool
+        ), mTermsCheckBox.isChecked());
+
+
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * Restores user input on configuration change.
+     * @param savedInstanceState bundle to retrieve args
+     */
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mEmail.setText(savedInstanceState.getString(getString(R.string.register_config_email), ""));
+        mPassword.setText(savedInstanceState.getString(getString(R.string.register_config_password), ""));
+        mRepeatPassword.setText(savedInstanceState.getString(getString(R.string.register_config_repeat), ""));
+        mSecuritySpinner.setSelection(savedInstanceState.getInt(getString(R.string.register_config_spinner), 0));
+        mSecurityAnswer.setText(savedInstanceState.getString(getString(R.string.register_config_answer), ""));
+        mTermsCheckBox.setChecked(savedInstanceState.getBoolean(getString(R.string.register_checkbox_bool), false));
     }
 }
