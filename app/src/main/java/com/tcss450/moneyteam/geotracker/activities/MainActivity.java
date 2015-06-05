@@ -380,6 +380,7 @@ public class MainActivity extends Activity implements TabInterface {
                .putString(getString(R.string.logged_in_activity), loginStatus)
                .apply();
     }
+
 }
 
 
