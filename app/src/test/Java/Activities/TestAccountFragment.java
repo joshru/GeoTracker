@@ -240,7 +240,7 @@ public class TestAccountFragment {
         acctDetailsTitle       = (TextView)mActivity.findViewById(R.id.textView12);
         emailLabel             = (TextView) mActivity.findViewById(R.id.textView15);
         userEmailLabel         = (TextView) mActivity.findViewById(R.id.f_account_email);
-        emailUnderline         = (ImageView) mActivity.findViewById(R.id.f_email_line);
+     //   emailUnderline         = (ImageView) mActivity.findViewById(R.id.f_email_line);
         locationTrackingLabel  = (TextView)mActivity.findViewById(R.id.textView16);
         trackingToggleButton   = (ToggleButton) mActivity.findViewById(R.id.toggleButton);
         trackingSliderLabel    = (TextView)mActivity.findViewById(R.id.textView18);

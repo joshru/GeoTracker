@@ -292,6 +292,7 @@ public class MainActivity extends Activity implements TabInterface {
             if(mLocationBool) {
                 LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
             }
+            savePreferences();
         }
     }
 
@@ -308,6 +309,8 @@ public class MainActivity extends Activity implements TabInterface {
         WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
 
         Log.d(MAINACTIVITY_TEST_TAG, "Location tracking enabled");
+        savePreferences();
+
 
     }
 
@@ -325,6 +328,8 @@ public class MainActivity extends Activity implements TabInterface {
             Log.d(MAINACTIVITY_TEST_TAG, "Push interval updated.");
             WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
         }
+        savePreferences();
+
     }
 
     private void setLoginBool(boolean b) {

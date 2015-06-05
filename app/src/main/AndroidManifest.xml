@@ -95,7 +95,7 @@
 
         <receiver
             android:name=".receivers.NetworkStatusReceiver"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
