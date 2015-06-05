@@ -26,7 +26,8 @@
             android:text="@string/account_details_title"
             android:id="@+id/textView12"
             android:layout_centerHorizontal="true"
-            android:textColor="#ff11f97c" />
+            android:textColor="#ff11f97c"
+            android:layout_alignTop="@+id/imageView6" />
 
     </RelativeLayout>
 

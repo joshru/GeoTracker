@@ -42,7 +42,7 @@ public class PipTabListener implements ActionBar.TabListener {
      * @param ft the fragment transaction
      */
     @Override
-    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    public void onTabUnselected(Tab tab, FragmentTransaction ft){
         ft.remove(mFragment);
     }
 
