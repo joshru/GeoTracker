@@ -147,7 +147,7 @@ public class AccountFragment extends Fragment {
         mEmailLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView lineView = (ImageView) getActivity().findViewById(R.id.f_email_line);
+                RelativeLayout lineView = (RelativeLayout) getActivity().findViewById(R.id.f_email_layout);
                 TextView answer = (TextView) getActivity().findViewById(R.id.f_account_email);
                 ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setDuration(700);

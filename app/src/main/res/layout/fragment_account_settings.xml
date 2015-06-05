@@ -35,7 +35,7 @@
         android:id="@+id/f_email_layout"
         android:background="@drawable/edit_text_gradient_inverse"
         android:layout_margin="10dp"
-        android:padding="5dp">
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/edit_text_gradient_inverse"
-        android:padding="5dp">
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/edit_text_gradient_inverse"
-        android:padding="5dp">
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/edit_text_gradient_inverse"
-        android:padding="5dp">
+        android:padding="8dp">
 
         <Spinner
             android:layout_width="wrap_content"
