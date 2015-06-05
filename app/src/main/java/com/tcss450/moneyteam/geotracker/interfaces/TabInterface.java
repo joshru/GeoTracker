@@ -85,6 +85,15 @@ public interface TabInterface {
     int[] getUserRangeEnd();
 
     void setUserRange(final int[] start, final int[] end);
+
+    void setPrevStartDate(int[] day);
+    void setPrevEndDate(int[] date);
+    void setPrevStartTime(int [] time);
+    void setPrevEndTime(int[] time);
+
+    int[] getPrevStartDate();
+    int[] getPrevEndDate();
+
 }
 
 

@@ -33,6 +33,7 @@ import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -356,6 +357,9 @@ public class TrackingFragment extends Fragment {
                 mGlobalStartDate[0] = year;
                 mGlobalStartDate[1] = monthOfYear;
                 mGlobalStartDate[2] = dayOfMonth;
+
+                mMainActivity.setPrevStartDate(Arrays.copyOfRange(mGlobalStartDate, 0, 3));
+
             } else {
                 mGlobalEndDate[0] = year;
                 mGlobalEndDate[1] = monthOfYear;

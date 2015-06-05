@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements TabInterface {
 
     public static final String MAINACTIVITY_TEST_TAG = "MAINACTIVITY.JUNIT.TAG";
 
-    /** Strings used for logcat debugging*/
+    /** String used for logcat debugging*/
     private static final String DEBUG_MAIN = "DEBUG MAIN";
     private static final String SAVE = "SAVE";
     private static final String LOAD = "LOAD";
@@ -95,6 +95,21 @@ public class MainActivity extends Activity implements TabInterface {
     /** Shared preferences object*/
     private SharedPreferences myPreferences;
     private Fragment mGlobalFragment;
+
+    //-----------------------------------------------
+    //State management
+    //-----------------------------------------------
+    /**
+     * keep track of which tab is selected
+     */
+    private int mSelectedTab;
+
+    private int[] mPrevStartDate;
+    private int[] mPrevStartTime;
+    private int[] mPrevEndDate;
+    private int[] mPrevEndTime;
+
+
 
     /**
      * Instantiates all fields for the Main Activity, populates tab layout, and sets listeners.
@@ -187,6 +202,7 @@ public class MainActivity extends Activity implements TabInterface {
         edit.putInt(getString(R.string.key_location_poll_timer), mLocationTimer);
         edit.putInt(getString(R.string.saved_spinner_position), mSpinnerPos);
         edit.putBoolean(getString(R.string.logged_in_boolean), mLoginBool);
+
         edit.apply();
 
         Log.i(SAVE, "Email: " + mUserEmail +
@@ -196,7 +212,38 @@ public class MainActivity extends Activity implements TabInterface {
                 " Logged In: " + mLoginBool);
     }
 
-     /**
+    /**
+     * Calls super onSaveInstanceState
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //FragmentManager manager = getFragmentManager();
+       // getActionBar().tab
+      //  manager.putFragment(outState, STORED_FRAGMENT, mGlobalFragment);
+        outState.putInt("STORED_POS", mSelectedTab);
+        Log.i("TAB LISTENER", "Fragment saved: " + mGlobalFragment.toString());
+
+    }
+
+    /**
+     * Calls super onRestoreInstanceState
+     * @param inState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle inState) {
+        super.onRestoreInstanceState(inState);
+
+
+        if (inState != null) {
+            getActionBar().setSelectedNavigationItem(inState.getInt("STORED_POS"));
+        }
+
+
+    }
+
+    /**
      * Overides the return to home as a call to logout the user.
      * @param item
      * @return
@@ -261,12 +308,14 @@ public class MainActivity extends Activity implements TabInterface {
         mQueryLocations = theLocations;
     }
 
+    /**
+     * can get rid of me
+     * @param current dsadf
+     */
     @Override
     public void setGlobalFragment(Fragment current) {
         mGlobalFragment =  current;
     }
-
-
 
     @Override
     public ArrayList<Location> getLocations() {
@@ -302,7 +351,41 @@ public class MainActivity extends Activity implements TabInterface {
             savePreferences();
         }
     }
+    //--------------------------------------------------------------
+    // Storing data for config changes.
+    @Override
+    public void setPrevStartDate(int[] day) {
+        mPrevStartDate = day;
 
+    }
+    @Override
+    public void setPrevEndDate(int[] date) {
+        mPrevEndDate = date;
+
+    }
+
+    @Override
+    public void setPrevStartTime(int[] time) {
+
+    }
+
+    @Override
+    public void setPrevEndTime(int[] time) {
+
+    }
+
+    @Override
+    public int[] getPrevStartDate() {
+        return mPrevStartDate;
+    }
+
+    @Override
+    public int[] getPrevEndDate() {
+        return mPrevEndDate;
+    }
+
+
+    //----------------------------------------------------------------
     @Override
     public boolean getLocationBool() {
         return mLocationBool;
@@ -358,7 +441,8 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public void requestListUpdate() {
         if(mQueryLocations != null && !mQueryLocations.isEmpty()) {
-            mTrackingFragment.setLocations(mQueryLocations);
+            //TODO fix this
+            //mTrackingFragment.setListAdapter(mQueryLocations);
         } else {
             Poptart.display(this,"No Data to display", 2);
         }
@@ -434,7 +518,16 @@ public class MainActivity extends Activity implements TabInterface {
          */
         @Override
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
-            ft.replace(R.id.fragment_container, mFragment);
+            mGlobalFragment = mFragment;
+            //int current;
+            Log.i("TAB LISTENER", "Fragment selected: " + mGlobalFragment.toString());
+
+            mSelectedTab = getActionBar().getSelectedNavigationIndex();
+
+
+           // ft.replace(R.id.fragment_container, mFragment);
+            ft.replace(R.id.fragment_container, mGlobalFragment);
+
         }
 
         /**
@@ -457,6 +550,7 @@ public class MainActivity extends Activity implements TabInterface {
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
         }
     }
+
 }
 
 
