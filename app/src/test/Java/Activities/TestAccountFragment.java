@@ -17,6 +17,8 @@ import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.activities.MainActivity;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 
+import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +30,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowDrawable;
 import org.robolectric.shadows.ShadowLog;
+import org.robolectric.shadows.ShadowToast;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -57,6 +60,7 @@ public class TestAccountFragment {
     private TextView      serverIntervalLabel;
     private Spinner       serverIntervalSpinner;
     private Button        changePasswordButton;
+    private Button        forcePushButton;
 
 
 
@@ -116,6 +120,7 @@ public class TestAccountFragment {
         assertNotNull(serverIntervalLabel  );
         assertNotNull(serverIntervalSpinner);
         assertNotNull(changePasswordButton );
+        assertNotNull(forcePushButton);
 
     }
 
@@ -158,7 +163,7 @@ public class TestAccountFragment {
         trackingSlider.setProgress(5);
 
         assertLogged(Log.DEBUG, AccountFragment.ACCOUNT_TEST_LOG,
-                "Tracking frequency changed to: 5", null);
+                "Seekbar value changed to: 5", null);
         assertEquals("Tracking slider should be updated",
                 5, trackingSlider.getProgress());
     }
@@ -223,7 +228,17 @@ public class TestAccountFragment {
 
 
     }
+    @Test
+    public void testPushToDB() {
+        forcePushButton.performClick();
+        Assert.assertTrue(ShadowToast.showedCustomToast("Data pushed to server",
+                R.id.custom_toast_text));
+        ShadowApplication.runBackgroundTasks();
+        assertLogged(Log.DEBUG, "DBDELETE",
+                "Database deleted. Points pushed to server.", null);
 
+
+    }
 
     /**
      * Ties all of the fragment components to instance fields.
@@ -233,7 +248,6 @@ public class TestAccountFragment {
         acctDetailsTitle       = (TextView)mActivity.findViewById(R.id.textView12);
         emailLabel             = (TextView) mActivity.findViewById(R.id.textView15);
         userEmailLabel         = (TextView) mActivity.findViewById(R.id.f_account_email);
-       // emailUnderline         = (ImageView) mActivity.findViewById(R.id.f_email_line);
         locationTrackingLabel  = (TextView)mActivity.findViewById(R.id.textView16);
         trackingToggleButton   = (ToggleButton) mActivity.findViewById(R.id.toggleButton);
         trackingSliderLabel    = (TextView)mActivity.findViewById(R.id.textView18);
@@ -242,6 +256,8 @@ public class TestAccountFragment {
         serverIntervalLabel    = (TextView)mActivity.findViewById(R.id.textView9);
         serverIntervalSpinner  = (Spinner)mActivity.findViewById(R.id.server_spinner);
         changePasswordButton   = (Button)mActivity.findViewById(R.id.account_password_reset);
+        forcePushButton        = (Button)mActivity.findViewById(R.id.f_db_button);
+
 
     }
 

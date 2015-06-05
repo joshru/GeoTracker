@@ -7,11 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +18,6 @@ import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -31,8 +27,8 @@ import android.widget.ToggleButton;
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
-import com.tcss450.moneyteam.geotracker.receivers.BootLoader;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
+import com.tcss450.moneyteam.geotracker.receivers.BootLoader;
 import com.tcss450.moneyteam.geotracker.receivers.NetworkStatusReceiver;
 
 /**
@@ -148,7 +144,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
                 progress = progressValue;
-                Log.d(ACCOUNT_TEST_LOG, "Seekbar Value changed to: " + progressValue);
+                Log.d(ACCOUNT_TEST_LOG, "Seekbar value changed to: " + progressValue);
                 updateLocationTimer(progressValue * 3);
             }
 
