@@ -53,11 +53,12 @@ public class LocationIntentService extends IntentService {
         LocationManager locationManager = (LocationManager) this.getSystemService(
                 Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
-     //   Looper.myLooper().
+        Looper.loop();
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
                 locationListener, Looper.myLooper());
-        Looper.loop();
-
+        if (Looper.myLooper() != null) {
+            Looper.myLooper().quit();
+        }
     }
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -136,9 +137,9 @@ public class LocationIntentService extends IntentService {
             } else {
                 Log.i(LOCATION_SERVICE_TAG, "Repeat location discarded.");
             }
-            if (Looper.myLooper() != null) {
-                Looper.myLooper().quit();
-            }
+//            if (Looper.myLooper() != null) {
+//                Looper.myLooper().quit();
+//            }
 
 
         }

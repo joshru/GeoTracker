@@ -68,7 +68,5 @@ public class NetworkStatusReceiver extends BroadcastReceiver {
 
         }
 
-
-
     }
 }
