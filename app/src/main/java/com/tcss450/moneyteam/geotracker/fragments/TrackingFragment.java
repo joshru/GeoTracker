@@ -297,12 +297,16 @@ public class TrackingFragment extends Fragment {
 
     }
 
+    /**
+     * Displays locations from a passed list of locations
+     * @param locationList the list of locations
+     */
     public void setLocations(ArrayList<Location> locationList) {
         Log.i("RANGE DATA", "Location Data sent to Fragment");
 
         StringBuilder sb = new StringBuilder();
 
-        // Parse the locations into a list of Strings
+        // Parse the locations and add to string builder
         for(Location l : locationList) {
             String longit = l.getLongitude() + "";
             String latit = l.getLatitude() + ", Long: ";
@@ -314,6 +318,10 @@ public class TrackingFragment extends Fragment {
         mList.setText(sb.toString());
     }
 
+    /**
+     * Checks if the device has mobile or wifi connection
+     * @return true if it found any network connection, false otherwise
+     */
     private boolean hasNetworkAccess() {
         boolean haveWifi = false;
         boolean haveMobile = false;
@@ -337,9 +345,9 @@ public class TrackingFragment extends Fragment {
         return haveWifi || haveMobile;
     }
 
-        /**
-         * Custom date listener inner class for listening for selected start and end dates
-         */
+    /**
+    * Custom date listener inner class for listening for selected start and end dates
+    */
     private class customDateListener implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

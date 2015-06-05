@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements TabInterface {
 
     public static final String MAINACTIVITY_TEST_TAG = "MAINACTIVITY.JUNIT.TAG";
 
-    /** String used for logcat debugging*/
+    /** Strings used for logcat debugging*/
     private static final String DEBUG_MAIN = "DEBUG MAIN";
     private static final String SAVE = "SAVE";
     private static final String LOAD = "LOAD";
@@ -70,17 +70,29 @@ public class MainActivity extends Activity implements TabInterface {
     /** Collection of location objects*/
     private ArrayList<Location> mQueryLocations;
 
+    /** Collections of start and end dates and times*/
     private int[] mUserRangeStart;
-
     private int[] mUserRangeEnd;
 
     /** The gesture detector object*/
     private GestureDetectorCompat mDetector;
+
+    /** The user's email*/
     private String mUserEmail;
+
+    /** Boolean for if location tracking is enabled or not*/
     private boolean mLocationBool;
+
+    /** Interval for pushing locations*/
     private int mLocationTimer;
+
+    /** The selected position in the interval spinner*/
     private int mSpinnerPos;
+
+    /** User is logged in boolean*/
     private boolean mLoginBool;
+
+    /** Shared preferences object*/
     private SharedPreferences myPreferences;
     private Fragment mGlobalFragment;
 
@@ -143,6 +155,9 @@ public class MainActivity extends Activity implements TabInterface {
             actionBar.addTab(mMapTab);
     }
 
+    /**
+     * Load saved information from shared preferences
+     */
     private void loadSharedPreferences() {
         Log.i("LOAD", "Preferences Loaded in Main");
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
@@ -161,6 +176,9 @@ public class MainActivity extends Activity implements TabInterface {
 
     }
 
+    /**
+     * Save user options in shared preferences
+     */
     private void savePreferences() {
         Log.i("SAVE", "Preferences Saved in Main");
         SharedPreferences.Editor edit = myPreferences.edit();
@@ -169,7 +187,6 @@ public class MainActivity extends Activity implements TabInterface {
         edit.putInt(getString(R.string.key_location_poll_timer), mLocationTimer);
         edit.putInt(getString(R.string.saved_spinner_position), mSpinnerPos);
         edit.putBoolean(getString(R.string.logged_in_boolean), mLoginBool);
-
         edit.apply();
 
         Log.i(SAVE, "Email: " + mUserEmail +
@@ -355,10 +372,18 @@ public class MainActivity extends Activity implements TabInterface {
 
     }
 
+    /**
+     * Sets the boolean after the user logs in
+     * @param b the login status boolean
+     */
     private void setLoginBool(boolean b) {
         mLoginBool = b;
     }
 
+    /**
+     * Returns the login status of the user
+     * @return true if user logged in, false otherwise
+     */
     private boolean getLoginBool() {
         return mLocationBool;
     }
@@ -372,6 +397,9 @@ public class MainActivity extends Activity implements TabInterface {
         }
     }
 
+    /**
+     * Fills start and end time arrays with current date to prevent NPEs
+     */
     public void fillStartEnd() {
         final Calendar c = Calendar.getInstance();
         mUserRangeStart[0] = c.get(Calendar.YEAR);
@@ -403,6 +431,10 @@ public class MainActivity extends Activity implements TabInterface {
     }
 
 
+    /**
+     * Sets the login status of the user
+     * @param loginStatus the login status
+     */
     public void setLoginStatus(String loginStatus) {
        myPreferences.edit()
                .putString(getString(R.string.logged_in_activity), loginStatus)
