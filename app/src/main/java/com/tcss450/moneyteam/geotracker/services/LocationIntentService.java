@@ -5,6 +5,7 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -13,6 +14,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Looper;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
@@ -46,11 +49,17 @@ public class LocationIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(LOCATION_SERVICE_TAG, "Location Updated");
-        LocationManager locationManager = (LocationManager) this.getSystemService(
-                Context.LOCATION_SERVICE);
-        LocationListener locationListener = new MyLocationListener();
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
-                locationListener, Looper.myLooper());
+
+        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        if(manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            //Ask the user to enable GPS
+            LocationListener locationListener = new MyLocationListener();
+            manager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
+                    locationListener, Looper.myLooper());
+
+        }else {
+            Log.i(LOCATION_SERVICE_TAG, "No GPS Enabled.");
+        }
     }
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

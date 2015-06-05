@@ -46,7 +46,7 @@ public class NetworkStatusReceiver extends BroadcastReceiver {
 
             } else {
                 //start
-                locationTimer = (locationTimer <= 0) ? (1) : (locationTimer);
+                locationTimer = (locationTimer <= 0) ? (1) : (locationTimer)                ;
 
                 LocationIntentService.setServiceAlarm(context, locationTrackBool, locationTimer);
                 WebPushIntent.setServerAlarm(context, locationTrackBool, spinnerPos);

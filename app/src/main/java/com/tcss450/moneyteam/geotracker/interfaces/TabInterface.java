@@ -1,6 +1,9 @@
 package com.tcss450.moneyteam.geotracker.interfaces;
 
+
+import android.app.Fragment;
 import android.location.Location;
+
 
 import java.util.ArrayList;
 
@@ -16,6 +19,7 @@ public interface TabInterface {
      */
     void setLocations(ArrayList<Location> theLocations);
 
+    public void setGlobalFragment(Fragment current);
     /**
      * Gets the list of locations.
      *
