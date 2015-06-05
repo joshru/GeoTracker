@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -97,6 +98,36 @@ public class TrackingFragment extends Fragment {
      */
     private int[] mGlobalStartDate;
     private int[] mGlobalEndDate;
+
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        //---------------------------------------------------------
+        //Test keeping data on rotation
+        //=========================================================
+        String[] oldStart = mMainActivity.getPrevStartDate();
+        String[] oldEnd   = mMainActivity.getPrevEndDate();
+        if (oldStart[0] != null && oldStart != null && oldEnd != null && !oldStart[0].isEmpty()) {
+            mStartDate.setText(oldStart[0]);
+        }
+        if (oldStart[1] != null && !oldStart[1].isEmpty()) mStartTime.setText(oldStart[1]);
+        if (oldEnd[0] != null && !oldEnd[0].isEmpty()) mEndDate.setText(oldEnd[0]);
+        if (oldEnd[1] != null && !oldEnd[1].isEmpty()) mEndTime.setText(oldEnd[1]);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        String[] oldStart = mMainActivity.getPrevStartDate();
+        String[] oldEnd   = mMainActivity.getPrevEndDate();
+        if (oldStart[0] != null && oldStart != null && oldEnd != null && !oldStart[0].isEmpty()) {
+            mStartDate.setText(oldStart[0]);
+        }
+        if (oldStart[1] != null && !oldStart[1].isEmpty()) mStartTime.setText(oldStart[1]);
+        if (oldEnd[0] != null && !oldEnd[0].isEmpty()) mEndDate.setText(oldEnd[0]);
+        if (oldEnd[1] != null && !oldEnd[1].isEmpty()) mEndTime.setText(oldEnd[1]);
+    }
 
     /**
      * Creates the new fragment for handling tracking settings
@@ -208,18 +239,8 @@ public class TrackingFragment extends Fragment {
                 timeDialog();
             }
         });
-        //---------------------------------------------------------
-        //Test keeping data on rotation
-        //=========================================================
-  /*      String[] oldStart = mMainActivity.getPrevStartDate();
-        String[] oldEnd   = mMainActivity.getPrevEndDate();
-        if (oldStart != null && oldEnd != null && !oldStart[0].isEmpty()) {
-            mStartDate.setText(oldStart[0]);
-        }
-        if (!oldStart[1].isEmpty()) mStartTime.setText(oldStart[1]);
-        if (!oldEnd[0].isEmpty()) mEndDate.setText(oldEnd[0]);
-        if (!oldEnd[1].isEmpty()) mEndTime.setText(oldEnd[1]); */
-        
+
+
         return rootView;
     }
 

@@ -142,7 +142,7 @@ public class TestLoginActivity {                        //useful for testing a s
      */
     @Test
     public void testLoginValidCredentials() {
-        mEmailForm.setText("anemail@uw.edu"); //You thought I'd let you steal my identity, didn't you?
+        mEmailForm.setText("brandb94@uw.edu"); //You thought I'd let you steal my identity, didn't you?
         mPasswordForm.setText("password1");
 
         mLoginButton.performClick();

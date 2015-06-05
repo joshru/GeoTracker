@@ -164,7 +164,7 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         //Log.d("DELETING ENTRIES", "Deleting entries now...");
         SQLiteDatabase db = getWritableDatabase();
         db.delete(LocationTableSchema.TABLE_NAME, null, null);
-         Log.d("DBDELETE", "Database deleted.");//remove entries from local database
+         Log.d("DBDELETE", "Database deleted. Points pushed to server.");//remove entries from local database
         db.close();
 
         return success;
