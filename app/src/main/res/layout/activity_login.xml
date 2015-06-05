@@ -167,7 +167,7 @@
             android:cropToPadding="false"
             android:baselineAlignBottom="false"
             android:adjustViewBounds="false"
-            android:id="@+id/imageView3"
+            android:id="@+id/reaper"
             android:layout_marginBottom="15dp"
             android:layout_centerHorizontal="true" />
 

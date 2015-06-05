@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class LoginActivity extends FragmentActivity {
     private int mLoginTries;
     /** Relative layout of the login button.*/
     private RelativeLayout mLoginButtonLayout;
-
+    private ImageView mReaper;
 
 
     /**
@@ -73,6 +74,7 @@ public class LoginActivity extends FragmentActivity {
         mEmailText = (EditText) findViewById(R.id.email_text);
         mLoginButton = (Button)  findViewById(R.id.login_button);
         mLoginButtonLayout = (RelativeLayout) findViewById(R.id.login_button_layout);
+        mReaper = (ImageView) findViewById(R.id.reaper);
 
         //FIELD INSTANTIATION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mLoginTries = 1;
@@ -91,6 +93,13 @@ public class LoginActivity extends FragmentActivity {
             public void onClick(View v) {
                 ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
                 dialog.show(getFragmentManager(), "forgotPW");
+            }
+        });
+
+        mReaper.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Poptart.display(getApplicationContext(), "Fallout 5 Confirmed", 2);
             }
         });
 
@@ -211,6 +220,7 @@ public class LoginActivity extends FragmentActivity {
         mEmailText.setText(savedInstanceState.getString(getString(R.string.saved_email_key), ""));
         mPassText.setText(savedInstanceState.getString(getString(R.string.saved_pass_key), ""));
     }
+
 }
 
 

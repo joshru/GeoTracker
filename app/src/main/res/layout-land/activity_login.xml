@@ -26,7 +26,7 @@
             android:textSize="10dp"
             android:layout_gravity="bottom"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/imageView3" />
+            android:layout_below="@+id/reaper" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -62,7 +62,7 @@
             android:cropToPadding="false"
             android:baselineAlignBottom="false"
             android:adjustViewBounds="false"
-            android:id="@+id/imageView3"
+            android:id="@+id/reaper"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp" />
