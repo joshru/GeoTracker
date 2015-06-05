@@ -30,6 +30,7 @@ import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
+import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.receivers.BootLoader;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import com.tcss450.moneyteam.geotracker.receivers.NetworkStatusReceiver;
@@ -125,6 +126,7 @@ public class AccountFragment extends Fragment {
         mSyncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Poptart.display(rootView.getContext(), "Data pushed to server", 3);
                 Log.i("ACCOUNT FRAGMENT", "Synced to Server.");
                 LocationDBHelper mDB = new LocationDBHelper(rootView.getContext());
                 mDB.pushPointsToServer();
