@@ -144,8 +144,6 @@ public class AccountFragment extends Fragment {
             @Override
             public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
                 progress = progressValue;
-                Log.d(ACCOUNT_TEST_LOG, "Tracking frequency changed to: " + progressValue);
-
             }
 
             @Override
@@ -159,6 +157,8 @@ public class AccountFragment extends Fragment {
                     minutesPolling = progress * 3;
                 }
                 updateLocationTimer(minutesPolling);
+                Log.d(ACCOUNT_TEST_LOG, "Tracking frequency changed to: " + minutesPolling);
+
             }
         });
 
