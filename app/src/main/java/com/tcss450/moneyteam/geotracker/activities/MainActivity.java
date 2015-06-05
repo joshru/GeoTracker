@@ -196,42 +196,7 @@ public class MainActivity extends Activity implements TabInterface {
                 " Logged In: " + mLoginBool);
     }
 
-    /**
-     * Calls super onSaveInstanceState
-     * @param outState
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        FragmentManager manager = getFragmentManager();
-        manager.putFragment(outState, STORED_FRAGMENT, mGlobalFragment);
-        Log.i("TAB LISTENER", "Fragment saved: " + mGlobalFragment.toString());
-
-    }
-
-    /**
-     * Calls super onRestoreInstanceState
-     * @param inState
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle inState) {
-        super.onRestoreInstanceState(inState);
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        if (inState != null) {
-            mGlobalFragment = (Fragment) manager.getFragment(inState, STORED_FRAGMENT);
-            Log.i("TAB LISTENER", "Fragment restored: " + mGlobalFragment.toString());
-        } else {
-            mGlobalFragment = new AccountFragment();
-            transaction.add(R.id.account_fragment, mGlobalFragment, STORED_FRAGMENT);
-            Log.i("TAB LISTENER", "Fragment restored: " + mGlobalFragment.toString());
-
-            transaction.commit();
-        }
-    }
-
-    /**
+     /**
      * Overides the return to home as a call to logout the user.
      * @param item
      * @return
@@ -300,6 +265,8 @@ public class MainActivity extends Activity implements TabInterface {
     public void setGlobalFragment(Fragment current) {
         mGlobalFragment =  current;
     }
+
+
 
     @Override
     public ArrayList<Location> getLocations() {
@@ -467,9 +434,6 @@ public class MainActivity extends Activity implements TabInterface {
          */
         @Override
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
-            //mGlobalFragment = mFragment;
-            Log.i("TAB LISTENER", "Fragment selected: " + mFragment.toString());
-
             ft.replace(R.id.fragment_container, mFragment);
         }
 
@@ -493,7 +457,6 @@ public class MainActivity extends Activity implements TabInterface {
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
         }
     }
-
 }
 
 
