@@ -7,8 +7,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +28,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.receivers.BootLoader;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
-import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
-import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
+import com.tcss450.moneyteam.geotracker.receivers.NetworkStatusReceiver;
 
 /**
  * The account settings and information fragment for main activity
@@ -75,6 +78,11 @@ public class AccountFragment extends Fragment {
     private TabInterface mMainActivity;
 
     /**
+     * Password reset button
+     */
+    private Button mSyncButton;
+
+    /**
      * Creates the account information fragment and assigns all relevant listeners
      *
      * @param inflater           the inflater
@@ -91,6 +99,7 @@ public class AccountFragment extends Fragment {
         //GET REFERENCE TO VIEW FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mUserEmailLabel = (TextView) rootView.findViewById(R.id.f_account_email);
         mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
+        mSyncButton = (Button) rootView.findViewById(R.id.f_db_button);
         mEmailLayout = (RelativeLayout) rootView.findViewById(R.id.f_email_layout);
         mSeekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
         mSeekTimeLabel = (TextView) rootView.findViewById(R.id.f_seek_time_label);
@@ -111,6 +120,15 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        mSyncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("ACCOUNT FRAGMENT", "Synced to Server.");
+                LocationDBHelper mDB = new LocationDBHelper(rootView.getContext());
+                mDB.pushPointsToServer();
+            }
+        });
+
         //TOOGLE BUTTON ONCLICK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +144,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
                 progress = progressValue;
-                Log.d(ACCOUNT_TEST_LOG, "Tracking frequency changed to: " + progressValue);
+                Log.d(ACCOUNT_TEST_LOG, "Seekbar Value changed to: " + progressValue);
 
             }
 
@@ -148,7 +166,7 @@ public class AccountFragment extends Fragment {
         mEmailLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView lineView = (ImageView) getActivity().findViewById(R.id.f_email_line);
+                RelativeLayout lineView = (RelativeLayout) getActivity().findViewById(R.id.f_email_layout);
                 TextView answer = (TextView) getActivity().findViewById(R.id.f_account_email);
                 ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
                 anim.setDuration(700);
@@ -181,7 +199,8 @@ public class AccountFragment extends Fragment {
     }
 
     private void setUpSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.service_spinner_values,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(),
+                R.array.service_spinner_values,
                 R.layout.item_spinner);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mServiceSpinner.setAdapter(adapter);
@@ -209,7 +228,8 @@ public class AccountFragment extends Fragment {
      * @param minutesPerTick
      */
     private void changeTimeLabel(final int minutesPerTick) {
-        mSeekTimeLabel.setText("Location updates will occur every: " + minutesPerTick + " minute(s)");
+        mSeekTimeLabel.setText("Location updates will occur every: "
+                + minutesPerTick + " minute(s)");
     } //END void changeTimeLabel
 
     @Override
@@ -229,10 +249,17 @@ public class AccountFragment extends Fragment {
         Log.i("TOGGLE", "Location Toggle-0ff");
         Log.d(ACCOUNT_TEST_LOG, "Location tracking toggled off.");
 
+        /*Disable the bootloader receiver*/
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(false);
         PackageManager pm = rootView.getContext().getPackageManager();
 
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+        /*Diable the network receiver*/
+
+        receiver = new ComponentName(rootView.getContext(), NetworkStatusReceiver.class);
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
@@ -251,6 +278,7 @@ public class AccountFragment extends Fragment {
         Log.d(ACCOUNT_TEST_LOG, "Location tracking toggled on.");
         Log.i("TOGGLE", "Location Toggle-0n");
 
+        /*Enable the boot loader receiver*/
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(true);
         PackageManager pm = rootView.getContext().getPackageManager();
@@ -258,6 +286,13 @@ public class AccountFragment extends Fragment {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
+
+        /*Enable the network receiver*/
+        receiver = new ComponentName(rootView.getContext(), NetworkStatusReceiver.class);
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+
 
         //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setChecked(true);

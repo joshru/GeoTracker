@@ -1,12 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@drawable/pip_background"
-    android:minHeight="20dp"
-    android:minWidth="40dp"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -16,8 +17,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView6"
             android:background="@drawable/pip_title_hook"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_margin="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,19 +33,10 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/f_email_layout">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/f_email_line"
-            android:background="@drawable/pip_hud_flat_bar"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/f_account_email" />
+        android:id="@+id/f_email_layout"
+        android:background="@drawable/edit_text_gradient_inverse"
+        android:layout_margin="10dp"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,8 +65,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" >
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edit_text_gradient_inverse"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,8 +82,8 @@
             android:layout_marginLeft="15dp" />
 
         <ToggleButton
-            android:layout_width="90dp"
-            android:layout_height="45dp"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
             android:text="New ToggleButton"
             android:id="@+id/toggleButton"
             android:layout_gravity="center_horizontal"
@@ -102,7 +95,8 @@
             android:background="@drawable/edit_text_gradient"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:layout_margin="5dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -110,7 +104,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_gradient_inverse"
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -137,21 +133,25 @@
             android:thumb="@drawable/thumb_drawable"
             android:paddingLeft="15dp"
             android:paddingRight="15dp" />
-    </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Location updates will occur every 1 minute"
-        android:id="@+id/f_seek_time_label"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/pip_hint_shade" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Location updates will occur every 1 minute"
+            android:id="@+id/f_seek_time_label"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/pip_hint_shade"
+            android:layout_below="@+id/seekBar"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp" >
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_text_gradient_inverse"
+        android:padding="8dp">
 
         <Spinner
             android:layout_width="wrap_content"
@@ -177,23 +177,41 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="133dp"
-        android:layout_height="47dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp">
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="150dp"
-            android:layout_height="85dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:text="@string/account_reset_password_button"
             android:id="@+id/account_password_reset"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:background="@drawable/edit_text_gradient"
+            android:textColor="@color/pip_light_neon"
+            android:textSize="13sp"
+            android:layout_alignParentStart="false"
+            android:layout_toLeftOf="@+id/f_db_button"
+            android:layout_margin="5dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Sync Data To Server"
+            android:id="@+id/f_db_button"
+            android:layout_alignParentRight="false"
             android:layout_alignParentEnd="true"
             android:background="@drawable/edit_text_gradient"
             android:textColor="@color/pip_light_neon"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp" />
 
     </RelativeLayout>
 
 </LinearLayout>
+</ScrollView>

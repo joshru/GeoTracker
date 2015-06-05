@@ -1,4 +1,4 @@
-package com.tcss450.moneyteam.geotracker.Utilities;
+package com.tcss450.moneyteam.geotracker.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,7 +20,7 @@ public class BootLoader extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("ANDROID INTENT", "BootLoader intent recieved, " + intent + " Context: " + context);
+        Log.i("ANDROID INTENT", "BootLoader intent received, " + intent + " Context: " + context);
 
         String intentAction = intent.getAction();
         SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.user_info_main_key), Context.MODE_PRIVATE);

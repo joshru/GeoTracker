@@ -331,6 +331,7 @@ public class TrackingFragment extends Fragment {
                 }
             }
         }
+        //coulda just used netInfo.isConnected()
         return haveWifi || haveMobile;
     }
 
