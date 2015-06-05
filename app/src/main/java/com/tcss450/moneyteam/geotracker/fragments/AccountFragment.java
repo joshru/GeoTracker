@@ -259,13 +259,12 @@ public class AccountFragment extends Fragment {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
-        /*Diable the network receiver*/
+        /*Disable the network receiver*/
 
         receiver = new ComponentName(rootView.getContext(), NetworkStatusReceiver.class);
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
-
         //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setChecked(false);
         mToggleButton.setTextColor(getResources().getColor(R.color.pip_hint_shade));

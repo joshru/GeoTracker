@@ -5,7 +5,6 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -14,8 +13,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Looper;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
@@ -46,24 +43,31 @@ public class LocationIntentService extends IntentService {
 
     }
 
+    /**
+     * Intent received callback. Starts the location listener.
+     * @param intent the received intent.
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(LOCATION_SERVICE_TAG, "Location Updated");
+        LocationManager locationManager = (LocationManager) this.getSystemService(
+                Context.LOCATION_SERVICE);
+        LocationListener locationListener = new MyLocationListener();
+     //   Looper.myLooper().
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
+                locationListener, Looper.myLooper());
+        Looper.loop();
 
-        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        if(manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //Ask the user to enable GPS
-            LocationListener locationListener = new MyLocationListener();
-            manager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
-                    locationListener, Looper.myLooper());
-
-        }else {
-            Log.i(LOCATION_SERVICE_TAG, "No GPS Enabled.");
-        }
     }
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    /**
+     * Starts or stops the service depending on the situation.
+     * @param context that this service affects.
+     * @param isEnabled toggle service on or off
+     * @param locationMinutes How often to poll.
+     */
     public static void setServiceAlarm(final Context context, final boolean isEnabled,
                                        final int locationMinutes) {
         mContext = context;
@@ -126,31 +130,41 @@ public class LocationIntentService extends IntentService {
                 eddy.commit();
                 LocationDBHelper myHelper = new LocationDBHelper(getApplicationContext());
                 myHelper.addLocation(location, (System.currentTimeMillis() / 1000L));
+                Log.i(LOCATION_SERVICE_TAG, "Location stored in DB.");
 
 
             } else {
                 Log.i(LOCATION_SERVICE_TAG, "Repeat location discarded.");
             }
-
+            if (Looper.myLooper() != null) {
+                Looper.myLooper().quit();
+            }
 
 
         }
+
+        //------------------------------------------------------------------------------------------
+        //Methods to satisfy the interface. We don't use these.
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onProviderDisabled(String provider) {
-            // TODO Auto-generated method stub
-
+            //nothing to do.
         }
-
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onProviderEnabled(String provider) {
-            // TODO Auto-generated method stub
-
+            //nothing to do
         }
-
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            // TODO Auto-generated method stub
-
+            //nothing to do
         }
 
     }
