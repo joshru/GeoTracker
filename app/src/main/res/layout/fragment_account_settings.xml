@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView6"
             android:background="@drawable/pip_title_hook"
-            android:layout_margin="10dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <TextView
             android:layout_width="wrap_content"

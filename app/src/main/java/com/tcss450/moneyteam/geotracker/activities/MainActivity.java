@@ -305,7 +305,7 @@ public class MainActivity extends Activity implements TabInterface {
 
     @Override
     public void setLocations(ArrayList<Location> theLocations) {
-        mQueryLocations = theLocations;
+
     }
 
     /**
