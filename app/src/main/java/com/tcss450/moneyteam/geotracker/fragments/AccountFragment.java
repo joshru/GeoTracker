@@ -42,6 +42,8 @@ import com.tcss450.moneyteam.geotracker.receivers.NetworkStatusReceiver;
  */
 public class AccountFragment extends Fragment {
 
+    public static String BUNDLE_TAG = "MAP";
+
     public static String ACCOUNT_TEST_LOG = "AccountFragment.junit.log";
 
     /**

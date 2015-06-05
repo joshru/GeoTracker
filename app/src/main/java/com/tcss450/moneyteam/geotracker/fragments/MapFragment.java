@@ -37,6 +37,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
+    public static String BUNDLE_TAG = "MAP";
     /** The Google Map view*/
     private MapView mMapView;
 

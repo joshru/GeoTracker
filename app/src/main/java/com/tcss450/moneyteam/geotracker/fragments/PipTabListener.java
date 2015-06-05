@@ -48,8 +48,8 @@ public class PipTabListener implements ActionBar.TabListener {
 
     /**
      * (Unused) Called when a tab that is already is selected is chosen again by the user
-     * @param tab
-     * @param ft
+     * @param tab the tab selected
+     * @param ft the fragment transaction
      */
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {

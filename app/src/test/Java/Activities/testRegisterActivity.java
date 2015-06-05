@@ -1,7 +1,6 @@
 package Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,15 +22,12 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.internal.Shadow;
 import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowAsyncTask;
 import org.robolectric.shadows.ShadowDrawable;
 import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 

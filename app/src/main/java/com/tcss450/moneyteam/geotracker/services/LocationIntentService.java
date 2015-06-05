@@ -43,6 +43,10 @@ public class LocationIntentService extends IntentService {
 
     }
 
+    /**
+     * Intent received callback. Starts the location listener.
+     * @param intent the received intent.
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(LOCATION_SERVICE_TAG, "Location Updated");
@@ -58,6 +62,12 @@ public class LocationIntentService extends IntentService {
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    /**
+     * Starts or stops the service depending on the situation.
+     * @param context that this service affects.
+     * @param isEnabled toggle service on or off
+     * @param locationMinutes How often to poll.
+     */
     public static void setServiceAlarm(final Context context, final boolean isEnabled,
                                        final int locationMinutes) {
         mContext = context;
@@ -132,22 +142,29 @@ public class LocationIntentService extends IntentService {
 
 
         }
+
+        //------------------------------------------------------------------------------------------
+        //Methods to satisfy the interface. We don't use these.
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onProviderDisabled(String provider) {
-            // TODO Auto-generated method stub
-
+            //nothing to do.
         }
-
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onProviderEnabled(String provider) {
-            // TODO Auto-generated method stub
-
+            //nothing to do
         }
-
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            // TODO Auto-generated method stub
-
+            //nothing to do
         }
 
     }

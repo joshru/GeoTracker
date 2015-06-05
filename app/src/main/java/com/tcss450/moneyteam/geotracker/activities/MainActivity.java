@@ -3,6 +3,8 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,6 +45,7 @@ public class MainActivity extends Activity implements TabInterface {
     private static final String DEBUG_MAIN = "DEBUG MAIN";
     private static final String SAVE = "SAVE";
     private static final String LOAD = "LOAD";
+    private static final String STORED_FRAGMENT = "Stored Fragment";
 
     /** The account setting tab*/
     private Tab mAccountSettingsTab;
@@ -79,6 +82,7 @@ public class MainActivity extends Activity implements TabInterface {
     private int mSpinnerPos;
     private boolean mLoginBool;
     private SharedPreferences myPreferences;
+    private Fragment mGlobalFragment;
 
     /**
      * Instantiates all fields for the Main Activity, populates tab layout, and sets listeners.
@@ -89,57 +93,54 @@ public class MainActivity extends Activity implements TabInterface {
     protected void onCreate(Bundle savedInstanceState) {
         //SUPER CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         super.onCreate(savedInstanceState);
-        //THIS CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        this.setContentView(R.layout.activity_main_tab);
 
-        //Get Shared pref. reference
-        myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
+            //THIS CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            this.setContentView(R.layout.activity_main_tab);
 
-        loadSharedPreferences();
-        setLoginStatus("main");
+            //Get Shared pref. reference
+            myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
 
-        //CREATE FRAGMENTS (TABS)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mAccountSettingsFragment = new AccountFragment();
-        mTrackingFragment = new TrackingFragment();
-        mMapFragment = new MapFragment();
+            loadSharedPreferences();
+            setLoginStatus("main");
 
-        //GETS ALL FRAGMENT USED SHAREDPREFERENCES ON STARTUP~~~~~~~~~~~~~~~~~~~~~~~
-        Log.i("STARTUP", "MainActivity onCreate: " + mSpinnerPos);
-        LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
-        WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
-        //WebPushIntent. setWebUploadAlarm(rootView.getContext(), true, serviceGap);
+            //CREATE FRAGMENTS (TABS)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            mAccountSettingsFragment = new AccountFragment();
+            mTrackingFragment = new TrackingFragment();
+            mMapFragment = new MapFragment();
 
-        //GET ACTION BAR AND ADJUST SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Logout");
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            //GETS ALL FRAGMENT USED SHAREDPREFERENCES ON STARTUP~~~~~~~~~~~~~~~~~~~~~~~
+            Log.i("STARTUP", "MainActivity onCreate: " + mSpinnerPos);
+            LocationIntentService.setServiceAlarm(this, mLocationBool, mLocationTimer);
+            WebPushIntent.setServerAlarm(this, mLocationBool, mSpinnerPos);
+            //WebPushIntent. setWebUploadAlarm(rootView.getContext(), true, serviceGap);
 
-        //ACCOUNT SETTINGS TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mAccountSettingsTab = actionBar.newTab();
-        mAccountSettingsTab.setIcon(getResources().getDrawable(R.drawable.pip_gains));
-        mAccountSettingsTab.setText("Account Settings");
-        mAccountSettingsTab.setTabListener(new PipTabListener(mAccountSettingsFragment));
-        actionBar.addTab(mAccountSettingsTab);
+            //GET ACTION BAR AND ADJUST SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("Logout");
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        //LOCATION TRACKING SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mTrackingTab = actionBar.newTab();
-        mTrackingTab.setIcon(getResources().getDrawable(R.drawable.pip_spy));
-        mTrackingTab.setText("Location Tracking Settings");
-        mTrackingTab.setTabListener(new PipTabListener(mTrackingFragment));
-        actionBar.addTab(mTrackingTab);
-        mUserRangeStart = new int[5];
-        mUserRangeEnd = new int[5];
-        fillStartEnd();
+            //ACCOUNT SETTINGS TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            mAccountSettingsTab = actionBar.newTab();
+            mAccountSettingsTab.setText("Account Settings");
+            mAccountSettingsTab.setTabListener(new PipTabListener(mAccountSettingsFragment));
+            actionBar.addTab(mAccountSettingsTab);
 
-        //MAP TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        mMapTab = actionBar.newTab();
-        mMapTab.setIcon(getResources().getDrawable(R.drawable.pip_map));
-        mMapTab.setText("Map");
-        mMapTab.setTabListener(new PipTabListener(mMapFragment));
-        actionBar.addTab(mMapTab);
+            //LOCATION TRACKING SETTINGS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            mTrackingTab = actionBar.newTab();
+            mTrackingTab.setText("Location Tracking Settings");
+            mTrackingTab.setTabListener(new PipTabListener(mTrackingFragment));
+            actionBar.addTab(mTrackingTab);
+            mUserRangeStart = new int[5];
+            mUserRangeEnd = new int[5];
+            fillStartEnd();
 
+            //MAP TAB~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            mMapTab = actionBar.newTab();
+            mMapTab.setText("Map");
+            mMapTab.setTabListener(new PipTabListener(mMapFragment));
+            actionBar.addTab(mMapTab);
     }
 
     private void loadSharedPreferences() {
@@ -185,15 +186,32 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        FragmentManager manager = getFragmentManager();
+        manager.putFragment(outState, STORED_FRAGMENT, mGlobalFragment);
+        Log.i("TAB LISTENER", "Fragment saved: " + mGlobalFragment.toString());
+
     }
 
     /**
      * Calls super onRestoreInstanceState
-     * @param savedInstanceState
+     * @param inState
      */
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    protected void onRestoreInstanceState(Bundle inState) {
+        super.onRestoreInstanceState(inState);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        if (inState != null) {
+            mGlobalFragment = (Fragment) manager.getFragment(inState, STORED_FRAGMENT);
+            Log.i("TAB LISTENER", "Fragment restored: " + mGlobalFragment.toString());
+        } else {
+            mGlobalFragment = new AccountFragment();
+            transaction.add(R.id.account_fragment, mGlobalFragment, STORED_FRAGMENT);
+            Log.i("TAB LISTENER", "Fragment restored: " + mGlobalFragment.toString());
+
+            transaction.commit();
+        }
     }
 
     /**
@@ -259,6 +277,11 @@ public class MainActivity extends Activity implements TabInterface {
     @Override
     public void setLocations(ArrayList<Location> theLocations) {
         mQueryLocations = theLocations;
+    }
+
+    @Override
+    public void setGlobalFragment(Fragment current) {
+        mGlobalFragment =  current;
     }
 
     @Override
@@ -384,6 +407,59 @@ public class MainActivity extends Activity implements TabInterface {
        myPreferences.edit()
                .putString(getString(R.string.logged_in_activity), loginStatus)
                .apply();
+    }
+
+    /**
+     * Actionbar listener for all tabs on inside MainActivity.
+     * @author Brandon Bell
+     * @author Alexander Cherry
+     * @author Joshua Rueschenberg
+     */
+    public class PipTabListener implements ActionBar.TabListener {
+
+        /** The fragment context.*/
+        Fragment mFragment;
+
+        /**
+         * Listener for the tab view
+         * @param fragment the fragment selected by user
+         */
+        public PipTabListener(Fragment fragment) {
+            this.mFragment = fragment;
+        }
+
+        /**
+         * Called when a tab enters the selected state
+         * @param tab the tab selected
+         * @param ft the fragment transaction
+         */
+        @Override
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            //mGlobalFragment = mFragment;
+            Log.i("TAB LISTENER", "Fragment selected: " + mFragment.toString());
+
+            ft.replace(R.id.fragment_container, mFragment);
+        }
+
+        /**
+         * Called when a tab exits the selected state
+         * @param tab the tab selected
+         * @param ft the fragment transaction
+         */
+        @Override
+        public void onTabUnselected(Tab tab, FragmentTransaction ft){
+            Log.i("TAB LISTENER", "Fragment unselected: " + mFragment.toString());
+            ft.remove(mFragment);
+        }
+
+        /**
+         * (Unused) Called when a tab that is already is selected is chosen again by the user
+         * @param tab
+         * @param ft
+         */
+        @Override
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+        }
     }
 
 }

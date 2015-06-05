@@ -44,6 +44,8 @@ import java.util.Date;
  */
 public class TrackingFragment extends Fragment {
 
+    public static String BUNDLE_TAG = "MAP";
+
     /** Local shared preferences*/
     private SharedPreferences myPreferences;
 
