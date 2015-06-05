@@ -176,22 +176,39 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="133dp"
-        android:layout_height="47dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp">
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="150dp"
-            android:layout_height="85dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:text="@string/account_reset_password_button"
             android:id="@+id/account_password_reset"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:background="@drawable/edit_text_gradient"
+            android:textColor="@color/pip_light_neon"
+            android:textSize="13sp"
+            android:layout_alignParentStart="false"
+            android:layout_toLeftOf="@+id/f_db_button"
+            android:layout_margin="5dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Backup to Database"
+            android:id="@+id/f_db_button"
+            android:layout_alignParentRight="false"
             android:layout_alignParentEnd="true"
             android:background="@drawable/edit_text_gradient"
             android:textColor="@color/pip_light_neon"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp" />
 
     </RelativeLayout>
 
