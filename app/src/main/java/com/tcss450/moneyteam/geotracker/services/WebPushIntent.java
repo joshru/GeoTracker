@@ -19,7 +19,9 @@ import java.util.Calendar;
 /**
  * Service that handles pushing the points to the server
  * at the user-defined interval.
+ * @author Brandon Bell
  * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class WebPushIntent extends IntentService {
 

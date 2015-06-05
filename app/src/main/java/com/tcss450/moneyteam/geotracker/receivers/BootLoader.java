@@ -13,8 +13,10 @@ import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
 import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
 
 /**
- * Created by Alex on 4/30/2015.
  * Starts the tracking service when the system restarts.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class BootLoader extends BroadcastReceiver {
 

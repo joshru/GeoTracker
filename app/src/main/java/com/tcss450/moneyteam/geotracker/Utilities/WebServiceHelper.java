@@ -28,7 +28,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * class used to communicate with the webserver
- * Created by Brandon on 4/29/2015.
  * @author Brandon Bell
  * @author Josh Rueschenberg
  * @author Alexander Cherry

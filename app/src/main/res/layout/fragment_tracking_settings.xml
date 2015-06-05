@@ -153,8 +153,7 @@
                     android:text="Date"
                     android:id="@+id/textView20"
                     android:layout_alignLeft="@id/f_location_date_text_end"
-                    android:textColor="@color/pip_light_neon"
-                    android:layout_below="@+id/textView23" />
+                    android:textColor="@color/pip_light_neon" />
 
                 <TextView
                     android:layout_width="wrap_content"

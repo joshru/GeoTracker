@@ -23,7 +23,9 @@ import java.util.Calendar;
 
 /**
  * Polls for user location in the background.
+ * @author Brandon Bell
  * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class LocationIntentService extends IntentService {
 

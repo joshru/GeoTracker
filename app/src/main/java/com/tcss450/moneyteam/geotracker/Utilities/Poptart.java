@@ -9,8 +9,10 @@ import android.widget.Toast;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * Created by Josh on 4/23/2015.
  * Custome implementation of a Toast that allows for custom views and durations.
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public final class Poptart {
     /**

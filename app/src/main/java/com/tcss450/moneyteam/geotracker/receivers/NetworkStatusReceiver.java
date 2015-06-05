@@ -16,6 +16,8 @@ import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
  * Receiver that listens for changes in network connectivity.
  * Will shut off
  * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public class NetworkStatusReceiver extends BroadcastReceiver {
 

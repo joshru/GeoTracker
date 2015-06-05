@@ -8,7 +8,10 @@ import android.location.Location;
 import java.util.ArrayList;
 
 /**
- * Created by Josh Rueschenberg on 5/22/2015.
+ * Interface for tab fragments
+ * @author Brandon Bell
+ * @author Alexander Cherry
+ * @author Joshua Rueschenberg
  */
 public interface TabInterface {
 
