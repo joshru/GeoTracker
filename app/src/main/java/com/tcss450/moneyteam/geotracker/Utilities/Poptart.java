@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.tcss450.moneyteam.geotracker.R;
 
 /**
- * Custome implementation of a Toast that allows for custom views and durations.
+ * Custom implementation of a Toast that allows for custom views and durations.
  * @author Brandon Bell
  * @author Alexander Cherry
  * @author Joshua Rueschenberg

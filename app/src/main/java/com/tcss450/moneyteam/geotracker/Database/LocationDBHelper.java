@@ -96,17 +96,6 @@ public class LocationDBHelper extends SQLiteOpenHelper {
         insertStatement.bindLong(6, timestamp);
 
 
-
-
-
-        /*//insert them
-        final long id = db.insert(LocationTableSchema.TABLE_NAME, null, values);//test
-
-        if (id > -1) {
-            success = true;
-            Log.d(LOG_TAG, "Insert successful");
-        }*/
-
         final long newRowID = insertStatement.executeInsert();
         if (newRowID == -1) {
             success = false;
