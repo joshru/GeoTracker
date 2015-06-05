@@ -26,10 +26,9 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.tcss450.moneyteam.geotracker.R;
-import com.tcss450.moneyteam.geotracker.Utilities.BootLoader;
+import com.tcss450.moneyteam.geotracker.receivers.BootLoader;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
-import com.tcss450.moneyteam.geotracker.services.LocationIntentService;
-import com.tcss450.moneyteam.geotracker.services.WebPushIntent;
+import com.tcss450.moneyteam.geotracker.receivers.NetworkStatusReceiver;
 
 /**
  * The account settings and information fragment for main activity
@@ -231,10 +230,17 @@ public class AccountFragment extends Fragment {
         Log.i("TOGGLE", "Location Toggle-0ff");
         Log.d(ACCOUNT_TEST_LOG, "Location tracking toggled off.");
 
+        /*Disable the bootloader receiver*/
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(false);
         PackageManager pm = rootView.getContext().getPackageManager();
 
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+        /*Diable the network receiver*/
+
+        receiver = new ComponentName(rootView.getContext(), NetworkStatusReceiver.class);
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
@@ -253,6 +259,7 @@ public class AccountFragment extends Fragment {
         Log.d(ACCOUNT_TEST_LOG, "Location tracking toggled on.");
         Log.i("TOGGLE", "Location Toggle-0n");
 
+        /*Enable the boot loader receiver*/
         ComponentName receiver = new ComponentName(rootView.getContext(), BootLoader.class);
         mMainActivity.setLocationBool(true);
         PackageManager pm = rootView.getContext().getPackageManager();
@@ -260,6 +267,13 @@ public class AccountFragment extends Fragment {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
+
+        /*Enable the network receiver*/
+        receiver = new ComponentName(rootView.getContext(), NetworkStatusReceiver.class);
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+
 
         //CHANGE TEXT COLOR AND BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mToggleButton.setChecked(true);

@@ -1,4 +1,4 @@
-package com.tcss450.moneyteam.geotracker.Utilities;
+package com.tcss450.moneyteam.geotracker.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
