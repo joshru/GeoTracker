@@ -149,11 +149,12 @@ public class AccountFragment extends Fragment {
             public void onProgressChanged(final SeekBar seekBar, final int progressValue, final boolean fromUser) {
                 progress = progressValue;
                 Log.d(ACCOUNT_TEST_LOG, "Seekbar Value changed to: " + progressValue);
-
+                updateLocationTimer(progressValue * 3);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+
             }
 
             @Override
