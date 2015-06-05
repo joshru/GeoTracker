@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -33,7 +32,6 @@ import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -210,7 +208,17 @@ public class TrackingFragment extends Fragment {
                 timeDialog();
             }
         });
-
+        //---------------------------------------------------------
+        //Test keeping data on rotation
+        //=========================================================
+        String[] oldStart = mMainActivity.getPrevStartDate();
+        String[] oldEnd   = mMainActivity.getPrevEndDate();
+        if (!oldStart[0].isEmpty()) {
+            mStartDate.setText(oldStart[0]);
+        }
+        if (!oldStart[1].isEmpty()) mStartTime.setText(oldStart[1]);
+        if (!oldEnd[0].isEmpty()) mEndDate.setText(oldEnd[0]);
+        if (!oldEnd[1].isEmpty()) mEndTime.setText(oldEnd[1]);
         
         return rootView;
     }
@@ -357,13 +365,13 @@ public class TrackingFragment extends Fragment {
                 mGlobalStartDate[0] = year;
                 mGlobalStartDate[1] = monthOfYear;
                 mGlobalStartDate[2] = dayOfMonth;
-
-                mMainActivity.setPrevStartDate(Arrays.copyOfRange(mGlobalStartDate, 0, 3));
+                mMainActivity.setPrevStartDate(activeText.getText().toString());
 
             } else {
                 mGlobalEndDate[0] = year;
                 mGlobalEndDate[1] = monthOfYear;
                 mGlobalEndDate[2] = dayOfMonth;
+                mMainActivity.setPrevEndDate(activeText.getText().toString());
             }
         }
     }
@@ -378,9 +386,11 @@ public class TrackingFragment extends Fragment {
             if(activeText.getId() == R.id.f_location_time_text_start) {
                 mGlobalStartDate[3] = hourOfDay;
                 mGlobalStartDate[4] = minute;
+                mMainActivity.setPrevStartTime(activeText.getText().toString());
             } else {
                 mGlobalEndDate[3] = hourOfDay;
                 mGlobalEndDate[4] = minute;
+                mMainActivity.setPrevEndTime(activeText.getText().toString());
             }
         }
     }
