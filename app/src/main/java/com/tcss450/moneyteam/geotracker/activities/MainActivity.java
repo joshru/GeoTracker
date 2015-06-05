@@ -149,7 +149,7 @@ public class MainActivity extends Activity implements TabInterface {
         SharedPreferences myPreferences = getSharedPreferences(getString(R.string.user_info_main_key), Context.MODE_PRIVATE);
         mUserEmail = myPreferences.getString(getString(R.string.saved_email_key), "");
         mLocationBool = myPreferences.getBoolean(getString(R.string.saved_location_toggle_boolean), false);
-        mLocationTimer = myPreferences.getInt(getString(R.string.key_location_poll_timer), 0);
+        mLocationTimer = myPreferences.getInt(getString(R.string.key_location_poll_timer), 1);
         mSpinnerPos = myPreferences.getInt(getString(R.string.saved_spinner_position), 4);
         mLoginBool = true;
         setLoginBool(true);
