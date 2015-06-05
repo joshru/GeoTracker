@@ -194,7 +194,7 @@
                         android:id="@+id/imageView11"
                         android:background="@drawable/pip_title_hook" />
 
-                    />
+
 
                 </RelativeLayout>
 

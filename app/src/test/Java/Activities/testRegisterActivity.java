@@ -52,6 +52,7 @@ import static org.junit.Assert.assertTrue;
 @Config(constants = BuildConfig.class, emulateSdk = 21)
 public class testRegisterActivity {
 
+    /*UI components*/
     RegisterActivity mRegisterActivity;
     TextView mEmailLabel;
     EditText mEmailForm;
@@ -76,10 +77,9 @@ public class testRegisterActivity {
 
     /**
      * Setup all of the components
-     * @throws Exception
      */
     @Before
-    public void setup() throws Exception {
+    public void setup() {
 
         /*You can use an ActivityController to exercise more control over the activity lifecycle.
         * You can use this to test that certain events happen in between at a given stage in the
