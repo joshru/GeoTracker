@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle"
-    android:thickness="12dp">
+    android:thickness="3dp">
     <gradient
         android:startColor="@color/pip_hint_shade"
         android:centerColor="@color/pip_light_neon"
         android:endColor="@color/pip_hint_shade"
         android:angle="180"/>
+    <size android:height="5dp" />
 </shape>
