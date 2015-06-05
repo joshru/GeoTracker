@@ -211,14 +211,14 @@ public class TrackingFragment extends Fragment {
         //---------------------------------------------------------
         //Test keeping data on rotation
         //=========================================================
-        String[] oldStart = mMainActivity.getPrevStartDate();
+  /*      String[] oldStart = mMainActivity.getPrevStartDate();
         String[] oldEnd   = mMainActivity.getPrevEndDate();
-        if (!oldStart[0].isEmpty()) {
+        if (oldStart != null && oldEnd != null && !oldStart[0].isEmpty()) {
             mStartDate.setText(oldStart[0]);
         }
         if (!oldStart[1].isEmpty()) mStartTime.setText(oldStart[1]);
         if (!oldEnd[0].isEmpty()) mEndDate.setText(oldEnd[0]);
-        if (!oldEnd[1].isEmpty()) mEndTime.setText(oldEnd[1]);
+        if (!oldEnd[1].isEmpty()) mEndTime.setText(oldEnd[1]); */
         
         return rootView;
     }
