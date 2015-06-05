@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  * @author Alexander Cherry
  * @author Joshua Rueschenberg
  */
+//LET ME PUSH
 public class Authenticator {
 
     /** A constant string used to add salting (inconsistency) to the hashing values. */
