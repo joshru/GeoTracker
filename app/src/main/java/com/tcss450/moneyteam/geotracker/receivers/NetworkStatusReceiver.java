@@ -52,9 +52,6 @@ public class NetworkStatusReceiver extends BroadcastReceiver {
                 WebPushIntent.setServerAlarm(context, locationTrackBool, spinnerPos);
                 Log.i("ANDROID INTENT", "Connection regained, services restored to previous state.");
             }
-
-
-
         }
 
 
