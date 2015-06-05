@@ -17,19 +17,20 @@ import com.tcss450.moneyteam.geotracker.R;
 import java.util.Calendar;
 
 /**
- * Created by Alex_MAC on 5/19/15.
+ * Service that handles pushing the points to the server
+ * at the user-defined interval.
+ * @author Alexander Cherry
  */
 public class WebPushIntent extends IntentService {
 
-    
+    /*Needs review, don't think we use this*/
     public static final int WEBSERVICE_INTERVAL = 3600000;
     /** Tag for the location service intent. */
     private static final String WEB_SERVICE_TAG = "WebIntentService" ;
     /** Reference to the application context*/
     private static Context mContext;
 
-    /** Notification mId for reference */
-    //private int mId = 1;
+
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -39,13 +40,18 @@ public class WebPushIntent extends IntentService {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         return START_REDELIVER_INTENT;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(WEB_SERVICE_TAG, "Intent Called");
@@ -55,6 +61,12 @@ public class WebPushIntent extends IntentService {
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    /**
+     * Enables or disables the alarm for pushing points to the server.
+     * @param context that this alarm affects.
+     * @param isEnabled toggle
+     * @param position  used to determine the interval
+     */
     public static void setServerAlarm(final Context context, boolean isEnabled,
                                        final int position) {
         if(position == 4) {
@@ -87,6 +99,11 @@ public class WebPushIntent extends IntentService {
 
     }
 
+    /**
+     * Translate a position into a number of hours.
+     * @param position of the slider from account fragment
+     * @return a number of hours
+     */
     private static int getPositionTime(int position) {
         int hours = 1;
         switch (position) {

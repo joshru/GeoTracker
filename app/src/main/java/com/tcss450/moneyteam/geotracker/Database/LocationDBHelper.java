@@ -195,10 +195,11 @@ public class LocationDBHelper extends SQLiteOpenHelper {
 
     /**
      * Converts degrees to a compass direction
+     * Wasn't needed QQ
      *
      * Thanks to stack overflow for this elegant solution.
-     * @param degrees
-     * @return
+     * @param degrees used to determine direction
+     * @return string representing a direction on a compass
      */
     private String convDegToDir(double degrees) {
         String[] dirTags = {"N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"};

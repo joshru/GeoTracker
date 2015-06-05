@@ -28,7 +28,6 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowDrawable;
 import org.robolectric.shadows.ShadowLog;
-import org.robolectric.shadows.ShadowSeekBar;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -50,7 +49,6 @@ public class TestAccountFragment {
     private TextView      acctDetailsTitle;
     private TextView      emailLabel;
     private TextView      userEmailLabel;
-    private ImageView     emailUnderline;
     private TextView      locationTrackingLabel;
     private ToggleButton  trackingToggleButton;
     private TextView      trackingSliderLabel;
@@ -60,7 +58,6 @@ public class TestAccountFragment {
     private Spinner       serverIntervalSpinner;
     private Button        changePasswordButton;
 
-    private ShadowSeekBar shadowSeekBar;
 
 
     /**
@@ -111,7 +108,6 @@ public class TestAccountFragment {
         assertNotNull(acctDetailsTitle     );
         assertNotNull(emailLabel           );
         assertNotNull(userEmailLabel       );
-        assertNotNull(emailUnderline       );
         assertNotNull(locationTrackingLabel);
         assertNotNull(trackingToggleButton );
         assertNotNull(trackingSliderLabel  );
@@ -132,9 +128,6 @@ public class TestAccountFragment {
         ShadowDrawable shadow = Shadows.shadowOf(topADFrame.getBackground());
         assertEquals(R.drawable.pip_title_hook, shadow.getCreatedFromResId());
 
-        //email underline
-        shadow = Shadows.shadowOf(emailUnderline.getBackground());
-        assertEquals(R.drawable.pip_hud_flat_bar, shadow.getCreatedFromResId());
 
         //toggle button
         shadow = Shadows.shadowOf(trackingToggleButton.getBackground());
@@ -240,7 +233,7 @@ public class TestAccountFragment {
         acctDetailsTitle       = (TextView)mActivity.findViewById(R.id.textView12);
         emailLabel             = (TextView) mActivity.findViewById(R.id.textView15);
         userEmailLabel         = (TextView) mActivity.findViewById(R.id.f_account_email);
-     //   emailUnderline         = (ImageView) mActivity.findViewById(R.id.f_email_line);
+       // emailUnderline         = (ImageView) mActivity.findViewById(R.id.f_email_line);
         locationTrackingLabel  = (TextView)mActivity.findViewById(R.id.textView16);
         trackingToggleButton   = (ToggleButton) mActivity.findViewById(R.id.toggleButton);
         trackingSliderLabel    = (TextView)mActivity.findViewById(R.id.textView18);
@@ -249,7 +242,6 @@ public class TestAccountFragment {
         serverIntervalLabel    = (TextView)mActivity.findViewById(R.id.textView9);
         serverIntervalSpinner  = (Spinner)mActivity.findViewById(R.id.server_spinner);
         changePasswordButton   = (Button)mActivity.findViewById(R.id.account_password_reset);
-        shadowSeekBar          = Shadows.shadowOf(trackingSlider);
 
     }
 
