@@ -265,7 +265,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         final boolean validRepeat = passphrase.equals(repeatedPass);
         final boolean validQuestionResponse = (answer.length() > 0);
 
-        WebServiceHelper webServiceHelper = new WebServiceHelper(this);
+        //Addeded em
+               WebServiceHelper webServiceHelper = new WebServiceHelper(this);
 
         if (validEmail && validPass && validRepeat && validQuestionResponse && mTermsCheckBox.isChecked()) {
             myPrefEditor.putString(getString(R.string.saved_email_key), email);
