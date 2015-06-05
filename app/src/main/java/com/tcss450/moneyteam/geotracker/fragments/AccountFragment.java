@@ -7,8 +7,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.receivers.BootLoader;
 import com.tcss450.moneyteam.geotracker.interfaces.TabInterface;
@@ -74,6 +78,11 @@ public class AccountFragment extends Fragment {
     private TabInterface mMainActivity;
 
     /**
+     * Password reset button
+     */
+    private Button mSyncButton;
+
+    /**
      * Creates the account information fragment and assigns all relevant listeners
      *
      * @param inflater           the inflater
@@ -90,6 +99,7 @@ public class AccountFragment extends Fragment {
         //GET REFERENCE TO VIEW FIELDS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mUserEmailLabel = (TextView) rootView.findViewById(R.id.f_account_email);
         mPasswordResetButton = (Button) rootView.findViewById(R.id.account_password_reset);
+        mSyncButton = (Button) rootView.findViewById(R.id.f_db_button);
         mEmailLayout = (RelativeLayout) rootView.findViewById(R.id.f_email_layout);
         mSeekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
         mSeekTimeLabel = (TextView) rootView.findViewById(R.id.f_seek_time_label);
@@ -107,6 +117,15 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 ForgotPasswordDialog dialog = ForgotPasswordDialog.newInstance();
                 dialog.show(getFragmentManager(), "forgotPW");
+            }
+        });
+
+        mSyncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("ACCOUNT FRAGMENT", "Synced to Server.");
+                LocationDBHelper mDB = new LocationDBHelper(rootView.getContext());
+                mDB.pushPointsToServer();
             }
         });
 

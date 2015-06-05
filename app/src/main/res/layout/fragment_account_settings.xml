@@ -200,7 +200,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Backup to Database"
+            android:text="Sync Data To Server"
             android:id="@+id/f_db_button"
             android:layout_alignParentRight="false"
             android:layout_alignParentEnd="true"
