@@ -3,7 +3,6 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import com.tcss450.moneyteam.geotracker.Database.LocationDBHelper;
 import com.tcss450.moneyteam.geotracker.R;
 import com.tcss450.moneyteam.geotracker.Utilities.Poptart;
 import com.tcss450.moneyteam.geotracker.Utilities.WebServiceHelper;
-import com.tcss450.moneyteam.geotracker.fragments.PipTabListener;
 import com.tcss450.moneyteam.geotracker.fragments.AccountFragment;
 import com.tcss450.moneyteam.geotracker.fragments.MapFragment;
 import com.tcss450.moneyteam.geotracker.fragments.TrackingFragment;
@@ -104,10 +102,10 @@ public class MainActivity extends Activity implements TabInterface {
      */
     private int mSelectedTab;
 
-    private int[] mPrevStartDate;
-    private int[] mPrevStartTime;
-    private int[] mPrevEndDate;
-    private int[] mPrevEndTime;
+    private String mPrevStartDate;
+    private String mPrevStartTime;
+    private String mPrevEndDate;
+    private String mPrevEndTime;
 
 
 
@@ -354,34 +352,36 @@ public class MainActivity extends Activity implements TabInterface {
     //--------------------------------------------------------------
     // Storing data for config changes.
     @Override
-    public void setPrevStartDate(int[] day) {
+    public void setPrevStartDate(String day) {
         mPrevStartDate = day;
 
     }
     @Override
-    public void setPrevEndDate(int[] date) {
+    public void setPrevEndDate(String date) {
         mPrevEndDate = date;
 
     }
 
     @Override
-    public void setPrevStartTime(int[] time) {
-
+    public void setPrevStartTime(String time) {
+        mPrevStartTime = time;
     }
 
     @Override
-    public void setPrevEndTime(int[] time) {
-
+    public void setPrevEndTime(String time) {
+        mPrevEndTime = time;
     }
 
     @Override
-    public int[] getPrevStartDate() {
-        return mPrevStartDate;
+    public String[] getPrevStartDate() {
+        String[] start = {mPrevStartDate, mPrevStartTime};
+        return start;
     }
 
     @Override
-    public int[] getPrevEndDate() {
-        return mPrevEndDate;
+    public String[] getPrevEndDate() {
+        String[] end ={mPrevEndDate, mPrevEndTime};
+        return end;
     }
 
 
