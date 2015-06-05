@@ -29,7 +29,7 @@ public class NetworkStatusReceiver extends BroadcastReceiver {
                 + intent + " Context: " + context);
         String action = intent.getAction();
         if (action.equalsIgnoreCase(ConnectivityManager.CONNECTIVITY_ACTION)) {
-           // boolean disconnect = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+            //boolean disconnect = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 
 
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -41,17 +41,23 @@ public class NetworkStatusReceiver extends BroadcastReceiver {
                 LocationIntentService.setServiceAlarm(context, false, locationTimer);
                 WebPushIntent.setServerAlarm(context, false, 0);
 
-
+               // sp.edit().putBoolean("networklost", true).apply();
                 Log.i("ANDROID INTENT", "Connectivity lost, shutting down services.");
 
-            } else {
+            }
+            else {
                 //start
                 locationTimer = (locationTimer <= 0) ? (1) : (locationTimer);
-
+                Log.i("ANDROID INTENT", "Location Bool: " + locationTrackBool
+                + " Timer: " + locationTimer + " {position: " + spinnerPos);
                 LocationIntentService.setServiceAlarm(context, locationTrackBool, locationTimer);
                 WebPushIntent.setServerAlarm(context, locationTrackBool, spinnerPos);
                 Log.i("ANDROID INTENT", "Connection regained, services restored to previous state.");
+               // sp.edit().putBoolean("networklost", false);
             }
+
+
+
         }
 
 

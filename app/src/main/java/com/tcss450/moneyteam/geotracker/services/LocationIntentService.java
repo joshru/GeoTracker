@@ -49,8 +49,11 @@ public class LocationIntentService extends IntentService {
         LocationManager locationManager = (LocationManager) this.getSystemService(
                 Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
+     //   Looper.myLooper().
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
                 locationListener, Looper.myLooper());
+        Looper.loop();
+
     }
 
     //ALARM MANAGER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,12 +120,15 @@ public class LocationIntentService extends IntentService {
                 eddy.commit();
                 LocationDBHelper myHelper = new LocationDBHelper(getApplicationContext());
                 myHelper.addLocation(location, (System.currentTimeMillis() / 1000L));
+                Log.i(LOCATION_SERVICE_TAG, "Location stored in DB.");
 
 
             } else {
                 Log.i(LOCATION_SERVICE_TAG, "Repeat location discarded.");
             }
-
+            if (Looper.myLooper() != null) {
+                Looper.myLooper().quit();
+            }
 
 
         }
