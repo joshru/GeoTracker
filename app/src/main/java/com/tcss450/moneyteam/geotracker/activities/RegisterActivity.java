@@ -255,7 +255,6 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         final String email = mEmail.getText().toString();
         final String passphrase = mPassword.getText().toString();
         final String repeatedPass = mRepeatPassword.getText().toString();
-        final String passphraseHash = Authenticator.generateHash(passphrase);
         final String question = mSecuritySpinner.getSelectedItem().toString();
         final String answer = mSecurityAnswer.getText().toString();
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
@@ -273,7 +272,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
             myPrefEditor.apply();
 
-            webServiceHelper.addUser(email, passphraseHash, question, answer);
+            webServiceHelper.addUser(email, passphrase, question, answer);
 
         } else if (!validEmail) {
 
